@@ -17,7 +17,10 @@ namespace Gonk {
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		m_Layers.emplace(m_LayerInsert, layer);
+
+		// TODO: Immediately fix this you fucker.
+		//m_Layers.emplace(m_LayerInsert, layer);
+		m_Layers.push_back(layer);
 	}
 
 	void LayerStack::PushOverlay(Layer* layer)

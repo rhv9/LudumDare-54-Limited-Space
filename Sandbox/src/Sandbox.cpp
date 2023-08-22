@@ -1,5 +1,6 @@
 #include <Gonk.h>
 
+
 class ExampleLayer : public Gonk::Layer
 {
 public:
@@ -26,6 +27,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
+		PushLayer(new Gonk::ImGuiLayer());
 	}
 
 	~Sandbox()

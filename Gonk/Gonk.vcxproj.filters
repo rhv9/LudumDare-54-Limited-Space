@@ -7,8 +7,14 @@
     <Filter Include="Gonk\Events">
       <UniqueIdentifier>{982E2741-04E4-9F36-8DD8-990DF98C963A}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Gonk\ImGui">
+      <UniqueIdentifier>{5E717AFA-4A29-BC47-B330-95A39F075738}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Platform">
       <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\OpenGL">
+      <UniqueIdentifier>{1E7D2C1D-8A08-9AE1-9319-1DD6FF23F6E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Platform\Windows">
       <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
@@ -37,6 +43,9 @@
     <ClInclude Include="src\Gonk\Events\MouseEvent.h">
       <Filter>Gonk\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\Gonk\ImGui\ImGuiLayer.h">
+      <Filter>Gonk\ImGui</Filter>
+    </ClInclude>
     <ClInclude Include="src\Gonk\Layer.h">
       <Filter>Gonk</Filter>
     </ClInclude>
@@ -49,16 +58,20 @@
     <ClInclude Include="src\Gonk\Window.h">
       <Filter>Gonk</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gkpch.h" />
-    <ClInclude Include="src\Gonk\ImGui\ImGuiLayer.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gonk\Application.cpp">
       <Filter>Gonk</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gonk\ImGui\ImGuiLayer.cpp">
+      <Filter>Gonk\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Gonk\Layer.cpp">
       <Filter>Gonk</Filter>
@@ -69,11 +82,12 @@
     <ClCompile Include="src\Gonk\Log.cpp">
       <Filter>Gonk</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gkpch.cpp" />
-    <ClCompile Include="src\Gonk\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
   </ItemGroup>
 </Project>

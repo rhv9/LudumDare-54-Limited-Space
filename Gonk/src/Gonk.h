@@ -5,6 +5,7 @@
 #include "Gonk/Application.h"
 #include "Gonk/Layer.h"
 #include "Gonk/Log.h"
+#include "Gonk/ImGui/ImGuiLayer.h"
 
 // -------- Entry Point ---------------
 #include "Gonk/EntryPoint.h"

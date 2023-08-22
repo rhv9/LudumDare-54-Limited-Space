@@ -4,3 +4,6 @@
 [submodule "Gonk/vendor/GLFW"]
 	path = Gonk/vendor/GLFW
 	url = https://github.com/TheCherno/glfw
+[submodule "Gonk/vendor/imgui"]
+	path = Gonk/vendor/imgui
+	url = https://github.com/ocornut/imgui

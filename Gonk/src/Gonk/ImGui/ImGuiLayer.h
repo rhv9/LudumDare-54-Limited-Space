@@ -4,7 +4,7 @@
 
 namespace Gonk {
 
-	class ImGuiLayer : public Layer
+	class GONK_API ImGuiLayer : public Layer
 	{
 	public:
 		ImGuiLayer();
@@ -15,7 +15,7 @@ namespace Gonk {
 		void OnUpdate();
 		void OnEvent(Event& event);
 	private:
-
+		float m_Time = 0.0f;
 	};
 
 }
