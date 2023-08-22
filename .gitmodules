@@ -1,0 +1,6 @@
+[submodule "Gonk/vendor/spdlog"]
+	path = Gonk/vendor/spdlog
+	url = https://github.com/gabime/spdlog
+[submodule "Gonk/vendor/GLFW"]
+	path = Gonk/vendor/GLFW
+	url = https://github.com/TheCherno/glfw
