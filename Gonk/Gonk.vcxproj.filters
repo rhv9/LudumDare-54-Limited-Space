@@ -65,6 +65,7 @@
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\gkpch.h" />
+    <ClInclude Include="src\Platform\OpenGL\ImGuiGLFWImpl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gonk\Application.cpp">
@@ -89,5 +90,6 @@
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\gkpch.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\ImGuiGLFWImpl.cpp" />
   </ItemGroup>
 </Project>

@@ -11,12 +11,12 @@ public:
 
 	void OnUpdate() override
 	{
-		GK_INFO("ExampleLayer::Update");
+		//GK_INFO("ExampleLayer::Update");
 	}
 
 	void OnEvent(Gonk::Event& event)
 	{
-		GK_TRACE("{0}", event);
+		//GK_TRACE("{0}", event);
 	}
 };
 

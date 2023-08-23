@@ -21,6 +21,7 @@ namespace Gonk {
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
 		void SetVSync(bool enabled) override;
 		bool IsVSync() const override;
+		GLFWwindow* GetGLFWwindow() const { return m_Window; }
 
 	private:
 		virtual void Init(const WindowProps& props);
