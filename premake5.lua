@@ -17,6 +17,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Gonk/vendor/GLFW/include"
 IncludeDir["Glad"] = "Gonk/vendor/Glad/include"
 IncludeDir["ImGui"] = "Gonk/vendor/imgui"
+IncludeDir["glm"] = "Gonk/vendor/glm"
 
 group "Dependencies"
 	include "Gonk/vendor/GLFW"
@@ -41,6 +42,8 @@ project "Gonk"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
 
 	includedirs
@@ -50,6 +53,7 @@ project "Gonk"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}",
 	}
 
 	links
@@ -111,7 +115,8 @@ project "Sandbox"
 	includedirs
 	{
 		"Gonk/vendor/spdlog/include",
-		"Gonk/src"
+		"Gonk/src",
+		"%{IncludeDir.glm}",
 	}
 	
 	links
