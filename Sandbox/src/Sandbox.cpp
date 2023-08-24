@@ -1,6 +1,7 @@
 #include <Gonk.h>
 
 
+
 class ExampleLayer : public Gonk::Layer
 {
 public:
@@ -11,12 +12,12 @@ public:
 
 	void OnUpdate() override
 	{
-		//GK_INFO("ExampleLayer::Update");
+		auto [x, y] = Gonk::Input::GetMousePosition();
+		GK_TRACE("{0}", Gonk::Input::IsKeyPressed(GK_KEY_W));
 	}
 
 	void OnEvent(Gonk::Event& event)
 	{
-		//GK_TRACE("{0}", event);
 	}
 };
 

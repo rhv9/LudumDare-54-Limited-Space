@@ -104,11 +104,9 @@ namespace Gonk {
 
 	bool ImGuiLayer::OnMouseButtonPressedEvent(MouseButtonPressedEvent& e)
 	{
-		//ImGui_ImplGlfw_UpdateKeyModifiers(window);
 		ImGuiIO& io = ImGui::GetIO();
 		if (e.GetMouseButton() >= 0 && e.GetMouseButton() < ImGuiMouseButton_COUNT)
 			io.AddMouseButtonEvent(e.GetMouseButton(), true);
-
 		return false;
 	}
 
@@ -117,32 +115,26 @@ namespace Gonk {
 		ImGuiIO& io = ImGui::GetIO();
 		if (e.GetMouseButton() >= 0 && e.GetMouseButton() < ImGuiMouseButton_COUNT)
 			io.AddMouseButtonEvent(e.GetMouseButton(), false);
-
 		return false;
 	}
 
 	bool ImGuiLayer::OnMouseMovedEvent(MouseMovedEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-
 		io.AddMousePosEvent((float)e.GetX(), (float)e.GetY());
-
 		return false;
 	}
 
 	bool ImGuiLayer::OnMouseScrolledEvent(MouseScrolledEvent& e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
-
 		io.AddMouseWheelEvent((float)e.GetXOffset(), (float)e.GetYOffset());
 		return false;
 	}
 
 	bool ImGuiLayer::OnKeyPressedEvent(KeyPressedEvent& e)
 	{
-		//ImGui_ImplGlfw_UpdateKeyModifiers(&application.GetWindow().);
 		ImGuiIO& io = ImGui::GetIO();
-
 
 		int key = ImGui_ImplGlfw_TranslateUntranslatedKey(e.GetKeyCode(), e.GetScanCode());
 		ImGuiKey imgui_key = ImGui_ImplGlfw_KeyToImGuiKey(key);

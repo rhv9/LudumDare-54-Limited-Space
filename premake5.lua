@@ -1,5 +1,7 @@
 workspace "Gonk"
 	architecture "x64"
+	startproject "Sandbox"
+
 
 	configurations
 	{
@@ -16,14 +18,18 @@ IncludeDir["GLFW"] = "Gonk/vendor/GLFW/include"
 IncludeDir["Glad"] = "Gonk/vendor/Glad/include"
 IncludeDir["ImGui"] = "Gonk/vendor/imgui"
 
-include "Gonk/vendor/GLFW"
-include "Gonk/vendor/Glad"
-include "Gonk/vendor/imgui"
+group "Dependencies"
+	include "Gonk/vendor/GLFW"
+	include "Gonk/vendor/Glad"
+	include "Gonk/vendor/imgui"
+
+group ""
 
 project "Gonk"
 	location "Gonk"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -56,7 +62,6 @@ project "Gonk"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -68,28 +73,31 @@ project "Gonk"
 
 		postbuildcommands
 		{
-			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox" )
+			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"" )
 		}
 
 	filter "configurations:Debug"
 		defines "GK_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GK_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"
 
 	filter "configurations:Dist"
 		defines "GK_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"
+		optimize "On"
 		
+
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -114,7 +122,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -124,15 +131,15 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines "GK_DEBUG"
-		buildoptions "/MDd"
+		runtime "Debug"
 		symbols "On"
 
 	filter "configurations:Release"
 		defines "GK_RELEASE"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"
 
 	filter "configurations:Dist"
 		defines "GK_DIST"
-		buildoptions "/MD"
+		runtime "Release"
 		symbols "On"
