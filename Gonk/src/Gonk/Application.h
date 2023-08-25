@@ -7,6 +7,8 @@
 #include "Gonk/Events/Event.h"
 #include "Events/ApplicationEvent.h"
 
+#include "Gonk/ImGui/ImGuiLayer.h"
+
 namespace Gonk {
 
 	class GONK_API Application
@@ -29,8 +31,10 @@ namespace Gonk {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
+
 
 	private:
 		static Application* s_Instance;

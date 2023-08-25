@@ -42,7 +42,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushLayer(new Gonk::ImGuiLayer());
 	}
 
 	~Sandbox()

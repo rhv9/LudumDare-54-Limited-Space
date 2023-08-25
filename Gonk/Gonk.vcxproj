@@ -166,8 +166,6 @@
     <ClInclude Include="src\Gonk\LayerStack.h" />
     <ClInclude Include="src\Gonk\Log.h" />
     <ClInclude Include="src\Gonk\Window.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiGLFWImpl.h" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\gkpch.h" />
     <ClInclude Include="vendor\glm\glm\common.hpp" />
@@ -589,12 +587,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gonk\Application.cpp" />
+    <ClCompile Include="src\Gonk\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Gonk\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Gonk\Layer.cpp" />
     <ClCompile Include="src\Gonk\LayerStack.cpp" />
     <ClCompile Include="src\Gonk\Log.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiGLFWImpl.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
     <ClCompile Include="src\gkpch.cpp">

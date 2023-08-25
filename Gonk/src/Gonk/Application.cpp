@@ -29,6 +29,10 @@ namespace Gonk {
 	{
 		m_LayerStack.PushLayer(layer);
 		layer->OnAttach();
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
+
 	}
 
 	void Application::PushOverlay(Layer* layer)
@@ -67,6 +71,12 @@ namespace Gonk {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
+
 
 			m_Window->OnUpdate();
 		}
