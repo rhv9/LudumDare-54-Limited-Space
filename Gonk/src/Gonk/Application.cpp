@@ -12,6 +12,26 @@ namespace Gonk {
 
 	Application* Application::s_Instance = nullptr;
 
+	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) 
+	{
+		switch (type)
+		{
+		case Gonk::ShaderDataType::Float:  return GL_FLOAT;
+		case Gonk::ShaderDataType::Float2: return GL_FLOAT;
+		case Gonk::ShaderDataType::Float3: return GL_FLOAT;
+		case Gonk::ShaderDataType::Float4: return GL_FLOAT;
+		case Gonk::ShaderDataType::Mat3:   return GL_FLOAT;
+		case Gonk::ShaderDataType::Mat4:   return GL_FLOAT;
+		case Gonk::ShaderDataType::Int:    return GL_INT;
+		case Gonk::ShaderDataType::Int2:   return GL_INT;
+		case Gonk::ShaderDataType::Int3:   return GL_INT;
+		case Gonk::ShaderDataType::Int4:   return GL_INT;
+		case Gonk::ShaderDataType::Bool:   return GL_BOOL;
+		}
+		GK_CORE_ASSERT(false, "Unknown ShaderDataType!");
+		return 0;
+	}
+
 	Application::Application() 
 	{
 		GK_CORE_ASSERT(!s_Instance, "Application already exists!");
@@ -23,16 +43,38 @@ namespace Gonk {
 		glGenVertexArrays(1, &m_VertexArray);
 		glBindVertexArray(m_VertexArray);
 
-		float vertices[3 * 3] = {
-			0.0f, 0.5f, 0.0f,
-			0.5f, -0.5f, 0.0f,
-			-0.5f, -0.5f, 0.0f,
+		float vertices[3 * 7] = {
+			0.0f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,
+			0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 0.0f, 1.0f,
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		};
+
+
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float4, "a_Color" },
 		};
 
 		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		m_VertexBuffer->SetLayout(layout);
 
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		int index = 0;
+		for (auto& element : m_VertexBuffer->GetLayout())
+		{
+			GK_TRACE("{0}", element.GetComponentCount());
+			GK_TRACE("{0}", ShaderDataTypeToOpenGLBaseType(element.Type));
+			GK_TRACE("{0}", element.Normalized);
+			GK_TRACE("{0}", m_VertexBuffer->GetLayout().GetStride());
+			GK_TRACE("{0}", element.Offset);
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index,
+				element.GetComponentCount(), 
+				ShaderDataTypeToOpenGLBaseType(element.Type), 
+				element.Normalized ? GL_TRUE : GL_FALSE, 
+				m_VertexBuffer->GetLayout().GetStride(), 
+				(void*)element.Offset);
+			index++;
+		}
 
 		unsigned int indices[] = { 0, 1, 2 };
 		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
@@ -41,9 +83,13 @@ namespace Gonk {
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Pos;
+			layout(location = 1) in vec4 a_Color;
+			
+			out vec4 v_Col;
 
 			void main() {
 				gl_Position = vec4(a_Pos, 1.0);
+				v_Col = a_Color;
 			}
 		)";
 
@@ -51,9 +97,12 @@ namespace Gonk {
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
+	
+			in vec4 v_Col;
 
 			void main() {
 				color = vec4(0.8, 0.2, 0.2, 1.0);
+				color = v_Col;
 			}
 
 		)";
