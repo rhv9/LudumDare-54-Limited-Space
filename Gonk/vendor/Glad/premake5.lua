@@ -19,10 +19,17 @@ project "Glad"
 		"include",
 	}
 
+	filter "configurations:Debug"
+		defines "GK_DEBUG"
+		runtime "Debug"
+		symbols "on"
 
-	filter "system:windows"
-		systemversion "latest"
-		staticruntime "On"
+	filter "configurations:Release"
+		defines "GK_RELEASE"
+		runtime "Release"
+		optimize "on"
 
-	filter { "system:windows", "configurations:Release"}
-		buildoptions "/MT"
+	filter "configurations:Dist"
+		defines "GK_DIST"
+		runtime "Release"
+		optimize "on"

@@ -2,7 +2,6 @@ workspace "Gonk"
 	architecture "x64"
 	startproject "Sandbox"
 
-
 	configurations
 	{
 		"Debug",
@@ -28,9 +27,10 @@ group ""
 
 project "Gonk"
 	location "Gonk"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -56,6 +56,11 @@ project "Gonk"
 		"%{IncludeDir.glm}",
 	}
 
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS",
+	}
+
 	links
 	{
 		"GLFW",
@@ -65,7 +70,6 @@ project "Gonk"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -75,33 +79,28 @@ project "Gonk"
 			"GLFW_INCLUDE_NONE",
 		}
 
-		postbuildcommands
-		{
-			("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"" )
-		}
-
 	filter "configurations:Debug"
 		defines "GK_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "GK_RELEASE"
 		runtime "Release"
-		symbols "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "GK_DIST"
 		runtime "Release"
-		symbols "On"
-		optimize "On"
+		optimize "on"
 		
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
+	cppdialect "C++17"
+	staticruntime "on"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -116,6 +115,7 @@ project "Sandbox"
 	{
 		"Gonk/vendor/spdlog/include",
 		"Gonk/src",
+		"Gonk/vendor",
 		"%{IncludeDir.glm}",
 	}
 	
@@ -126,7 +126,6 @@ project "Sandbox"
 
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -137,14 +136,14 @@ project "Sandbox"
 	filter "configurations:Debug"
 		defines "GK_DEBUG"
 		runtime "Debug"
-		symbols "On"
+		symbols "on"
 
 	filter "configurations:Release"
 		defines "GK_RELEASE"
 		runtime "Release"
-		symbols "On"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "GK_DIST"
 		runtime "Release"
-		symbols "On"
+		optimize "on"
