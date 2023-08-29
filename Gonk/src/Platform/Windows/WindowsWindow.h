@@ -3,6 +3,7 @@
 #include "Gonk/Window.h"
 
 #include <GLFW/glfw3.h>
+#include "Gonk/Renderer/GraphicsContext.h"
 
 namespace Gonk {
 
@@ -28,6 +29,7 @@ namespace Gonk {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData {
 			std::string Title;
