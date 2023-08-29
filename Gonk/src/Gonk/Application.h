@@ -9,6 +9,9 @@
 
 #include "Gonk/ImGui/ImGuiLayer.h"
 
+#include "Gonk/Renderer/Shader.h"
+#include "Gonk/Renderer/Buffer.h"
+
 namespace Gonk {
 
 	class GONK_API Application
@@ -38,6 +41,11 @@ namespace Gonk {
 
 	private:
 		static Application* s_Instance;
+
+		unsigned int m_VertexArray;
+		std::unique_ptr<Shader> m_Shader;
+		std::unique_ptr<VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<IndexBuffer> m_IndexBuffer;
 	};
 	// To be defined in CLIENT
 	Application* CreateApplication();

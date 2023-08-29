@@ -19,6 +19,46 @@ namespace Gonk {
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(std::bind(&Application::OnEvent, this, std::placeholders::_1));
+
+		glGenVertexArrays(1, &m_VertexArray);
+		glBindVertexArray(m_VertexArray);
+
+		float vertices[3 * 3] = {
+			0.0f, 0.5f, 0.0f,
+			0.5f, -0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
+		};
+
+		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+
+		unsigned int indices[] = { 0, 1, 2 };
+		m_IndexBuffer.reset(IndexBuffer::Create(indices, 3));
+
+		std::string vertexSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) in vec3 a_Pos;
+
+			void main() {
+				gl_Position = vec4(a_Pos, 1.0);
+			}
+		)";
+
+		std::string fragmentSrc = R"(
+			#version 330 core
+			
+			layout(location = 0) out vec4 color;
+
+			void main() {
+				color = vec4(0.8, 0.2, 0.2, 1.0);
+			}
+
+		)";
+
+		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 	}	
 
 	Application::~Application()
@@ -66,8 +106,12 @@ namespace Gonk {
 	{
 		while (m_Running)
 		{
-			glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			m_Shader->Bind();
+			glBindVertexArray(m_VertexArray);
+			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
