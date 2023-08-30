@@ -21,8 +21,6 @@ public:
 
 	void OnUpdate() override
 	{
-		auto [x, y] = Gonk::Input::GetMousePosition();
-		GK_TRACE("{0}", Gonk::Input::IsKeyPressed(GK_KEY_W));
 	}
 
 	void OnEvent(Gonk::Event& event)
