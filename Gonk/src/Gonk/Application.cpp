@@ -2,35 +2,13 @@
 #include "gkpch.h"
 #include "Application.h"
 
-#include "Log.h"
-
-#include <glad/glad.h>
+#include "Gonk/Renderer/Renderer.h"
 
 namespace Gonk {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
-
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) 
-	{
-		switch (type)
-		{
-		case Gonk::ShaderDataType::Float:  return GL_FLOAT;
-		case Gonk::ShaderDataType::Float2: return GL_FLOAT;
-		case Gonk::ShaderDataType::Float3: return GL_FLOAT;
-		case Gonk::ShaderDataType::Float4: return GL_FLOAT;
-		case Gonk::ShaderDataType::Mat3:   return GL_FLOAT;
-		case Gonk::ShaderDataType::Mat4:   return GL_FLOAT;
-		case Gonk::ShaderDataType::Int:    return GL_INT;
-		case Gonk::ShaderDataType::Int2:   return GL_INT;
-		case Gonk::ShaderDataType::Int3:   return GL_INT;
-		case Gonk::ShaderDataType::Int4:   return GL_INT;
-		case Gonk::ShaderDataType::Bool:   return GL_BOOL;
-		}
-		GK_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
 
 	Application::Application() 
 	{
@@ -190,17 +168,16 @@ namespace Gonk {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			Renderer::BeginScene();
 
-			m_BlueShader->Bind();
-			m_BlueVertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_BlueVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
+			RendererCommand::SetColour({ 1.0f, 0.0f, 1.0f, 1.0f });
+			RendererCommand::Clear();
 
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+			m_BlueShader->Bind();
+			Renderer::Submit(m_BlueVertexArray);
+
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();

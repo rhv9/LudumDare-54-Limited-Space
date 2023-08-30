@@ -14,6 +14,8 @@
 
 #include "Gonk/Log.h"
 
+#include "glm/glm.hpp"
+
 #ifdef GK_PLATFORM_WINDOWS
 	#include <Windows.h>
 
