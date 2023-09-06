@@ -159,6 +159,7 @@
     <ClInclude Include="src\Gonk\LayerStack.h" />
     <ClInclude Include="src\Gonk\Log.h" />
     <ClInclude Include="src\Gonk\Renderer\Buffer.h" />
+    <ClInclude Include="src\Gonk\Renderer\Camera.h" />
     <ClInclude Include="src\Gonk\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Gonk\Renderer\Renderer.h" />
     <ClInclude Include="src\Gonk\Renderer\RendererAPI.h" />
@@ -597,6 +598,7 @@
     <ClCompile Include="src\Gonk\LayerStack.cpp" />
     <ClCompile Include="src\Gonk\Log.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\Gonk\Renderer\Camera.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Gonk\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Gonk\Renderer\RendererCommand.cpp" />
