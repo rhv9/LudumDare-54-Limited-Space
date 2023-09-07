@@ -2,25 +2,25 @@
 
 namespace Gonk {
 
-	class Camera 
+	class OrthographicCamera
 	{
 	public:
+		OrthographicCamera(float left, float right, float bottom, float top);
+
+		glm::mat4 GetViewProjection() const { return m_ProjectionMatrix * m_ViewMatrix; }
+		void SetPosition(glm::vec3& pos) { m_Position = pos; RecalculateProjectionMatrix(); }
+		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateProjectionMatrix(); }
 
 	private:
-
-	};
-
-	class OrthographicCamera : public Camera
-	{
-	public:
-
-		OrthographicCamera(glm::mat4& view);
-
-		glm::mat4 GetVP() const { return m_Projection * m_View; }
+		void RecalculateProjectionMatrix();
 
 	private:
-		glm::mat4 m_View;
-		glm::mat4 m_Projection;
+		glm::mat4 m_ViewMatrix;
+		glm::mat4 m_ProjectionMatrix;
+		glm::mat4 m_ViewProjectionMatrix;
+
+		glm::vec3 m_Position = { 0.0f, 0.0f, 0.0f };
+		float m_Rotation = 0.0f;
 	};
 
 }

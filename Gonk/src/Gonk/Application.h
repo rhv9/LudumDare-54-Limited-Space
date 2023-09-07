@@ -13,6 +13,8 @@
 #include "Gonk/Renderer/Buffer.h"
 #include "Gonk/Renderer/VertexArray.h"
 
+#include "Gonk/Renderer/Camera.h"
+
 namespace Gonk {
 
 	class GONK_API Application
@@ -43,11 +45,13 @@ namespace Gonk {
 	private:
 		static Application* s_Instance;
 
-		std::unique_ptr<Shader> m_Shader;
+		std::shared_ptr<Shader> m_Shader;
 		std::shared_ptr<VertexArray> m_VertexArray;
 
-		std::unique_ptr<Shader> m_BlueShader;
+		std::shared_ptr<Shader> m_BlueShader;
 		std::shared_ptr<VertexArray> m_BlueVertexArray;
+
+		OrthographicCamera m_Camera;
 	};
 	// To be defined in CLIENT
 	Application* CreateApplication();

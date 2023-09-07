@@ -3,13 +3,22 @@
 #include "Camera.h"
 #include <glm/common.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Gonk {
 
-	OrthographicCamera::OrthographicCamera(glm::mat4& view)
+	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
+		: m_ProjectionMatrix(glm::ortho(top, bottom, left, right)), m_ViewMatrix(1.0f)
 	{
-		m_Projection = glm::ortho(-1, 1, -1, 1);
-		m_View = view;
+		RecalculateProjectionMatrix();
+	}
+
+	void OrthographicCamera::RecalculateProjectionMatrix()
+	{
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), m_Position) * glm::rotate(glm::mat4(1.0f), glm::radians(m_Rotation), {0.0f, 0.0f, 1.0f});
+		m_ViewMatrix = glm::inverse(transform);
+
+		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
 }

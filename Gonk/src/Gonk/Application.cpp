@@ -3,6 +3,7 @@
 #include "Application.h"
 
 #include "Gonk/Renderer/Renderer.h"
+#include "Gonk/Renderer/Camera.h"
 
 namespace Gonk {
 
@@ -10,7 +11,8 @@ namespace Gonk {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application() 
+	Application::Application()
+		: m_Camera(-0.9f, 0.9f, 1.6f, -1.6f)
 	{
 		GK_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
@@ -46,10 +48,12 @@ namespace Gonk {
 			layout(location = 0) in vec3 a_Pos;
 			layout(location = 1) in vec4 a_Color;
 			
+			uniform mat4 u_ViewProjectionMatrix;
+			
 			out vec4 v_Col;
 
 			void main() {
-				gl_Position = vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjectionMatrix * vec4(a_Pos, 1.0);
 				v_Col = a_Color;
 			}
 		)";
@@ -101,10 +105,12 @@ namespace Gonk {
 			
 			layout(location = 0) in vec3 a_Pos;
 			
+			uniform mat4 u_ViewProjectionMatrix;		
+
 			out vec4 v_Col;
 
 			void main() {
-				gl_Position = vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjectionMatrix * vec4(a_Pos, 1.0);
 			}
 		)";
 
@@ -168,15 +174,22 @@ namespace Gonk {
 	{
 		while (m_Running)
 		{
-			Renderer::BeginScene();
+
+
 
 			RendererCommand::SetColour({ 1.0f, 0.0f, 1.0f, 1.0f });
 			RendererCommand::Clear();
 
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			m_Camera.SetPosition(glm::vec3{ 0.5f, 0.5f, 0.0f });
+			m_Camera.SetRotation(45.0f);
+
+			Renderer::BeginScene(m_Camera);
+
 			m_BlueShader->Bind();
-			Renderer::Submit(m_BlueVertexArray);
+			Renderer::Submit(m_BlueShader, m_BlueVertexArray);
+
+			m_Shader->Bind();
+			Renderer::Submit(m_Shader, m_VertexArray);
 
 
 			for (Layer* layer : m_LayerStack)

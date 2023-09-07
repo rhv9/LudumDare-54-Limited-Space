@@ -95,8 +95,6 @@ namespace Gonk {
 
 	void ImGuiLayer::OnImGuiRender()
 	{
-		static bool status = true;
-		ImGui::ShowDemoWindow(&status);
 	}
 
 
