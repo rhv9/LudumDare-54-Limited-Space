@@ -11,6 +11,13 @@
 #include "Gonk/Input/KeyCodes.h"
 #include "Gonk/Input/MouseButtonCodes.h"
 
+#include "Gonk/Renderer/Renderer.h"
+#include "Gonk/Renderer/RendererCommand.h"
+#include "Gonk/Renderer/Camera.h"
+#include "Gonk/Renderer/Shader.h"
+#include "Gonk/Renderer/VertexArray.h"
+
+
 
 // -------- Entry Point ---------------
 #include "Gonk/EntryPoint.h"
