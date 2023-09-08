@@ -2,6 +2,8 @@
 #include "gkpch.h"
 #include "Application.h"
 
+#include "Gonk/Core/Platform.h"
+
 namespace Gonk {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -61,8 +63,12 @@ namespace Gonk {
 	{
 		while (m_Running)
 		{
+			float time = (float)Platform::GetTime();
+			Timestep ts = time - m_LastRenderTime;
+			m_LastRenderTime = time;
+
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(ts);
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)

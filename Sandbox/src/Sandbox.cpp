@@ -129,21 +129,22 @@ public:
 
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Gonk::Timestep ts) override
 	{
+
 		if (Gonk::Input::IsKeyPressed(GK_KEY_W))
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y += m_CameraSpeed * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_S))
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_D))
-			m_CameraPosition.x += m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_A))
-			m_CameraPosition.x -= m_CameraSpeed;
+			m_CameraPosition.x -= m_CameraSpeed * ts;
 
 		if (Gonk::Input::IsKeyPressed(GK_KEY_LEFT))
-			m_Rotation -= m_RotationSpeed;
+			m_Rotation -= m_RotationSpeed * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_RIGHT))
-			m_Rotation += m_RotationSpeed;
+			m_Rotation += m_RotationSpeed * ts;
 
 
 		Gonk::RendererCommand::SetColour({ 1.0f, 0.0f, 1.0f, 1.0f });
@@ -178,7 +179,7 @@ private:
 	float m_CameraSpeed = 0.1f;
 
 	float m_Rotation = 0.0f;
-	float m_RotationSpeed = 2.0f;
+	float m_RotationSpeed = 360.0f;
 };
 
 

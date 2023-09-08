@@ -41,6 +41,8 @@ namespace Gonk {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
+		float m_LastRenderTime;
+
 
 	private:
 		static Application* s_Instance;

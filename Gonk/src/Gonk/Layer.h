@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Gonk/Core.h"
+#include "Gonk/Core/Timestep.h"
+
 #include "Gonk/Events/Event.h"
 
 namespace Gonk {
@@ -13,7 +15,7 @@ namespace Gonk {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnEvent(Event& event) {}
 
 		virtual void OnImGuiRender() {}
