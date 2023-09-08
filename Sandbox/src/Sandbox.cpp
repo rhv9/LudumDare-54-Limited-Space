@@ -1,6 +1,7 @@
 #include <Gonk.h>
 
 #include <imgui/imgui.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 class ExampleLayer : public Gonk::Layer
 {
@@ -38,11 +39,12 @@ public:
 			layout(location = 1) in vec4 a_Color;
 			
 			uniform mat4 u_ViewProjectionMatrix;
+			uniform mat4 u_Transform;
 			
 			out vec4 v_Col;
 
 			void main() {
-				gl_Position = u_ViewProjectionMatrix * vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Pos, 1.0);
 				v_Col = a_Color;
 			}
 		)";
@@ -70,10 +72,10 @@ public:
 		m_BlueVertexArray.reset(Gonk::VertexArray::Create());
 
 		float bluevertices[3 * 4] = {
-			-0.75f,  0.75f, 0.0f,
-			 0.75f,  0.75f, 0.0f,
-			 0.75f, -0.75f, 0.0f,
-			-0.75f, -0.75f, 0.0f,
+			-0.5f,  0.5f, 0.0f,
+			 0.5f,  0.5f, 0.0f,
+			 0.5f, -0.5f, 0.0f,
+			-0.5f, -0.5f, 0.0f,
 		};
 
 		std::shared_ptr<Gonk::VertexBuffer> bluevertexBuffer;
@@ -94,12 +96,13 @@ public:
 			
 			layout(location = 0) in vec3 a_Pos;
 			
-			uniform mat4 u_ViewProjectionMatrix;		
+			uniform mat4 u_ViewProjectionMatrix;	
+			uniform mat4 u_Transform;	
 
 			out vec4 v_Col;
 
 			void main() {
-				gl_Position = u_ViewProjectionMatrix * vec4(a_Pos, 1.0);
+				gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Pos, 1.0);
 			}
 		)";
 
@@ -124,14 +127,12 @@ public:
 		ImGui::DragFloat("CameraSpeed", &m_CameraSpeed, 0.1f, 0.0f, 10.0f);
 		ImGui::DragFloat("Rotation", &m_Rotation, 1.0f, 0.0f, 360.0f);
 		ImGui::DragFloat("RotationSpeed", &m_RotationSpeed, 0.1f, 0.0f, 10.0f);
-
 		ImGui::End();
 
 	}
 
 	void OnUpdate(Gonk::Timestep ts) override
 	{
-
 		if (Gonk::Input::IsKeyPressed(GK_KEY_W))
 			m_CameraPosition.y += m_CameraSpeed * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_S))
@@ -146,8 +147,17 @@ public:
 		if (Gonk::Input::IsKeyPressed(GK_KEY_RIGHT))
 			m_Rotation += m_RotationSpeed * ts;
 
+		if (Gonk::Input::IsKeyPressed(GK_KEY_I))
+			m_SquarePosition.y += m_CameraSpeed * ts;
+		if (Gonk::Input::IsKeyPressed(GK_KEY_K))
+			m_SquarePosition.y -= m_CameraSpeed * ts;
+		if (Gonk::Input::IsKeyPressed(GK_KEY_L))
+			m_SquarePosition.x += m_CameraSpeed * ts;
+		if (Gonk::Input::IsKeyPressed(GK_KEY_J))
+			m_SquarePosition.x -= m_CameraSpeed * ts;
 
-		Gonk::RendererCommand::SetColour({ 1.0f, 0.0f, 1.0f, 1.0f });
+
+		Gonk::RendererCommand::SetColour({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Gonk::RendererCommand::Clear();
 
 		m_Camera.SetPosition(-m_CameraPosition);
@@ -155,8 +165,21 @@ public:
 
 		Gonk::Renderer::BeginScene(m_Camera);
 
-		m_BlueShader->Bind();
-		Gonk::Renderer::Submit(m_BlueShader, m_BlueVertexArray);
+		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 offset{x * 0.11f, y * 0.11f, 0.0f};
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), offset + m_SquarePosition) * scale;
+
+				m_BlueShader->Bind();
+				Gonk::Renderer::Submit(m_BlueShader, m_BlueVertexArray, transform);
+
+			}
+
+		}
 
 		m_Shader->Bind();
 		Gonk::Renderer::Submit(m_Shader, m_VertexArray);
@@ -176,10 +199,12 @@ private:
 	Gonk::OrthographicCamera m_Camera;
 
 	glm::vec3 m_CameraPosition {0.0f};
-	float m_CameraSpeed = 0.1f;
+	float m_CameraSpeed = 1.0f;
 
 	float m_Rotation = 0.0f;
 	float m_RotationSpeed = 360.0f;
+
+	glm::vec3 m_SquarePosition{0.0f};
 };
 
 

@@ -26,7 +26,7 @@ namespace Gonk {
 
 	private:
 		virtual void Init(const WindowProps& props);
-		virtual void Shutdown();
+		virtual void Shutdown() override;
 	private:
 		GLFWwindow* m_Window;
 		GraphicsContext* m_Context;

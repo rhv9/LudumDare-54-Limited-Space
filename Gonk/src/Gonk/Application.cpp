@@ -38,6 +38,13 @@ namespace Gonk {
 		m_LayerStack.PushOverlay(layer);
 	}
 
+	void Application::Shutdown()
+	{
+		m_Running = false;
+		GetWindow().Shutdown();
+
+	}
+
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);

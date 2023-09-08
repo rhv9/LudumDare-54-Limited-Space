@@ -29,6 +29,7 @@ namespace Gonk {
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* layer);
+		void Shutdown();
 
 		inline Window& GetWindow() { return *m_Window; }
 
