@@ -47,7 +47,7 @@ namespace Gonk {
 		glBindVertexArray(0);
 	}
 
-	void OpenGLVertexArray::AddVertexBuffer(std::shared_ptr<VertexBuffer> vertexBuffer)
+	void OpenGLVertexArray::AddVertexBuffer(Ref<VertexBuffer> vertexBuffer)
 	{
 		GK_CORE_ASSERT(vertexBuffer->GetLayout().GetElements().size() , "Vertex Buffer has no layout");
 

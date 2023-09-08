@@ -18,7 +18,7 @@ namespace Gonk {
     {
     }
 
-    void Renderer::Submit(const std::shared_ptr<Shader>& shader, const std::shared_ptr<VertexArray>& vertexArray, const glm::mat4& transform)
+    void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
     {
         vertexArray->Bind();
         std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4("u_ViewProjectionMatrix", m_SceneData->ViewProjectionMatrix);

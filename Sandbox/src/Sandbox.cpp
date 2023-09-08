@@ -20,7 +20,7 @@ public:
 			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
 		};
 
-		std::shared_ptr<Gonk::VertexBuffer> vertexBuffer;
+		Gonk::Ref<Gonk::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Gonk::VertexBuffer::Create(vertices, sizeof(vertices)));
 		vertexBuffer->SetLayout({
 			{ Gonk::ShaderDataType::Float3, "a_Position" },
@@ -30,7 +30,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[] = { 0, 1, 2 };
-		std::shared_ptr<Gonk::IndexBuffer> indexBuffer;
+		Gonk::Ref<Gonk::IndexBuffer> indexBuffer;
 		indexBuffer.reset(Gonk::IndexBuffer::Create(indices, 3));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -80,7 +80,7 @@ public:
 			-0.5f, -0.5f, 0.0f,
 		};
 
-		std::shared_ptr<Gonk::VertexBuffer> bluevertexBuffer;
+		Gonk::Ref<Gonk::VertexBuffer> bluevertexBuffer;
 		bluevertexBuffer.reset(Gonk::VertexBuffer::Create(bluevertices, sizeof(bluevertices)));
 		bluevertexBuffer->SetLayout({
 			{ Gonk::ShaderDataType::Float3, "a_Position" },
@@ -89,7 +89,7 @@ public:
 		m_BlueVertexArray->AddVertexBuffer(bluevertexBuffer);
 
 		unsigned int blueindices[] = { 0, 1, 2, 2, 3, 0 };
-		std::shared_ptr<Gonk::IndexBuffer> blueindexBuffer;
+		Gonk::Ref<Gonk::IndexBuffer> blueindexBuffer;
 		blueindexBuffer.reset(Gonk::IndexBuffer::Create(blueindices, 6));
 		m_BlueVertexArray->SetIndexBuffer(blueindexBuffer);
 
@@ -201,11 +201,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<Gonk::Shader> m_Shader;
-	std::shared_ptr<Gonk::VertexArray> m_VertexArray;
+	Gonk::Ref<Gonk::Shader> m_Shader;
+	Gonk::Ref<Gonk::VertexArray> m_VertexArray;
 
-	std::shared_ptr<Gonk::Shader> m_BlueShader;
-	std::shared_ptr<Gonk::VertexArray> m_BlueVertexArray;
+	Gonk::Ref<Gonk::Shader> m_BlueShader;
+	Gonk::Ref<Gonk::VertexArray> m_BlueVertexArray;
 
 	Gonk::OrthographicCamera m_Camera;
 

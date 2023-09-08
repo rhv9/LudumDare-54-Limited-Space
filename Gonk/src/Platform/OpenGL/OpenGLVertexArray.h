@@ -14,17 +14,17 @@ namespace Gonk {
 		virtual void Bind() const override;
 		virtual void UnBind() const override;
 
-		virtual void AddVertexBuffer(std::shared_ptr<VertexBuffer> vertexBuffer) override;
-		virtual void SetIndexBuffer(std::shared_ptr<IndexBuffer> indexBuffer) override { m_IndexBuffer = indexBuffer; }
+		virtual void AddVertexBuffer(Ref<VertexBuffer> vertexBuffer) override;
+		virtual void SetIndexBuffer(Ref<IndexBuffer> indexBuffer) override { m_IndexBuffer = indexBuffer; }
 
-		virtual const std::vector<std::shared_ptr<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
-		virtual const std::shared_ptr<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
+		virtual const std::vector<Ref<VertexBuffer>>& GetVertexBuffers() const override { return m_VertexBuffers; }
+		virtual const Ref<IndexBuffer>& GetIndexBuffer() const override { return m_IndexBuffer; }
 
 	private:
 		uint32_t m_RendererID;
 
-		std::vector<std::shared_ptr<VertexBuffer>> m_VertexBuffers;
-		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+		std::vector<Ref<VertexBuffer>> m_VertexBuffers;
+		Ref<IndexBuffer> m_IndexBuffer;
 
 	};
 
