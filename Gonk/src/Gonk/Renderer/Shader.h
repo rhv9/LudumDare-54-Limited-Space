@@ -5,16 +5,14 @@ namespace Gonk {
 	class Shader
 	{
 	public:
-		Shader(std::string& vertexSrc, std::string& fragmentSrc);
-		~Shader();
+		Shader() = default;
+		virtual ~Shader() {}
 
-		void Bind() const;
-		void UnBind() const;
+		virtual void Bind() const = 0;
+		virtual void UnBind() const = 0;
 
-		void UniformMat4(const std::string& name, const glm::mat4& matrix) const;
+		static Shader* Create(std::string& vertexSrc, std::string& fragmentSrc);
 
-	private:
-		uint32_t m_RendererID;
 	};
 
 }

@@ -3,6 +3,8 @@
 #include <imgui/imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "Platform/OpenGL/OpenGLShader.h"
+
 class ExampleLayer : public Gonk::Layer
 {
 public:
@@ -63,7 +65,7 @@ public:
 
 		)";
 
-		m_Shader.reset(new Gonk::Shader(vertexSrc, fragmentSrc));
+		m_Shader.reset(Gonk::Shader::Create(vertexSrc, fragmentSrc));
 
 
 		/////////////////////////////////////////////////
@@ -110,14 +112,16 @@ public:
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
+
+			uniform vec3 u_Col;
 	
 			void main() {
-				color = vec4(0.2, 0.2, 1.0, 1.0);
+				color = vec4(u_Col, 1.0);
 			}
 
 		)";
 
-		m_BlueShader.reset(new Gonk::Shader(bluevertexSrc, bluefragmentSrc));
+		m_BlueShader.reset(Gonk::Shader::Create(bluevertexSrc, bluefragmentSrc));
 
 	}
 
@@ -166,6 +170,8 @@ public:
 		Gonk::Renderer::BeginScene(m_Camera);
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+		glm::vec3 whiteCol{0.8f};
+		glm::vec3 redCol{0.8f, 0.2f, 0.2f};
 
 		for (int y = 0; y < 20; y++)
 		{
@@ -173,7 +179,12 @@ public:
 			{
 				glm::vec3 offset{x * 0.11f, y * 0.11f, 0.0f};
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), offset + m_SquarePosition) * scale;
-
+				
+				if ((x + y) % 2 == 0)
+					std::dynamic_pointer_cast<Gonk::OpenGLShader>(m_BlueShader)->UniformFloat3("u_Col", redCol);
+				else
+					std::dynamic_pointer_cast<Gonk::OpenGLShader>(m_BlueShader)->UniformFloat3("u_Col", whiteCol);
+					
 				m_BlueShader->Bind();
 				Gonk::Renderer::Submit(m_BlueShader, m_BlueVertexArray, transform);
 

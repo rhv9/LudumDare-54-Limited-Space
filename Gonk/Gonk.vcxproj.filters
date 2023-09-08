@@ -1361,6 +1361,7 @@
     <ClInclude Include="src\Gonk\Renderer\Camera.h" />
     <ClInclude Include="src\Gonk\Core\Timestep.h" />
     <ClInclude Include="src\Gonk\Core\Platform.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gonk\Application.cpp">
@@ -1402,5 +1403,6 @@
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Camera.cpp" />
     <ClCompile Include="src\Platform\Windows\PlatformWindows.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
   </ItemGroup>
 </Project>
