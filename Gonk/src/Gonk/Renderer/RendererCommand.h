@@ -9,6 +9,11 @@ namespace Gonk {
 	{
 	public:
 
+		inline static void Init()
+		{
+			s_RendererAPI->Init();
+		}
+
 		inline static void SetColour(const glm::vec4& colour)
 		{
 			s_RendererAPI->SetClearColour(colour);

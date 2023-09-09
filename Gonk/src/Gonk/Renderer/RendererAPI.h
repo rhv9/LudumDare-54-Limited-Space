@@ -13,6 +13,8 @@ namespace Gonk {
 			OpenGL = 1,
 		};
 
+		virtual void Init() = 0;
+
 		virtual void SetClearColour(const glm::vec4& colour) = 0;
 		virtual void Clear() = 0;
 

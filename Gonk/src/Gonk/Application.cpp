@@ -3,6 +3,7 @@
 #include "Application.h"
 
 #include "Gonk/Core/Platform.h"
+#include "Gonk/Renderer/Renderer.h"
 
 namespace Gonk {
 
@@ -17,6 +18,8 @@ namespace Gonk {
 
 		m_Window = std::unique_ptr<Gonk::Window>(Gonk::Window::Create());
 		m_Window->SetEventCallback(std::bind(&Gonk::Application::OnEvent, this, std::placeholders::_1));
+
+		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);

@@ -71,6 +71,7 @@ public:
 		m_TextureShader.reset(Gonk::Shader::Create(textureVertexSrc, textureFragmentSrc));
 
 		m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_ChernoTexture = Gonk::Texture2D::Create("assets/textures/ChernoLogo.png");
 		m_TextureShader->Bind();
 		std::dynamic_pointer_cast<Gonk::OpenGLShader>(m_TextureShader)->UniformInt("u_Texture", 0);
 		
@@ -206,7 +207,9 @@ public:
 
 		}
 		m_TextureShader->Bind();
-		m_Texture->Bind(0);
+		m_Texture->Bind();
+		Gonk::Renderer::Submit(m_TextureShader, m_TextureVertexArray);
+		m_ChernoTexture->Bind();
 		Gonk::Renderer::Submit(m_TextureShader, m_TextureVertexArray);
 	}
 
@@ -215,7 +218,7 @@ public:
 	}
 
 private:
-	Gonk::Ref<Gonk::Texture2D> m_Texture;
+	Gonk::Ref<Gonk::Texture2D> m_Texture, m_ChernoTexture;
 	Gonk::Ref<Gonk::Shader> m_TextureShader;
 	Gonk::Ref<Gonk::VertexArray> m_TextureVertexArray;
 
