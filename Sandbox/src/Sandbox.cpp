@@ -12,7 +12,7 @@ public:
 		: Layer("Example"), m_Camera(-0.9f, 0.9f, 1.6f, -1.6f)
 	{
 
-		m_TextureVertexArray.reset(Gonk::VertexArray::Create());
+		m_TextureVertexArray = Gonk::VertexArray::Create();
 
 		float vertices[6 * 4] = {
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
@@ -22,7 +22,7 @@ public:
 		};
 
 		Gonk::Ref<Gonk::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(Gonk::VertexBuffer::Create(vertices, sizeof(vertices)));
+		vertexBuffer = Gonk::VertexBuffer::Create(vertices, sizeof(vertices));
 		vertexBuffer->SetLayout({
 			{ Gonk::ShaderDataType::Float3, "a_Position" },
 			{ Gonk::ShaderDataType::Float2, "a_TexCoord" },
@@ -32,10 +32,10 @@ public:
 
 		unsigned int indices[] = { 0, 1, 2, 2, 3, 0 };
 		Gonk::Ref<Gonk::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Gonk::IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
+		indexBuffer = Gonk::IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int));
 		m_TextureVertexArray->SetIndexBuffer(indexBuffer);
 
-		m_TextureShader.reset(Gonk::Shader::Create("assets/shaders/Texture.glsl"));
+		m_TextureShader = Gonk::Shader::Create("assets/shaders/Texture.glsl");
 
 		m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoTexture = Gonk::Texture2D::Create("assets/textures/ChernoLogo.png");
@@ -45,15 +45,10 @@ public:
 
 
 
-
-
-
-
-
 		/////////////////////////////////////////////////
 		///// Blue square
 		/////////////////////////////////////////////////
-		m_BlueVertexArray.reset(Gonk::VertexArray::Create());
+		m_BlueVertexArray = Gonk::VertexArray::Create();
 
 		float bluevertices[3 * 4] = {
 			-0.5f,  0.5f, 0.0f,
@@ -63,7 +58,7 @@ public:
 		};
 
 		Gonk::Ref<Gonk::VertexBuffer> bluevertexBuffer;
-		bluevertexBuffer.reset(Gonk::VertexBuffer::Create(bluevertices, sizeof(bluevertices)));
+		bluevertexBuffer = Gonk::VertexBuffer::Create(bluevertices, sizeof(bluevertices));
 		bluevertexBuffer->SetLayout({
 			{ Gonk::ShaderDataType::Float3, "a_Position" },
 			});
@@ -72,7 +67,7 @@ public:
 
 		unsigned int blueindices[] = { 0, 1, 2, 2, 3, 0 };
 		Gonk::Ref<Gonk::IndexBuffer> blueindexBuffer;
-		blueindexBuffer.reset(Gonk::IndexBuffer::Create(blueindices, 6));
+		blueindexBuffer = Gonk::IndexBuffer::Create(blueindices, 6);
 		m_BlueVertexArray->SetIndexBuffer(blueindexBuffer);
 
 		std::string bluevertexSrc = R"(
@@ -103,7 +98,7 @@ public:
 
 		)";
 
-		m_BlueShader.reset(Gonk::Shader::Create(bluevertexSrc, bluefragmentSrc));
+		m_BlueShader = Gonk::Shader::Create(bluevertexSrc, bluefragmentSrc);
 
 	}
 

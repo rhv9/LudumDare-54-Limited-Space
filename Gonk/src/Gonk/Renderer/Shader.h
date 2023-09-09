@@ -11,8 +11,8 @@ namespace Gonk {
 		virtual void Bind() const = 0;
 		virtual void UnBind() const = 0;
 
-		static Shader* Create(std::string& vertexSrc, std::string& fragmentSrc);
-		static Shader* Create(const std::string& path);
+		static Ref<Shader> Create(std::string& vertexSrc, std::string& fragmentSrc);
+		static Ref<Shader> Create(const std::string& path);
 
 	};
 
