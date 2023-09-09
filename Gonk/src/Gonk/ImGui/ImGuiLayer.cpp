@@ -16,7 +16,6 @@ namespace Gonk {
 	ImGuiLayer::ImGuiLayer()
 		: Layer("ImGuiLayer")
 	{
-
 	}
 	ImGuiLayer::~ImGuiLayer()
 	{

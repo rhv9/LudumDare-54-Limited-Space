@@ -18,6 +18,8 @@ namespace Gonk {
 		m_Window = std::unique_ptr<Gonk::Window>(Gonk::Window::Create());
 		m_Window->SetEventCallback(std::bind(&Gonk::Application::OnEvent, this, std::placeholders::_1));
 
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}	
 
 	Application::~Application()
@@ -27,10 +29,6 @@ namespace Gonk {
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
-
-		m_ImGuiLayer = new ImGuiLayer();
-		PushOverlay(m_ImGuiLayer);
-
 	}
 
 	void Application::PushOverlay(Layer* layer)

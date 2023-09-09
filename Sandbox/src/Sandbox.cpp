@@ -12,60 +12,74 @@ public:
 		: Layer("Example"), m_Camera(-0.9f, 0.9f, 1.6f, -1.6f)
 	{
 
-		m_VertexArray.reset(Gonk::VertexArray::Create());
+		m_TextureVertexArray.reset(Gonk::VertexArray::Create());
 
-		float vertices[3 * 7] = {
-			0.0f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,
-			0.5f, -0.5f, 0.0f,  1.0f, 1.0f, 0.0f, 1.0f,
-			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f,
+		float vertices[6 * 4] = {
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
 		};
 
 		Gonk::Ref<Gonk::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(Gonk::VertexBuffer::Create(vertices, sizeof(vertices)));
 		vertexBuffer->SetLayout({
 			{ Gonk::ShaderDataType::Float3, "a_Position" },
-			{Gonk::ShaderDataType::Float4, "a_Color" },
+			{ Gonk::ShaderDataType::Float2, "a_TexCoord" },
 			});
 
-		m_VertexArray->AddVertexBuffer(vertexBuffer);
+		m_TextureVertexArray->AddVertexBuffer(vertexBuffer);
 
-		unsigned int indices[] = { 0, 1, 2 };
+		unsigned int indices[] = { 0, 1, 2, 2, 3, 0 };
 		Gonk::Ref<Gonk::IndexBuffer> indexBuffer;
-		indexBuffer.reset(Gonk::IndexBuffer::Create(indices, 3));
-		m_VertexArray->SetIndexBuffer(indexBuffer);
+		indexBuffer.reset(Gonk::IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
+		m_TextureVertexArray->SetIndexBuffer(indexBuffer);
 
-		std::string vertexSrc = R"(
+		std::string textureVertexSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) in vec3 a_Pos;
-			layout(location = 1) in vec4 a_Color;
+			layout(location = 1) in vec2 a_TexCoord;
 			
 			uniform mat4 u_ViewProjectionMatrix;
 			uniform mat4 u_Transform;
 			
 			out vec4 v_Col;
+			out vec2 v_TexCoord;
 
 			void main() {
 				gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Pos, 1.0);
-				v_Col = a_Color;
+				v_TexCoord = a_TexCoord;
 			}
 		)";
 
-		std::string fragmentSrc = R"(
+		std::string textureFragmentSrc = R"(
 			#version 330 core
 			
 			layout(location = 0) out vec4 color;
-	
-			in vec4 v_Col;
+			
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
 
 			void main() {
-				color = vec4(0.8, 0.2, 0.2, 1.0);
-				color = v_Col;
+				color = texture(u_Texture, v_TexCoord);
 			}
 
 		)";
 
-		m_Shader.reset(Gonk::Shader::Create(vertexSrc, fragmentSrc));
+		m_TextureShader.reset(Gonk::Shader::Create(textureVertexSrc, textureFragmentSrc));
+
+		m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_TextureShader->Bind();
+		std::dynamic_pointer_cast<Gonk::OpenGLShader>(m_TextureShader)->UniformInt("u_Texture", 0);
+		
+
+
+
+
+
+
 
 
 		/////////////////////////////////////////////////
@@ -191,9 +205,9 @@ public:
 			}
 
 		}
-
-		m_Shader->Bind();
-		Gonk::Renderer::Submit(m_Shader, m_VertexArray);
+		m_TextureShader->Bind();
+		m_Texture->Bind(0);
+		Gonk::Renderer::Submit(m_TextureShader, m_TextureVertexArray);
 	}
 
 	void OnEvent(Gonk::Event& event)
@@ -201,8 +215,9 @@ public:
 	}
 
 private:
-	Gonk::Ref<Gonk::Shader> m_Shader;
-	Gonk::Ref<Gonk::VertexArray> m_VertexArray;
+	Gonk::Ref<Gonk::Texture2D> m_Texture;
+	Gonk::Ref<Gonk::Shader> m_TextureShader;
+	Gonk::Ref<Gonk::VertexArray> m_TextureVertexArray;
 
 	Gonk::Ref<Gonk::Shader> m_BlueShader;
 	Gonk::Ref<Gonk::VertexArray> m_BlueVertexArray;

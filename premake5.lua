@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "Gonk/vendor/GLFW/include"
 IncludeDir["Glad"] = "Gonk/vendor/Glad/include"
 IncludeDir["ImGui"] = "Gonk/vendor/imgui"
 IncludeDir["glm"] = "Gonk/vendor/glm"
+IncludeDir["stb_image"] = "Gonk/vendor/stb_image"
 
 group "Dependencies"
 	include "Gonk/vendor/GLFW"
@@ -43,6 +44,8 @@ project "Gonk"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/**.hpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.inl",
 	}
 
@@ -54,6 +57,7 @@ project "Gonk"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}",
 	}
 
 	defines
