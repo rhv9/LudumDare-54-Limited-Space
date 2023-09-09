@@ -2,11 +2,15 @@
 
 #include "Gonk/Renderer/Shader.h"
 
+// TODO: Remove!
+typedef unsigned int GLenum;
+
 namespace Gonk {
 
 	class OpenGLShader : public Shader
 	{
 	public:
+		OpenGLShader(const std::string& path);
 		OpenGLShader(std::string& vertexSrc, std::string& fragmentSrc);
 		virtual ~OpenGLShader() override;
 
@@ -22,6 +26,11 @@ namespace Gonk {
 
 		void UniformMat3(const std::string& name, const glm::mat3& matrix) const;
 		void UniformMat4(const std::string& name, const glm::mat4& matrix) const;
+
+	private:
+		std::string ReadFile(const std::string& path);
+		std::unordered_map<GLenum, std::string> PreProcess(const std::string& source);
+		void Compile(const std::unordered_map<GLenum, std::string>& shaderSources);
 
 	private:
 		uint32_t m_RendererID;

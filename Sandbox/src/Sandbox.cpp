@@ -35,40 +35,7 @@ public:
 		indexBuffer.reset(Gonk::IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int)));
 		m_TextureVertexArray->SetIndexBuffer(indexBuffer);
 
-		std::string textureVertexSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) in vec3 a_Pos;
-			layout(location = 1) in vec2 a_TexCoord;
-			
-			uniform mat4 u_ViewProjectionMatrix;
-			uniform mat4 u_Transform;
-			
-			out vec4 v_Col;
-			out vec2 v_TexCoord;
-
-			void main() {
-				gl_Position = u_ViewProjectionMatrix * u_Transform * vec4(a_Pos, 1.0);
-				v_TexCoord = a_TexCoord;
-			}
-		)";
-
-		std::string textureFragmentSrc = R"(
-			#version 330 core
-			
-			layout(location = 0) out vec4 color;
-			
-			in vec2 v_TexCoord;
-
-			uniform sampler2D u_Texture;
-
-			void main() {
-				color = texture(u_Texture, v_TexCoord);
-			}
-
-		)";
-
-		m_TextureShader.reset(Gonk::Shader::Create(textureVertexSrc, textureFragmentSrc));
+		m_TextureShader.reset(Gonk::Shader::Create("assets/shaders/Texture.glsl"));
 
 		m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoTexture = Gonk::Texture2D::Create("assets/textures/ChernoLogo.png");
@@ -147,7 +114,6 @@ public:
 		ImGui::DragFloat("Rotation", &m_Rotation, 1.0f, 0.0f, 360.0f);
 		ImGui::DragFloat("RotationSpeed", &m_RotationSpeed, 0.1f, 0.0f, 10.0f);
 		ImGui::End();
-
 	}
 
 	void OnUpdate(Gonk::Timestep ts) override
