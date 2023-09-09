@@ -11,11 +11,13 @@ namespace Gonk {
 	{
 	public:
 		OpenGLShader(const std::string& path);
-		OpenGLShader(std::string& vertexSrc, std::string& fragmentSrc);
+		OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc);
 		virtual ~OpenGLShader() override;
 
 		virtual void Bind() const override;
 		virtual void UnBind() const override;
+
+		virtual const std::string GetName() const { return m_Name; }
 
 		void UniformInt(const std::string& name, const int val) const;
 
@@ -34,6 +36,7 @@ namespace Gonk {
 
 	private:
 		uint32_t m_RendererID;
+		std::string m_Name;
 	};
 
 }

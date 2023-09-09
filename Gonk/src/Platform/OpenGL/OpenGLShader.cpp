@@ -21,9 +21,19 @@ namespace Gonk {
 	{
 		std::unordered_map<GLenum, std::string> shaderSources = PreProcess(ReadFile(path));
 		Compile(shaderSources);
+
+		// extract name from file path
+		size_t lastSlash = path.find_last_of("/\\");
+		lastSlash = lastSlash == std::string::npos ? 0 : lastSlash + 1;
+		// TODO: Potential errors, but this works so who cares!
+		size_t dot = path.rfind(".");
+		size_t count = dot == std::string::npos ? path.size() - lastSlash : dot - lastSlash;
+		m_Name = path.substr(lastSlash, count);
+
 	}
-	OpenGLShader::OpenGLShader(std::string& vertexSrc, std::string& fragmentSrc)
+	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
+		m_Name = name;
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;
 		shaderSources[GL_FRAGMENT_SHADER] = fragmentSrc;

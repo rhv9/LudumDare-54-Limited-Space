@@ -35,12 +35,12 @@ public:
 		indexBuffer = Gonk::IndexBuffer::Create(indices, sizeof(indices) / sizeof(unsigned int));
 		m_TextureVertexArray->SetIndexBuffer(indexBuffer);
 
-		m_TextureShader = Gonk::Shader::Create("assets/shaders/Texture.glsl");
+		m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoTexture = Gonk::Texture2D::Create("assets/textures/ChernoLogo.png");
-		m_TextureShader->Bind();
-		std::dynamic_pointer_cast<Gonk::OpenGLShader>(m_TextureShader)->UniformInt("u_Texture", 0);
+		m_ShaderLibrary.Get("Texture")->Bind();
+		std::dynamic_pointer_cast<Gonk::OpenGLShader>(m_ShaderLibrary.Get("Texture"))->UniformInt("u_Texture", 0);
 		
 
 
@@ -98,7 +98,7 @@ public:
 
 		)";
 
-		m_BlueShader = Gonk::Shader::Create(bluevertexSrc, bluefragmentSrc);
+		m_BlueShader = Gonk::Shader::Create("Blue", bluevertexSrc, bluefragmentSrc);
 
 	}
 
@@ -167,11 +167,11 @@ public:
 			}
 
 		}
-		m_TextureShader->Bind();
+		m_ShaderLibrary.Get("Texture")->Bind();
 		m_Texture->Bind();
-		Gonk::Renderer::Submit(m_TextureShader, m_TextureVertexArray);
+		Gonk::Renderer::Submit(m_ShaderLibrary.Get("Texture"), m_TextureVertexArray);
 		m_ChernoTexture->Bind();
-		Gonk::Renderer::Submit(m_TextureShader, m_TextureVertexArray);
+		Gonk::Renderer::Submit(m_ShaderLibrary.Get("Texture"), m_TextureVertexArray);
 	}
 
 	void OnEvent(Gonk::Event& event)
@@ -179,8 +179,9 @@ public:
 	}
 
 private:
+	Gonk::ShaderLibrary m_ShaderLibrary;
+
 	Gonk::Ref<Gonk::Texture2D> m_Texture, m_ChernoTexture;
-	Gonk::Ref<Gonk::Shader> m_TextureShader;
 	Gonk::Ref<Gonk::VertexArray> m_TextureVertexArray;
 
 	Gonk::Ref<Gonk::Shader> m_BlueShader;
