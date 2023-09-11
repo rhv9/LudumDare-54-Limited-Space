@@ -22,6 +22,7 @@ namespace Gonk {
 
 		inline static API GetAPI() { return s_API; }
 
+		virtual void OnWindowResize(uint32_t width, uint32_t height) = 0;
 	private:
 		static API s_API;
 	};

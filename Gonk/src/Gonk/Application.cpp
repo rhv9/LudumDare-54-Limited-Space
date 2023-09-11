@@ -50,7 +50,9 @@ namespace Gonk {
 	{
 		EventDispatcher dispatcher(e);
 
+
 		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
+		dispatcher.Dispatch<WindowResizeEvent>(std::bind(&Application::OnWindowResize, this, std::placeholders::_1));
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -67,6 +69,19 @@ namespace Gonk {
 		return true;
 	}
 
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.getHeight() == 0 || e.getWidth() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+		Renderer::OnWindowResize(e.getWidth(), e.getHeight());
+
+		return false;
+	}
+
 	void Application::Run()
 	{
 		while (m_Running)
@@ -75,8 +90,11 @@ namespace Gonk {
 			Timestep ts = time - m_LastRenderTime;
 			m_LastRenderTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(ts);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(ts);
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)

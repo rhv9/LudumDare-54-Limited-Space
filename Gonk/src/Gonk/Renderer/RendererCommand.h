@@ -29,6 +29,11 @@ namespace Gonk {
 			s_RendererAPI->DrawIndexed(vertexArray);
 		}
 
+		inline static void OnWindowResize(uint32_t width, uint32_t height)
+		{
+			s_RendererAPI->OnWindowResize(width, height);
+		}
+
 	private:
 		static RendererAPI* s_RendererAPI;
 	};

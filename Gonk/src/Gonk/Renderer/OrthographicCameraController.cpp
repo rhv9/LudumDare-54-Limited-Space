@@ -4,6 +4,8 @@
 #include "Gonk/Input/Input.h"
 #include "Gonk/Input/KeyCodes.h"
 
+#include "Gonk/Application.h"
+
 namespace Gonk {
 
 	OrthographicCameraController::OrthographicCameraController(const float aspectRatio, const float zoomLevel)
@@ -59,6 +61,7 @@ namespace Gonk {
 	
 	bool OrthographicCameraController::OnWindowResizeCallback(WindowResizeEvent& e)
 	{
+		SetAspectRatio((float)e.getWidth() / (float)e.getHeight());
 		return false;
 	}
 

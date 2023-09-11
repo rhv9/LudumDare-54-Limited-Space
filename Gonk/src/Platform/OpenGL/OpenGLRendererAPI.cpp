@@ -26,4 +26,10 @@ namespace Gonk {
 		glDrawElements(GL_TRIANGLES, vertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 	}
 
+	void OpenGLRendererAPI::OnWindowResize(uint32_t width, uint32_t height)
+	{
+
+		glViewport(0, 0, width, height);
+	}
+
 }
