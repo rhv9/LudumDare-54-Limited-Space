@@ -9,7 +9,7 @@ class ExampleLayer : public Gonk::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-0.9f, 0.9f, 1.6f, -1.6f)
+		: Layer("Example"), m_CameraController( 1280.0f/720.0f )
 	{
 
 		m_TextureVertexArray = Gonk::VertexArray::Create();
@@ -105,45 +105,28 @@ public:
 	void OnImGuiRender() override
 	{
 		ImGui::Begin("Settings");
-		ImGui::DragFloat("CameraSpeed", &m_CameraSpeed, 0.1f, 0.0f, 10.0f);
-		ImGui::DragFloat("Rotation", &m_Rotation, 1.0f, 0.0f, 360.0f);
-		ImGui::DragFloat("RotationSpeed", &m_RotationSpeed, 0.1f, 0.0f, 10.0f);
 		ImGui::End();
 	}
 
 	void OnUpdate(Gonk::Timestep ts) override
 	{
-		if (Gonk::Input::IsKeyPressed(GK_KEY_W))
-			m_CameraPosition.y += m_CameraSpeed * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_S))
-			m_CameraPosition.y -= m_CameraSpeed * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_D))
-			m_CameraPosition.x += m_CameraSpeed * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_A))
-			m_CameraPosition.x -= m_CameraSpeed * ts;
-
-		if (Gonk::Input::IsKeyPressed(GK_KEY_LEFT))
-			m_Rotation -= m_RotationSpeed * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_RIGHT))
-			m_Rotation += m_RotationSpeed * ts;
+		m_CameraController.OnUpdate(ts);
+		
 
 		if (Gonk::Input::IsKeyPressed(GK_KEY_I))
-			m_SquarePosition.y += m_CameraSpeed * ts;
+			m_SquarePosition.y += 1.0f * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_K))
-			m_SquarePosition.y -= m_CameraSpeed * ts;
+			m_SquarePosition.y -= 1.0f * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_L))
-			m_SquarePosition.x += m_CameraSpeed * ts;
+			m_SquarePosition.x += 1.0f * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_J))
-			m_SquarePosition.x -= m_CameraSpeed * ts;
+			m_SquarePosition.x -= 1.0f * ts;
 
 
 		Gonk::RendererCommand::SetColour({ 0.1f, 0.1f, 0.1f, 1.0f });
 		Gonk::RendererCommand::Clear();
 
-		m_Camera.SetPosition(-m_CameraPosition);
-		m_Camera.SetRotation(m_Rotation);
-
-		Gonk::Renderer::BeginScene(m_Camera);
+		Gonk::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 		glm::vec3 whiteCol{0.8f};
@@ -174,8 +157,9 @@ public:
 		Gonk::Renderer::Submit(m_ShaderLibrary.Get("Texture"), m_TextureVertexArray);
 	}
 
-	void OnEvent(Gonk::Event& event)
+	void OnEvent(Gonk::Event& e)
 	{
+		m_CameraController.OnEvent(e);
 	}
 
 private:
@@ -187,13 +171,7 @@ private:
 	Gonk::Ref<Gonk::Shader> m_BlueShader;
 	Gonk::Ref<Gonk::VertexArray> m_BlueVertexArray;
 
-	Gonk::OrthographicCamera m_Camera;
-
-	glm::vec3 m_CameraPosition {0.0f};
-	float m_CameraSpeed = 1.0f;
-
-	float m_Rotation = 0.0f;
-	float m_RotationSpeed = 360.0f;
+	Gonk::OrthographicCameraController m_CameraController;
 
 	glm::vec3 m_SquarePosition{0.0f};
 };

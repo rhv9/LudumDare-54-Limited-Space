@@ -8,9 +8,15 @@
 namespace Gonk {
 
 	OrthographicCamera::OrthographicCamera(float left, float right, float bottom, float top)
-		: m_ProjectionMatrix(glm::ortho(top, bottom, left, right)), m_ViewMatrix(1.0f)
+		: m_ProjectionMatrix(glm::ortho(left, right, bottom, top)), m_ViewMatrix(1.0f)
 	{
 		RecalculateProjectionMatrix();
+	}
+
+	void OrthographicCamera::SetProjectionMatrix(float left, float right, float bottom, float top)
+	{
+		m_ProjectionMatrix = glm::ortho(left, right, bottom, top);
+		m_ViewProjectionMatrix = m_ProjectionMatrix * m_ViewMatrix;
 	}
 
 	void OrthographicCamera::RecalculateProjectionMatrix()
