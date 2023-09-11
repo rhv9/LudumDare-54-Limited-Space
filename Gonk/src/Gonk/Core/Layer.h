@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Gonk/Core.h"
 #include "Gonk/Core/Timestep.h"
 
 #include "Gonk/Events/Event.h"
 
 namespace Gonk {
 
-	class GONK_API Layer
+	class Layer
 	{
 	public:
 		Layer(const std::string& debugName = "Layer");

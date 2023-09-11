@@ -1,6 +1,6 @@
 #include "gkpch.h"
 
-#include "Gonk/Core.h"
+#include "Gonk/Core/Core.h"
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD
 

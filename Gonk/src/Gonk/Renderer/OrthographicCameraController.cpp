@@ -4,7 +4,7 @@
 #include "Gonk/Input/Input.h"
 #include "Gonk/Input/KeyCodes.h"
 
-#include "Gonk/Application.h"
+#include "Gonk/Core/Application.h"
 
 namespace Gonk {
 

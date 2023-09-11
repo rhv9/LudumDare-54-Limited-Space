@@ -3,9 +3,9 @@
 #include "Core.h"
 
 #include "Window.h"
-#include "Gonk/LayerStack.h"
+#include "Gonk/Core/LayerStack.h"
 #include "Gonk/Events/Event.h"
-#include "Events/ApplicationEvent.h"
+#include "Gonk/Events/ApplicationEvent.h"
 
 #include "Gonk/ImGui/ImGuiLayer.h"
 

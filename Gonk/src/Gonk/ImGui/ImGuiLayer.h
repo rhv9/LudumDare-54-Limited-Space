@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Gonk/Layer.h"
+#include "Gonk/Core/Layer.h"
 
 #include "Gonk/Events/ApplicationEvent.h"
 #include "Gonk/Events/MouseEvent.h"

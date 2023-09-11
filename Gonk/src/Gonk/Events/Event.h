@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Gonk/Core.h"
-
 namespace Gonk {
 
 	enum class EventType
@@ -29,7 +27,7 @@ namespace Gonk {
 #define EVENT_CLASS_CATEGORY(category) virtual int GetCategoryFlags() const override { return category; }
 
 
-	class GONK_API Event 
+	class Event 
 	{
 		friend class EventDispatcher;
 	public:

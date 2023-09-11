@@ -1,14 +1,13 @@
 #pragma once
 
-#include "Gonk/Core.h"
-#include "Gonk/Layer.h"
+#include "Gonk/Core/Layer.h"
 
 // TODO:: Why include vector when you can include precompiled headers or in cpp
 #include <vector>
 
 namespace Gonk {
 
-	class GONK_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

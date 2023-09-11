@@ -3,9 +3,9 @@
 // for use by Gonk applications
 
 // core
-#include "Gonk/Application.h"
-#include "Gonk/Layer.h"
-#include "Gonk/Log.h"
+#include "Gonk/Core/Application.h"
+#include "Gonk/Core/Layer.h"
+#include "Gonk/Core/Log.h"
 #include "Gonk/ImGui/ImGuiLayer.h"
 #include "Gonk/Core/Timestep.h"
 
@@ -28,5 +28,4 @@
 
 
 // -------- Entry Point ---------------
-#include "Gonk/EntryPoint.h"
 //-------------------------------------

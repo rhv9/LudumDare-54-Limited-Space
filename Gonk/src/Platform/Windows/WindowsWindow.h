@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Gonk/Window.h"
+#include "Gonk/Core/Window.h"
 
 #include <GLFW/glfw3.h>
 #include "Gonk/Renderer/GraphicsContext.h"

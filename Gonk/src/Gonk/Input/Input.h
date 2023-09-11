@@ -1,10 +1,9 @@
 #pragma once
-#include "Gonk/Core.h"
 #include <utility>
 
 namespace Gonk {
 
-	class GONK_API Input
+	class Input
 	{
 	public:
 		inline static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }

@@ -9,8 +9,8 @@ namespace Gonk {
 
 		void SetProjectionMatrix(float left, float right, float bottom, float top);
 		glm::mat4 GetViewProjection() const { return m_ProjectionMatrix * m_ViewMatrix; }
-		void SetPosition(glm::vec3& pos) { m_Position = pos; RecalculateProjectionMatrix(); }
-		void SetRotation(float rotation) { m_Rotation = rotation; RecalculateProjectionMatrix(); }
+		void SetPosition(const glm::vec3& pos) { m_Position = pos; RecalculateProjectionMatrix(); }
+		void SetRotation(const float rotation) { m_Rotation = rotation; RecalculateProjectionMatrix(); }
 
 	private:
 		void RecalculateProjectionMatrix();

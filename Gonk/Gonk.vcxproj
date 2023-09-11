@@ -83,7 +83,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -108,7 +108,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -134,7 +134,7 @@
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
     </ClCompile>
     <Link>
@@ -148,11 +148,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Gonk.h" />
-    <ClInclude Include="src\Gonk\Application.h" />
-    <ClInclude Include="src\Gonk\Core.h" />
+    <ClInclude Include="src\Gonk\Core\Application.h" />
+    <ClInclude Include="src\Gonk\Core\Core.h" />
     <ClInclude Include="src\Gonk\Core\Platform.h" />
     <ClInclude Include="src\Gonk\Core\Timestep.h" />
-    <ClInclude Include="src\Gonk\EntryPoint.h" />
+    <ClInclude Include="src\Gonk\Core\EntryPoint.h" />
     <ClInclude Include="src\Gonk\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Gonk\Events\Event.h" />
     <ClInclude Include="src\Gonk\Events\KeyEvent.h" />
@@ -161,9 +161,9 @@
     <ClInclude Include="src\Gonk\Input\Input.h" />
     <ClInclude Include="src\Gonk\Input\KeyCodes.h" />
     <ClInclude Include="src\Gonk\Input\MouseButtonCodes.h" />
-    <ClInclude Include="src\Gonk\Layer.h" />
-    <ClInclude Include="src\Gonk\LayerStack.h" />
-    <ClInclude Include="src\Gonk\Log.h" />
+    <ClInclude Include="src\Gonk\Core\Layer.h" />
+    <ClInclude Include="src\Gonk\Core\LayerStack.h" />
+    <ClInclude Include="src\Gonk\Core\Log.h" />
     <ClInclude Include="src\Gonk\Renderer\Buffer.h" />
     <ClInclude Include="src\Gonk\Renderer\Camera.h" />
     <ClInclude Include="src\Gonk\Renderer\GraphicsContext.h" />
@@ -174,7 +174,7 @@
     <ClInclude Include="src\Gonk\Renderer\Shader.h" />
     <ClInclude Include="src\Gonk\Renderer\Texture.h" />
     <ClInclude Include="src\Gonk\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Gonk\Window.h" />
+    <ClInclude Include="src\Gonk\Core\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
@@ -602,12 +602,12 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Gonk\Application.cpp" />
+    <ClCompile Include="src\Gonk\Core\Application.cpp" />
     <ClCompile Include="src\Gonk\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\Gonk\ImGui\ImGuiLayer.cpp" />
-    <ClCompile Include="src\Gonk\Layer.cpp" />
-    <ClCompile Include="src\Gonk\LayerStack.cpp" />
-    <ClCompile Include="src\Gonk\Log.cpp" />
+    <ClCompile Include="src\Gonk\Core\Layer.cpp" />
+    <ClCompile Include="src\Gonk\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Gonk\Core\Log.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Camera.cpp" />
     <ClCompile Include="src\Gonk\Renderer\OrthographicCameraController.cpp" />

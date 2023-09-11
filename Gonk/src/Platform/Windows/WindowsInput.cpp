@@ -1,7 +1,7 @@
 #include "gkpch.h"
 
 #include "Gonk/Input/Input.h"
-#include "Gonk/Application.h"
+#include "Gonk/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 

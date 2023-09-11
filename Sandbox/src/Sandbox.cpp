@@ -1,5 +1,7 @@
 #include <Gonk.h>
 
+#include <Gonk/Core/EntryPoint.h>
+
 #include <imgui/imgui.h>
 #include <glm/gtc/matrix_transform.hpp>
 

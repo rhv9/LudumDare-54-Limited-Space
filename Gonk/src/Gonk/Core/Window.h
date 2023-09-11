@@ -2,7 +2,7 @@
 
 #include "gkpch.h"
 
-#include "Gonk/Core.h"
+#include "Gonk/Core/Core.h"
 #include "Gonk/Events/Event.h"
 
 namespace Gonk {
