@@ -7,6 +7,8 @@
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
+#include "Sandbox2D.h"
+
 class ExampleLayer : public Gonk::Layer
 {
 public:
@@ -184,7 +186,8 @@ class Sandbox : public Gonk::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		//PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2DLayer());
 	}
 
 	~Sandbox()

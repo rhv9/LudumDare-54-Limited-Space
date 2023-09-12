@@ -92,9 +92,5 @@ namespace Gonk {
 	{
 	}
 
-	void ImGuiLayer::OnImGuiRender()
-	{
-	}
-
 
 }

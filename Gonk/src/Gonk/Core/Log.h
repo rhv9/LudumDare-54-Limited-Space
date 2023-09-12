@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Core.h"
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 
 namespace Gonk {
 
-	class GONK_API Log
+	class Log
 	{
 	public:
 		static void Init();
