@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "Gonk/Core/Core.h"
 #include "Gonk/Core/Log.h"
 
 #include "glm/glm.hpp"

@@ -135,6 +135,7 @@ namespace Gonk {
 
 			GK_CORE_ASSERT(ShaderTypeFromString(type), "Invalid shader type specified");
 			size_t nextLinePos = source.find_first_not_of("\r\n", eol);
+			GK_CORE_ASSERT(nextLinePos != std::string::npos, "Syntax Error!");
 			pos = source.find(typeToken, nextLinePos);
 			shaderSources[ShaderTypeFromString(type)] = source.substr(nextLinePos, pos - (nextLinePos == std::string::npos ? source.size() - 1 : nextLinePos));
 		}
@@ -183,7 +184,7 @@ namespace Gonk {
 			shaderIDs[shaderIndex++] = shader;
 		}
 
-		m_RendererID = glCreateProgram();
+		m_RendererID = glCreateProgram();  
 
 		// Attach our shaders to our program
 		for (auto shader : shaderIDs)
@@ -224,6 +225,7 @@ namespace Gonk {
 		for (auto shader : shaderIDs)
 		{
 			glDetachShader(m_RendererID, shader);
+			glDeleteShader(m_RendererID);
 		}
 
 	}

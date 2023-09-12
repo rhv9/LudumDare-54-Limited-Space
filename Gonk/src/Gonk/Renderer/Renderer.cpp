@@ -7,7 +7,7 @@
 
 namespace Gonk {
 
-    Renderer::SceneData* Renderer::m_SceneData = new Renderer::SceneData;
+    Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
     void Renderer::Init()
     {
@@ -21,7 +21,7 @@ namespace Gonk {
 
     void Renderer::BeginScene(OrthographicCamera& camera)
     {
-        m_SceneData->ViewProjectionMatrix = camera.GetViewProjection();
+        s_SceneData->ViewProjectionMatrix = camera.GetViewProjection();
     }
 
     void Renderer::EndScene()
@@ -31,7 +31,7 @@ namespace Gonk {
     void Renderer::Submit(const Ref<Shader>& shader, const Ref<VertexArray>& vertexArray, const glm::mat4& transform)
     {
         vertexArray->Bind();
-        std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4("u_ViewProjectionMatrix", m_SceneData->ViewProjectionMatrix);
+        std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjectionMatrix);
         std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4("u_Transform", transform);
         RendererCommand::DrawIndexed(vertexArray);
     }

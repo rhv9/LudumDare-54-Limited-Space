@@ -11,7 +11,10 @@ namespace Gonk {
 	LayerStack::~LayerStack()
 	{
 		for (Layer* layer : m_Layers)
+		{
+			layer->OnDetach();
 			delete layer;
+		}
 	}
 
 	void LayerStack::PushLayer(Layer* layer)
@@ -33,9 +36,9 @@ namespace Gonk {
 
 		if (it != m_Layers.end())
 		{
+			layer->OnDetach();
 			m_Layers.erase(it);
 			m_LayerInsertIndex--;
-			layer->OnDetach();
 		}
 	}
 
@@ -45,8 +48,8 @@ namespace Gonk {
 
 		if (it != m_Layers.end())
 		{
-			m_Layers.erase(it);
 			layer->OnDetach();
+			m_Layers.erase(it);
 		}
 	}
 
