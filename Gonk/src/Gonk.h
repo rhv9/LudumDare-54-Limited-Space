@@ -16,6 +16,7 @@
 
 // Rendering
 #include "Gonk/Renderer/Renderer.h"
+#include "Gonk/Renderer/Renderer2D.h"
 #include "Gonk/Renderer/RendererCommand.h"
 #include "Gonk/Renderer/Camera.h"
 #include "Gonk/Renderer/Shader.h"

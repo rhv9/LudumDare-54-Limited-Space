@@ -169,6 +169,7 @@
     <ClInclude Include="src\Gonk\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Gonk\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\Gonk\Renderer\Renderer.h" />
+    <ClInclude Include="src\Gonk\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Gonk\Renderer\RendererAPI.h" />
     <ClInclude Include="src\Gonk\Renderer\RendererCommand.h" />
     <ClInclude Include="src\Gonk\Renderer\Shader.h" />
@@ -612,6 +613,7 @@
     <ClCompile Include="src\Gonk\Renderer\Camera.cpp" />
     <ClCompile Include="src\Gonk\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\Gonk\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Gonk\Renderer\RendererAPI.cpp" />
     <ClCompile Include="src\Gonk\Renderer\RendererCommand.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Shader.cpp" />

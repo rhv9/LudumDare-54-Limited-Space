@@ -17,6 +17,7 @@
 #include "Gonk/Core/Log.h"
 
 #include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #ifdef GK_PLATFORM_WINDOWS
 	#include <Windows.h>

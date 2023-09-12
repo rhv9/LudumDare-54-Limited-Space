@@ -54,6 +54,21 @@ namespace Gonk {
 		glUseProgram(0);
 	}
 
+	void OpenGLShader::SetMat4(const std::string& name, glm::mat4 matrix)
+	{
+		UniformMat4(name, matrix);
+	}
+
+	void OpenGLShader::SetInt(const std::string& name, const int val)
+	{
+		UniformInt(name, val);
+	}
+
+	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& val)
+	{
+		UniformFloat4(name, val);
+	}
+
 	void OpenGLShader::UniformInt(const std::string& name, const int val) const
 	{
 		int loc = glGetUniformLocation(m_RendererID, name.c_str());

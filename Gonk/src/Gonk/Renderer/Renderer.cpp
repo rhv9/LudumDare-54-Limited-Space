@@ -2,6 +2,7 @@
 
 #include "Renderer.h"
 #include "Gonk/Renderer/RendererCommand.h"
+#include "Gonk/Renderer/Renderer2D.h"
 
 #include "Platform/OpenGL/OpenGLShader.h"
 
@@ -12,6 +13,7 @@ namespace Gonk {
     void Renderer::Init()
     {
         RendererCommand::Init();
+        Renderer2D::Init();
     }
 
     void Renderer::OnWindowResize(uint32_t width, uint32_t height)

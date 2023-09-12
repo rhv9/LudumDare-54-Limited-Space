@@ -60,20 +60,11 @@
     <ClInclude Include="src\Gonk.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\Gonk\Application.h">
-      <Filter>src\Gonk</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gonk\Core.h">
-      <Filter>src\Gonk</Filter>
-    </ClInclude>
     <ClInclude Include="src\Gonk\Core\Platform.h">
       <Filter>src\Gonk\Core</Filter>
     </ClInclude>
     <ClInclude Include="src\Gonk\Core\Timestep.h">
       <Filter>src\Gonk\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gonk\EntryPoint.h">
-      <Filter>src\Gonk</Filter>
     </ClInclude>
     <ClInclude Include="src\Gonk\Events\ApplicationEvent.h">
       <Filter>src\Gonk\Events</Filter>
@@ -98,15 +89,6 @@
     </ClInclude>
     <ClInclude Include="src\Gonk\Input\MouseButtonCodes.h">
       <Filter>src\Gonk\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gonk\Layer.h">
-      <Filter>src\Gonk</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gonk\LayerStack.h">
-      <Filter>src\Gonk</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gonk\Log.h">
-      <Filter>src\Gonk</Filter>
     </ClInclude>
     <ClInclude Include="src\Gonk\Renderer\Buffer.h">
       <Filter>src\Gonk\Renderer</Filter>
@@ -137,9 +119,6 @@
     </ClInclude>
     <ClInclude Include="src\Gonk\Renderer\VertexArray.h">
       <Filter>src\Gonk\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Gonk\Window.h">
-      <Filter>src\Gonk</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1416,25 +1395,21 @@
     <ClInclude Include="vendor\stb_image\stb_image.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="src\Gonk\Core\Application.h" />
+    <ClInclude Include="src\Gonk\Core\Core.h" />
+    <ClInclude Include="src\Gonk\Core\EntryPoint.h" />
+    <ClInclude Include="src\Gonk\Core\Layer.h" />
+    <ClInclude Include="src\Gonk\Core\LayerStack.h" />
+    <ClInclude Include="src\Gonk\Core\Log.h" />
+    <ClInclude Include="src\Gonk\Core\Window.h" />
+    <ClInclude Include="src\Gonk\Renderer\Renderer2D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Gonk\Application.cpp">
-      <Filter>src\Gonk</Filter>
-    </ClCompile>
     <ClCompile Include="src\Gonk\ImGui\ImGuiBuild.cpp">
       <Filter>src\Gonk\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="src\Gonk\ImGui\ImGuiLayer.cpp">
       <Filter>src\Gonk\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gonk\Layer.cpp">
-      <Filter>src\Gonk</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gonk\LayerStack.cpp">
-      <Filter>src\Gonk</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gonk\Log.cpp">
-      <Filter>src\Gonk</Filter>
     </ClCompile>
     <ClCompile Include="src\Gonk\Renderer\Buffer.cpp">
       <Filter>src\Gonk\Renderer</Filter>
@@ -1496,5 +1471,10 @@
     <ClCompile Include="vendor\stb_image\stb_image.cpp">
       <Filter>vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="src\Gonk\Core\Application.cpp" />
+    <ClCompile Include="src\Gonk\Core\Layer.cpp" />
+    <ClCompile Include="src\Gonk\Core\LayerStack.cpp" />
+    <ClCompile Include="src\Gonk\Core\Log.cpp" />
+    <ClCompile Include="src\Gonk\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>
