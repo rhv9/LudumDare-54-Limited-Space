@@ -16,15 +16,15 @@ extern Gonk::Application* Gonk::CreateApplication();
 int main() 
 {
 	Gonk::Log::Init();
-	GK_PROFILE_BEGIN_SESSION("Startup", "GonkProfile-Startup.json");
+	GK_PROFILE_BEGIN_SESSION("Startup", "Profiling/GonkProfile-Startup.json");
 	auto app = Gonk::CreateApplication();
 	GK_PROFILE_END_SESSION();
 
-	GK_PROFILE_BEGIN_SESSION("Runtime", "GonkProfile-Runtime.json");
+	GK_PROFILE_BEGIN_SESSION("Runtime", "Profiling/GonkProfile-Runtime.json");
 	app->Run();
 	GK_PROFILE_END_SESSION();
 
-	GK_PROFILE_BEGIN_SESSION("Closing", "GonkProfile-Closing.json");
+	GK_PROFILE_BEGIN_SESSION("Closing", "Profiling/GonkProfile-Closing.json");
 	delete app;
 	GK_PROFILE_END_SESSION();
 

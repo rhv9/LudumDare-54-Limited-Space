@@ -29,21 +29,29 @@ namespace Gonk {
 
 	OpenGLVertexArray::OpenGLVertexArray()
 	{
+		GK_PROFILE_FUNCTION();
+
 		glCreateVertexArrays(1, &m_RendererID);
 	}
 
 	OpenGLVertexArray::~OpenGLVertexArray()
 	{
+		GK_PROFILE_FUNCTION();
+
 		glDeleteVertexArrays(1, &m_RendererID);
 	}
 
 	void OpenGLVertexArray::Bind() const
 	{
+		GK_PROFILE_FUNCTION();
+
 		glBindVertexArray(m_RendererID);
 	}
 
 	void OpenGLVertexArray::UnBind() const
 	{
+		GK_PROFILE_FUNCTION();
+
 		glBindVertexArray(0);
 	}
 

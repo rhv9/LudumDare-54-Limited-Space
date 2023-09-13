@@ -12,7 +12,9 @@ namespace Gonk {
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
-	{
+	{ 
+		GK_PROFILE_FUNCTION();
+
 		GK_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
@@ -27,20 +29,32 @@ namespace Gonk {
 
 	Application::~Application()
 	{
+		GK_PROFILE_FUNCTION();
+
+		Renderer::Shutdown();
+		GetWindow().Shutdown();
 	}
 
 	void Application::PushLayer(Layer* layer)
 	{
+		GK_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* layer)
 	{
+		GK_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(layer);
+		layer->OnAttach();
 	}
 
 	void Application::Shutdown()
 	{
+		GK_PROFILE_FUNCTION();
+
 		m_Running = false;
 		GetWindow().Shutdown();
 
@@ -48,8 +62,9 @@ namespace Gonk {
 
 	void Application::OnEvent(Event& e)
 	{
-		EventDispatcher dispatcher(e);
+		GK_PROFILE_FUNCTION();
 
+		EventDispatcher dispatcher(e);
 
 		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
 		dispatcher.Dispatch<WindowResizeEvent>(std::bind(&Application::OnWindowResize, this, std::placeholders::_1));
@@ -71,6 +86,8 @@ namespace Gonk {
 
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		GK_PROFILE_FUNCTION();
+
 		if (e.getHeight() == 0 || e.getWidth() == 0)
 		{
 			m_Minimized = true;
@@ -84,25 +101,38 @@ namespace Gonk {
 
 	void Application::Run()
 	{
+		GK_PROFILE_FUNCTION();
+
 		while (m_Running)
 		{
+			GK_PROFILE_SCOPE("RunLoop");
+
 			float time = (float)Platform::GetTime();
 			Timestep ts = time - m_LastRenderTime;
 			m_LastRenderTime = time;
 
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
-					layer->OnUpdate(ts);
+				{
+					GK_PROFILE_SCOPE("LayerStack OnUpdates");
+
+					for (Layer* layer : m_LayerStack)
+						layer->OnUpdate(ts);
+
+				}
 			}
 
 			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-				layer->OnImGuiRender();
+			{
+				GK_PROFILE_SCOPE("LayerStack OnImGuiRender");
+				for (Layer* layer : m_LayerStack)
+					layer->OnImGuiRender();
+			}
 			m_ImGuiLayer->End();
 
 
 			m_Window->OnUpdate();
 		}
+
 	}
 }

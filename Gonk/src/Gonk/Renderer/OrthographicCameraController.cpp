@@ -26,6 +26,8 @@ namespace Gonk {
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)
 	{
+		GK_PROFILE_FUNCTION();
+
 		if (Gonk::Input::IsKeyPressed(GK_KEY_W))
 			m_Position.y += m_ZoomLevel * ts;
 		if (Gonk::Input::IsKeyPressed(GK_KEY_S))
@@ -45,6 +47,7 @@ namespace Gonk {
 
 	void OrthographicCameraController::OnEvent(Event& e)
 	{
+		GK_PROFILE_FUNCTION();
 
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<MouseScrolledEvent>(std::bind(&OrthographicCameraController::OnMouseScrollCallback, this, std::placeholders::_1));
@@ -54,6 +57,8 @@ namespace Gonk {
 
 	bool OrthographicCameraController::OnMouseScrollCallback(MouseScrolledEvent& e)
 	{
+		GK_PROFILE_FUNCTION();
+
 		m_ZoomLevel += -e.GetYOffset() * 0.5f;
 		m_Camera.SetProjectionMatrix(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
@@ -61,6 +66,8 @@ namespace Gonk {
 	
 	bool OrthographicCameraController::OnWindowResizeCallback(WindowResizeEvent& e)
 	{
+		GK_PROFILE_FUNCTION();
+
 		SetAspectRatio((float)e.getWidth() / (float)e.getHeight());
 		return false;
 	}

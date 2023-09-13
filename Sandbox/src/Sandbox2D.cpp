@@ -10,11 +10,15 @@
 
 void Sandbox2DLayer::OnAttach()
 {
+	GK_PROFILE_FUNCTION();
+
 	m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
 }
 
 void Sandbox2DLayer::OnDetach()
 {
+	GK_PROFILE_FUNCTION();
+
 }
 
 void Sandbox2DLayer::OnUpdate(Gonk::Timestep ts)
@@ -22,11 +26,7 @@ void Sandbox2DLayer::OnUpdate(Gonk::Timestep ts)
 	GK_PROFILE_FUNCTION();
 
 	// update
-	{
-		GK_PROFILE_SCOPE("CameraController::OnUpdate");
-		m_CameraController.OnUpdate(ts);
-
-	}
+	m_CameraController.OnUpdate(ts);
 
 	// Render
 	{

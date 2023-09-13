@@ -40,6 +40,7 @@ namespace Gonk {
 		};
 		WindowData m_Data;
 
+		bool m_Shutdown = false;
 
 
 	};

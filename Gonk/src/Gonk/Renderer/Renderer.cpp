@@ -12,6 +12,8 @@ namespace Gonk {
 
     void Renderer::Init()
     {
+        GK_PROFILE_FUNCTION();
+
         RendererCommand::Init();
         Renderer2D::Init();
     }
@@ -36,6 +38,12 @@ namespace Gonk {
         std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4("u_ViewProjectionMatrix", s_SceneData->ViewProjectionMatrix);
         std::dynamic_pointer_cast<OpenGLShader>(shader)->UniformMat4("u_Transform", transform);
         RendererCommand::DrawIndexed(vertexArray);
+    }
+
+    void Renderer::Shutdown()
+    {
+        RendererCommand::Shutdown();
+        Renderer2D::Shutdown();
     }
 
 }

@@ -23,7 +23,8 @@ namespace Gonk {
 
 	void ImGuiLayer::OnAttach()
 	{
-		GK_CORE_TRACE("THIS FUNCTION IS CALLED!!!!");
+		GK_PROFILE_FUNCTION();
+
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
@@ -57,6 +58,8 @@ namespace Gonk {
 
 	void ImGuiLayer::OnDetach()
 	{
+		GK_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();
@@ -64,6 +67,8 @@ namespace Gonk {
 
 	void ImGuiLayer::Begin()
 	{
+		GK_PROFILE_FUNCTION();
+
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
@@ -71,6 +76,8 @@ namespace Gonk {
 
 	void ImGuiLayer::End()
 	{
+		GK_PROFILE_FUNCTION();
+
 		ImGuiIO& io = ImGui::GetIO();
 
 		Application& app = Application::Get();

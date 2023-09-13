@@ -23,16 +23,22 @@ namespace Gonk {
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		GK_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		GK_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		GK_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.m_Width = props.Width;
 		m_Data.m_Height = props.Height;
@@ -41,6 +47,7 @@ namespace Gonk {
 
 		if (!s_GLFWInitialised)
 		{
+			GK_PROFILE_SCOPE("glfwInit");
 			// TODO: GLFW terminate in windows shutdown
 			int success = glfwInit();
 			GK_CORE_ASSERT(success, "Could not initialise GLFW!");
@@ -49,8 +56,10 @@ namespace Gonk {
 
 			s_GLFWInitialised = true;
 		}
-
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		{
+			GK_PROFILE_SCOPE("glfwCreateWindow");
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+		}
 
 		m_Context = new OpenGLContext(m_Window);
 		m_Context->Init();
@@ -155,17 +164,27 @@ namespace Gonk {
 
 	void WindowsWindow::Shutdown()
 	{
+		GK_PROFILE_FUNCTION();
+
+		if (m_Shutdown)
+			return;
+
 		glfwDestroyWindow(m_Window);
+		m_Shutdown = true;
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		GK_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		GK_PROFILE_FUNCTION();
+
 		if (enabled)
 			glfwSwapInterval(1);
 		else

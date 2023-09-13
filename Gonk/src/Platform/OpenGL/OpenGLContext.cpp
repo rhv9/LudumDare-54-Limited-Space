@@ -13,6 +13,8 @@ namespace Gonk {
 
 	void Gonk::OpenGLContext::Init()
 	{
+		GK_PROFILE_FUNCTION();
+
 		glfwMakeContextCurrent(m_WindowHandle);
 		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 		GK_CORE_ASSERT(status, "Failed to initialise Glad!");
@@ -32,6 +34,8 @@ namespace Gonk {
 
 	void Gonk::OpenGLContext::SwapBuffers()
 	{
+		GK_PROFILE_FUNCTION();
+
 		glfwSwapBuffers(m_WindowHandle);
 	}
 }

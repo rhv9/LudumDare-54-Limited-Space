@@ -7,6 +7,8 @@ namespace Gonk {
 
 	void OpenGLRendererAPI::Init()
 	{
+		GK_PROFILE_FUNCTION();
+
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
@@ -28,8 +30,12 @@ namespace Gonk {
 
 	void OpenGLRendererAPI::OnWindowResize(uint32_t width, uint32_t height)
 	{
-
 		glViewport(0, 0, width, height);
+	}
+
+	void OpenGLRendererAPI::Shutdown()
+	{
+		// TODO: Don't know if I should be doing stuff here
 	}
 
 }

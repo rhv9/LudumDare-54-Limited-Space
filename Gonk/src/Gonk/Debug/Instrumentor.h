@@ -18,6 +18,7 @@
 #include <chrono>
 #include <algorithm>
 #include <fstream>
+#include <filesystem>
 #include <mutex>
 
 #include <thread>
@@ -48,7 +49,17 @@ namespace Gonk {
 
         void BeginSession(const std::string& name, const std::string& filepath = "results.json")
         {
+            // check directory and create
+            std::filesystem::path directoryPath = std::filesystem::path(filepath).parent_path();
+
+            if (!std::filesystem::exists(directoryPath)) {
+                if (!std::filesystem::create_directories(directoryPath)) {
+                    GK_CORE_ERROR("Failed to create directory for profiling path!");
+                }
+            }
+
             m_OutputStream.open(filepath);
+            GK_CORE_ASSERT(m_OutputStream.is_open(), "Failed to open profiling filepath");
             WriteHeader();
             m_CurrentSession = new InstrumentationSession{ name };
         }
@@ -151,7 +162,7 @@ namespace Gonk {
     };
 }
 
-#define GK_PROFILE 1
+#define GK_PROFILE
 #ifdef GK_PROFILE
 
 #define GK_PROFILE_BEGIN_SESSION(name, filepath) ::Gonk::Instrumentor::Get().BeginSession(name, filepath)

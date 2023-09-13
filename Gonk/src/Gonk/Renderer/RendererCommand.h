@@ -34,6 +34,11 @@ namespace Gonk {
 			s_RendererAPI->OnWindowResize(width, height);
 		}
 
+		inline static void Shutdown()
+		{
+			s_RendererAPI->Shutdown();
+		}
+
 	private:
 		static RendererAPI* s_RendererAPI;
 	};

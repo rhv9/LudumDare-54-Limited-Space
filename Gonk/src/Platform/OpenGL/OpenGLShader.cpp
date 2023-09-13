@@ -19,6 +19,8 @@ static GLenum ShaderTypeFromString(std::string& type)
 namespace Gonk {
 	OpenGLShader::OpenGLShader(const std::string& path)
 	{
+		GK_PROFILE_FUNCTION();
+
 		std::unordered_map<GLenum, std::string> shaderSources = PreProcess(ReadFile(path));
 		Compile(shaderSources);
 
@@ -33,6 +35,8 @@ namespace Gonk {
 	}
 	OpenGLShader::OpenGLShader(const std::string& name, const std::string& vertexSrc, const std::string& fragmentSrc)
 	{
+		GK_PROFILE_FUNCTION();
+
 		m_Name = name;
 		std::unordered_map<GLenum, std::string> shaderSources;
 		shaderSources[GL_VERTEX_SHADER] = vertexSrc;
@@ -41,31 +45,43 @@ namespace Gonk {
 	}
 	OpenGLShader::~OpenGLShader()
 	{
+		GK_PROFILE_FUNCTION();
+
 		glDeleteProgram(m_RendererID);
 	}
 
 	void OpenGLShader::Bind() const
 	{
+		GK_PROFILE_FUNCTION();
+
 		glUseProgram(m_RendererID);
 	}
 
 	void OpenGLShader::UnBind() const
 	{
+		GK_PROFILE_FUNCTION();
+
 		glUseProgram(0);
 	}
 
 	void OpenGLShader::SetMat4(const std::string& name, glm::mat4 matrix)
 	{
+		GK_PROFILE_FUNCTION();
+
 		UniformMat4(name, matrix);
 	}
 
 	void OpenGLShader::SetInt(const std::string& name, const int val)
 	{
+		GK_PROFILE_FUNCTION();
+
 		UniformInt(name, val);
 	}
 
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& val)
 	{
+		GK_PROFILE_FUNCTION();
+
 		UniformFloat4(name, val);
 	}
 

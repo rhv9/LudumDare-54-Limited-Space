@@ -18,6 +18,8 @@ namespace Gonk {
 
 	void Gonk::Renderer2D::Init()
 	{
+		GK_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DData();
 
 		s_Data->QuadVertexArray = Gonk::VertexArray::Create();
@@ -54,6 +56,8 @@ namespace Gonk {
 
 	void Renderer2D::BeginScene(OrthographicCamera& camera)
 	{
+		GK_PROFILE_FUNCTION();
+
 		s_Data->ViewProjectionMatrix = camera.GetViewProjection();
 		s_Data->QuadShader->Bind();
 		s_Data->QuadShader->SetInt("u_Texture", 0);
@@ -61,6 +65,7 @@ namespace Gonk {
 
 	void Renderer2D::EndScene()
 	{
+		GK_PROFILE_FUNCTION();
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& colour)
@@ -75,6 +80,8 @@ namespace Gonk {
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, Ref<Texture> texture, const glm::vec4& colour)
 	{
+		GK_PROFILE_FUNCTION();
+
 		s_Data->QuadVertexArray->Bind();
 
 		s_Data->QuadShader->SetMat4("u_ViewProjectionMatrix", s_Data->ViewProjectionMatrix);
@@ -91,6 +98,8 @@ namespace Gonk {
 
 	void Renderer2D::Shutdown()
 	{
+		GK_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 
