@@ -153,6 +153,7 @@
     <ClInclude Include="src\Gonk\Core\Platform.h" />
     <ClInclude Include="src\Gonk\Core\Timestep.h" />
     <ClInclude Include="src\Gonk\Core\EntryPoint.h" />
+    <ClInclude Include="src\Gonk\Debug\Instrumentor.h" />
     <ClInclude Include="src\Gonk\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Gonk\Events\Event.h" />
     <ClInclude Include="src\Gonk\Events\KeyEvent.h" />

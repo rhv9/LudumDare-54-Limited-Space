@@ -15,6 +15,7 @@
 
 #include "Gonk/Core/Core.h"
 #include "Gonk/Core/Log.h"
+#include "Gonk/Debug/Instrumentor.h"
 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"

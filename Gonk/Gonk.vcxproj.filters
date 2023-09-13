@@ -1403,6 +1403,7 @@
     <ClInclude Include="src\Gonk\Core\Log.h" />
     <ClInclude Include="src\Gonk\Core\Window.h" />
     <ClInclude Include="src\Gonk\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\Gonk\Debug\Instrumentor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gonk\ImGui\ImGuiBuild.cpp">
