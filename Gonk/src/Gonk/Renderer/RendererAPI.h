@@ -18,7 +18,7 @@ namespace Gonk {
 		virtual void SetClearColour(const glm::vec4& colour) = 0;
 		virtual void Clear() = 0;
 
-		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray) const = 0;
+		virtual void DrawIndexed(const Ref<VertexArray>& vertexArray, uint32_t indexCount = 0) const = 0;
 
 		inline static API GetAPI() { return s_API; }
 

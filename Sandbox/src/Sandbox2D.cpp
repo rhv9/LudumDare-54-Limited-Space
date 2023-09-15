@@ -21,6 +21,9 @@ void Sandbox2DLayer::OnDetach()
 
 }
 
+glm::vec3 redPos { 0.0f, 0.0f, -0.5f } ;
+glm::vec3 greenPos { -1.0f, -1.0f, -0.2f };
+
 void Sandbox2DLayer::OnUpdate(Gonk::Timestep ts)
 {
 	GK_PROFILE_FUNCTION();
@@ -40,12 +43,10 @@ void Sandbox2DLayer::OnUpdate(Gonk::Timestep ts)
 		GK_PROFILE_SCOPE("Renderer Draw");
 		Gonk::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		Gonk::Renderer2D::DrawQuad({ 0.0f, 0.2f }, {0.25f, 0.5f}, m_Texture, m_Col);
-		Gonk::Renderer2D::DrawQuad({ 1.0f, 2.0f }, {0.5f, 1.5f}, m_Texture, m_Col);
-		Gonk::Renderer2D::DrawQuad({ -5.0f, -5.0f }, {10.0f, 10.0f }, m_Texture);
-		Gonk::Renderer2D::DrawQuad({ -1.0f, -1.0f }, {0.5f, 0.5f}, {0.2f, 0.2f, 0.8f, 1.0f });
+		Gonk::Renderer2D::DrawQuad(redPos, {1.0f, 1.0f }, { 0.8f, 0.2f, 0.2f, 1.0f });
+		Gonk::Renderer2D::DrawQuad(greenPos, {2.0f, 2.0f}, { 0.2f, 0.8f, 0.2f, 1.0f });
 
-		Gonk::Renderer::EndScene();
+		Gonk::Renderer2D::EndScene();
 	}
 }
 
@@ -59,6 +60,7 @@ void Sandbox2DLayer::OnImGuiRender()
 	GK_PROFILE_FUNCTION();
 	ImGui::Begin("Settings");
 	ImGui::ColorEdit4("Col", &m_Col[0]);
-
+	ImGui::DragFloat3("Red Pos", &redPos[0], 0.05f, -1.0f, 1.0f);
+	ImGui::DragFloat3("Green Pos", &greenPos[0], 0.05f, -1.0f, 1.0f);
 	ImGui::End();
 }

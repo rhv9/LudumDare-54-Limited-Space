@@ -118,7 +118,7 @@ namespace Gonk {
         Instrumentor()
             : m_CurrentSession(nullptr), m_ProfileCount(0) {}
 
-    private:
+    private: 
         InstrumentationSession* m_CurrentSession;
         std::ofstream m_OutputStream;
         int m_ProfileCount;
@@ -162,7 +162,7 @@ namespace Gonk {
     };
 }
 
-#define GK_PROFILE
+//#define GK_PROFILE
 #ifdef GK_PROFILE
 
 #define GK_PROFILE_BEGIN_SESSION(name, filepath) ::Gonk::Instrumentor::Get().BeginSession(name, filepath)
