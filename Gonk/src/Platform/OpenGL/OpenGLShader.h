@@ -19,11 +19,13 @@ namespace Gonk {
 
 		virtual void SetMat4(const std::string& name, const glm::mat4 matrix) override;
 		virtual void SetInt(const std::string& name, const int val) override;
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) override;
 		virtual void SetFloat4(const std::string& name, const glm::vec4& val) override;
 
 		virtual const std::string GetName() const { return m_Name; }
 
 		void UniformInt(const std::string& name, const int val) const;
+		void UniformIntArray(const std::string& name, int* values, uint32_t count) const;
 
 		void UniformFloat(const std::string& name, const float val) const;
 		void UniformFloat2(const std::string& name, const glm::vec2& vector) const;

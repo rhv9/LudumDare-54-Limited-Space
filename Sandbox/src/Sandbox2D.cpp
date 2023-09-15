@@ -12,7 +12,8 @@ void Sandbox2DLayer::OnAttach()
 {
 	GK_PROFILE_FUNCTION();
 
-	m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_CheckerboardTexture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
+	m_LogoTexture = Gonk::Texture2D::Create("assets/textures/ChernoLogo.png");
 }
 
 void Sandbox2DLayer::OnDetach()
@@ -21,8 +22,10 @@ void Sandbox2DLayer::OnDetach()
 
 }
 
-glm::vec3 redPos { 0.0f, 0.0f, -0.5f } ;
+glm::vec3 redPos { 0.0f, 0.0f, -0.0f } ;
 glm::vec3 greenPos { -1.0f, -1.0f, -0.2f };
+float rotation = 0.0f;
+float autoRotate = 0.0f;
 
 void Sandbox2DLayer::OnUpdate(Gonk::Timestep ts)
 {
@@ -38,16 +41,18 @@ void Sandbox2DLayer::OnUpdate(Gonk::Timestep ts)
 		Gonk::RendererCommand::Clear();
 	}
 	
-	{
+	
+	autoRotate += 10.0f;
 
-		GK_PROFILE_SCOPE("Renderer Draw");
-		Gonk::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	Gonk::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		Gonk::Renderer2D::DrawQuad(redPos, {1.0f, 1.0f }, { 0.8f, 0.2f, 0.2f, 1.0f });
-		Gonk::Renderer2D::DrawQuad(greenPos, {2.0f, 2.0f}, { 0.2f, 0.8f, 0.2f, 1.0f });
+	Gonk::Renderer2D::DrawQuad(redPos, {1.0f, 1.0f }, { 0.8f, 0.2f, 0.2f, 1.0f });
+	Gonk::Renderer2D::DrawQuad(greenPos, {2.0f, 2.0f}, { 0.2f, 0.8f, 0.2f, 1.0f });
+	Gonk::Renderer2D::DrawRotatedQuad({ 0.0f, 0.0f, 0.0f }, { 1.0f, 1.0f }, rotation, m_CheckerboardTexture, 10.0f, {1.0f, 0.5f, 0.5f, 1.0f});
+	Gonk::Renderer2D::DrawRotatedQuad({ 2.0f, 2.0f, 0.0f }, { 1.0f, 1.0f }, autoRotate, {0.0f, 1.0f, 1.0f, 1.0f});
+	Gonk::Renderer2D::DrawQuad({1.0f, 1.0f, 0.1f}, {1.0f, 1.0f}, m_LogoTexture, 3.0f, { 0.5f, 1.0f, 0.5f, 1.0f });
 
-		Gonk::Renderer2D::EndScene();
-	}
+	Gonk::Renderer2D::EndScene();
 }
 
 void Sandbox2DLayer::OnEvent(Gonk::Event& e)
@@ -62,5 +67,6 @@ void Sandbox2DLayer::OnImGuiRender()
 	ImGui::ColorEdit4("Col", &m_Col[0]);
 	ImGui::DragFloat3("Red Pos", &redPos[0], 0.05f, -1.0f, 1.0f);
 	ImGui::DragFloat3("Green Pos", &greenPos[0], 0.05f, -1.0f, 1.0f);
+	ImGui::DragFloat("Rotation", &rotation, 0.5f, -360.0f, 360.0f);
 	ImGui::End();
 }

@@ -41,7 +41,7 @@ public:
 
 		m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
-		m_Texture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
+		m_CheckerboardTexture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
 		m_ChernoTexture = Gonk::Texture2D::Create("assets/textures/ChernoLogo.png");
 		m_ShaderLibrary.Get("Texture")->Bind();
 		std::dynamic_pointer_cast<Gonk::OpenGLShader>(m_ShaderLibrary.Get("Texture"))->UniformInt("u_Texture", 0);
@@ -155,7 +155,7 @@ public:
 
 		}
 		m_ShaderLibrary.Get("Texture")->Bind();
-		m_Texture->Bind();
+		m_CheckerboardTexture->Bind();
 		Gonk::Renderer::Submit(m_ShaderLibrary.Get("Texture"), m_TextureVertexArray);
 		m_ChernoTexture->Bind();
 		Gonk::Renderer::Submit(m_ShaderLibrary.Get("Texture"), m_TextureVertexArray);
@@ -169,7 +169,7 @@ public:
 private:
 	Gonk::ShaderLibrary m_ShaderLibrary;
 
-	Gonk::Ref<Gonk::Texture2D> m_Texture, m_ChernoTexture;
+	Gonk::Ref<Gonk::Texture2D> m_CheckerboardTexture, m_ChernoTexture;
 	Gonk::Ref<Gonk::VertexArray> m_TextureVertexArray;
 
 	Gonk::Ref<Gonk::Shader> m_BlueShader;

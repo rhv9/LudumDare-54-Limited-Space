@@ -15,7 +15,7 @@ public:
 	virtual void OnImGuiRender() override;
 private:
 	glm::vec4 m_Col = {0.8f, 0.2f, 0.2f, 1.0f};
-	Gonk::Ref<Gonk::Texture> m_Texture;
+	Gonk::Ref<Gonk::Texture> m_CheckerboardTexture, m_LogoTexture;
 
 	Gonk::OrthographicCameraController m_CameraController{1280.0f / 720.0f};
 };

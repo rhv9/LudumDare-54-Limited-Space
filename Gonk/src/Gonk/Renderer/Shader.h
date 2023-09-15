@@ -15,6 +15,7 @@ namespace Gonk {
 
 		virtual void SetMat4(const std::string& name, const glm::mat4 matrix) = 0;
 		virtual void SetInt(const std::string& name, const int val) = 0;
+		virtual void SetIntArray(const std::string& name, int* values, uint32_t count) = 0;
 		virtual void SetFloat4(const std::string& name, const glm::vec4& val) = 0;
 
 		static Ref<Shader> Create(const std::string&name, const std::string& vertexSrc, const std::string& fragmentSrc);

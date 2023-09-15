@@ -78,6 +78,13 @@ namespace Gonk {
 		UniformInt(name, val);
 	}
 
+	void OpenGLShader::SetIntArray(const std::string& name, int* values, uint32_t count)
+	{
+		GK_PROFILE_FUNCTION();
+
+		UniformIntArray(name, values, count);
+	}
+
 	void OpenGLShader::SetFloat4(const std::string& name, const glm::vec4& val)
 	{
 		GK_PROFILE_FUNCTION();
@@ -89,6 +96,12 @@ namespace Gonk {
 	{
 		int loc = glGetUniformLocation(m_RendererID, name.c_str());
 		glUniform1i(loc, val);
+	}
+
+	void OpenGLShader::UniformIntArray(const std::string& name, int* values, uint32_t count) const
+	{
+		int loc = glGetUniformLocation(m_RendererID, name.c_str());
+		glUniform1iv(loc, count, values);
 	}
 
 	void OpenGLShader::UniformFloat(const std::string& name, const float val) const
