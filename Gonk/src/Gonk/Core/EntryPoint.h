@@ -13,7 +13,7 @@ extern "C"
 
 extern Gonk::Application* Gonk::CreateApplication();
 
-int main() 
+int main(int argc, char** argv)
 {
 	Gonk::Log::Init();
 	GK_PROFILE_BEGIN_SESSION("Startup", "Profiling/GonkProfile-Startup.json");

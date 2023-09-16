@@ -1,0 +1,6 @@
+To improve:
+- Fix WindowsInput system to use Input::Create
+- ^ but for WindowsWindow and Window too.
+- Change to use enums in Input.
+- Abstract away Renderer2D::DrawQuad/DrawRotatedQuad to a general function for all cases.
+

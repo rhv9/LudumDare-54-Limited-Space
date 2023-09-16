@@ -7,7 +7,6 @@
 
 #include <chrono>
 
-
 const char* s_MapTiles =
 "WWWWWWWWWWWWWWWWWWWWWWWW"
 "WWWWWWWWWWWWWWWWWWWWWWWW"
@@ -48,6 +47,8 @@ void Sandbox2DLayer::OnAttach()
 	s_TextureMap['W'] = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, {11, 11}, {128, 128});
 
 	m_CameraController.SetZoomLevel(5.0f);
+
+	Gonk::Shader::Create("assets/shaders/FlatColour.glsl");
 
 	//Gonk::Application::Get().GetWindow().SetVSync(false);
 

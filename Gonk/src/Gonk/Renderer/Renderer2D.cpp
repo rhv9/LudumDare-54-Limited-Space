@@ -132,6 +132,10 @@ namespace Gonk {
 	{
 		GK_PROFILE_FUNCTION();
 
+		// nothing to draw
+		if (s_Data.QuadIndexCount == 0)
+			return;
+
 		// Bind textures
 		for (uint32_t i = 0; i < s_Data.TextureSlotIndex; i++)
 			s_Data.TextureSlots[i]->Bind(i);
@@ -331,6 +335,8 @@ namespace Gonk {
 	void Renderer2D::Shutdown()
 	{
 		GK_PROFILE_FUNCTION();
+
+		delete[] s_Data.QuadVertexBufferBase;
 	}
 
 	void Renderer2D::ResetStats()

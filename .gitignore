@@ -6,6 +6,7 @@ bin-int/
 
 # Files
 *.user
+*.log
 
 # Visual studio files and folder
 **.sln

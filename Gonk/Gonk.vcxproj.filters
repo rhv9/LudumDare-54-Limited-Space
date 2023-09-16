@@ -1480,4 +1480,7 @@
     <ClCompile Include="src\Gonk\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\Gonk\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
 </Project>

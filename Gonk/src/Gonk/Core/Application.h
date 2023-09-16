@@ -15,6 +15,8 @@
 
 #include "Gonk/Renderer/Camera.h"
 
+int main(int argc, char** argv);
+
 namespace Gonk {
 
 	class GONK_API Application
@@ -23,7 +25,6 @@ namespace Gonk {
 		Application();
 		virtual ~Application();
 
-		void Run();
 
 		void OnEvent(Event& e);
 
@@ -35,6 +36,7 @@ namespace Gonk {
 
 		inline static Application& Get() { return *s_Instance; }
 	private:
+		void Run();
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
@@ -45,10 +47,11 @@ namespace Gonk {
 
 		float m_LastRenderTime;
 
-
 	private:
 		static Application* s_Instance;
 		bool m_Minimized = false;
+
+		friend int ::main(int argc, char** argv);
 
 	};
 	// To be defined in CLIENT

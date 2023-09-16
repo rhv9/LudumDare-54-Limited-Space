@@ -269,7 +269,7 @@ namespace Gonk {
 		for (auto shader : shaderIDs)
 		{
 			glDetachShader(m_RendererID, shader);
-			glDeleteShader(m_RendererID);
+			glDeleteShader(shader);
 		}
 
 	}
