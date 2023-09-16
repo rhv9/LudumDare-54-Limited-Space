@@ -3,6 +3,7 @@
 #include "RendererCommand.h"
 #include "Camera.h"
 #include "Gonk/Renderer/Texture.h"
+#include "Gonk/Renderer/SubTexture2D.h"
 
 namespace Gonk {
 
@@ -17,8 +18,11 @@ namespace Gonk {
 
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& colour);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, Ref<Texture> texture, const float tilingFactor = 1.0f, const glm::vec4& colour = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, Ref<SubTexture2D> subTexture, const float tilingFactor = 1.0f, const glm::vec4& colour = { 1.0f, 1.0f, 1.0f, 1.0f });
+
 		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, const glm::vec4& colour);
 		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, Ref<Texture> texture, const float tilingFactor = 1.0f, const glm::vec4& colour = { 1.0f, 1.0f, 1.0f, 1.0f });
+		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, Ref<SubTexture2D> subTexture, const float tilingFactor = 1.0f, const glm::vec4& colour = { 1.0f, 1.0f, 1.0f, 1.0f });
 
 
 		static void Shutdown();

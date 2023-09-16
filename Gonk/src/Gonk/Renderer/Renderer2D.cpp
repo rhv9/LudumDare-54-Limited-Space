@@ -206,6 +206,41 @@ namespace Gonk {
 		s_Data.Stats.QuadCount++;
 	}
 
+	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, Ref<SubTexture2D> subTexture, const float tilingFactor, const glm::vec4& colour)
+	{
+		GK_PROFILE_FUNCTION();
+
+		auto texCoords = subTexture->GetTexCoords();
+		auto texture = subTexture->GetTexture();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
+		float textureIndex = 0;
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (*texture.get() == *s_Data.TextureSlots[i].get())
+			{
+				textureIndex = i;
+				break;
+			}
+		}
+		if (textureIndex == 0)
+		{
+			textureIndex = s_Data.TextureSlotIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotIndex++] = texture;
+		}
+		glm::mat4 transform = glm::scale(glm::translate(glm::mat4(1.0f), position), { size, 1.0f });
+		for (int i = 0; i < 4; i++)
+		{
+			setQuadVertexBuffer(s_Data.QuadVertexBufferPtr, transform * s_Data.QuadVertexPositions[i], colour, texCoords[i], textureIndex, tilingFactor);
+			s_Data.QuadVertexBufferPtr++;
+		}
+		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
+	}
+
 	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, const glm::vec4& colour)
 	{
 		GK_PROFILE_FUNCTION();
@@ -215,7 +250,7 @@ namespace Gonk {
 
 		constexpr float textureIndex = 0.0f;
 		constexpr float tilingFactor = 1.0f;
-		glm::mat4 transform =glm::scale(glm::rotate(glm::translate(glm::mat4(1.0f), position),glm::radians(rotation),{ 0.0f, 0.0f, 1.0f }),{ size, 1.0f });
+		glm::mat4 transform =glm::scale(glm::rotate(glm::translate(glm::mat4(1.0f), position), rotation,{ 0.0f, 0.0f, 1.0f }),{ size, 1.0f });
 		for (int i = 0; i < 4; i++)
 		{
 			setQuadVertexBuffer(s_Data.QuadVertexBufferPtr, transform * s_Data.QuadVertexPositions[i], colour, s_Data.TexCoords[i], textureIndex, tilingFactor);
@@ -247,10 +282,45 @@ namespace Gonk {
 			textureIndex = s_Data.TextureSlotIndex;
 			s_Data.TextureSlots[s_Data.TextureSlotIndex++] = texture;
 		}
-		glm::mat4 transform = glm::scale(glm::rotate(glm::translate(glm::mat4(1.0f), position), glm::radians(rotation), { 0.0f, 0.0f, 1.0f }), { size, 1.0f });
+		glm::mat4 transform = glm::scale(glm::rotate(glm::translate(glm::mat4(1.0f), position), rotation, { 0.0f, 0.0f, 1.0f }), { size, 1.0f });
 		for (int i = 0; i < 4; i++)
 		{
 			setQuadVertexBuffer(s_Data.QuadVertexBufferPtr, transform * s_Data.QuadVertexPositions[i], colour, s_Data.TexCoords[i], textureIndex, tilingFactor);
+			s_Data.QuadVertexBufferPtr++;
+		}
+		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
+	}
+
+	void Renderer2D::DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, Ref<SubTexture2D> subTexture, const float tilingFactor, const glm::vec4& colour)
+	{
+		GK_PROFILE_FUNCTION();
+
+		auto texCoords = subTexture->GetTexCoords();
+		auto texture = subTexture->GetTexture();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
+		float textureIndex = 0;
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (*texture.get() == *s_Data.TextureSlots[i].get())
+			{
+				textureIndex = i;
+				break;
+			}
+		}
+		if (textureIndex == 0)
+		{
+			textureIndex = s_Data.TextureSlotIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotIndex++] = texture;
+		}
+		glm::mat4 transform = glm::scale(glm::rotate(glm::translate(glm::mat4(1.0f), position), rotation, { 0.0f, 0.0f, 1.0f }), { size, 1.0f });
+		for (int i = 0; i < 4; i++)
+		{
+			setQuadVertexBuffer(s_Data.QuadVertexBufferPtr, transform * s_Data.QuadVertexPositions[i], colour, texCoords[i], textureIndex, tilingFactor);
 			s_Data.QuadVertexBufferPtr++;
 		}
 		s_Data.QuadIndexCount += 6;

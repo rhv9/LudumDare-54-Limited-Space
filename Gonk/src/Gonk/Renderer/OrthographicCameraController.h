@@ -8,6 +8,15 @@
 
 namespace Gonk {
 
+	struct OrthographicCameraBounds
+	{
+		float Left, Right;
+		float Bottom, Top;
+
+		float GetWidth() { return Right - Left; }
+		float GetHeight() { return Top - Bottom; }
+	};
+
 	class OrthographicCameraController
 	{
 	public:
@@ -21,21 +30,21 @@ namespace Gonk {
 
 		void OnUpdate(Timestep ts);
 		void OnEvent(Event& e);
+
+		const OrthographicCameraBounds& GetBounds() const { return m_Bounds; }
 	private:
 		bool OnMouseScrollCallback(MouseScrolledEvent& e);
 		bool OnWindowResizeCallback(WindowResizeEvent& e);
 
 
 	private:
-		float m_AspectRatio, m_ZoomLevel;
-
-		OrthographicCamera m_Camera;
-
 		glm::vec2 m_Position = { 0.0f, 0.0f };
+		float m_ZoomLevel, m_AspectRatio;
 		float m_Rotation = 0.0f;
-
 		float m_CameraSpeed = 1.0f, m_RotationSpeed = 360.0f;
 
+		OrthographicCameraBounds m_Bounds;
+		OrthographicCamera m_Camera;
 	};
 
 }

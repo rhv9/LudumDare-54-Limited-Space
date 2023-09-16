@@ -2,6 +2,8 @@
 
 #include <Gonk.h>
 
+#include "ParticleSystem.h"
+
 class Sandbox2DLayer : public Gonk::Layer
 {
 public:
@@ -15,7 +17,13 @@ public:
 	virtual void OnImGuiRender() override;
 private:
 	glm::vec4 m_Col = {0.8f, 0.2f, 0.2f, 1.0f};
-	Gonk::Ref<Gonk::Texture> m_CheckerboardTexture, m_LogoTexture;
+	Gonk::Ref<Gonk::Texture2D> m_CheckerboardTexture, m_LogoTexture;
 
 	Gonk::OrthographicCameraController m_CameraController{1280.0f / 720.0f};
+
+	ParticleSystem m_ParticleSystem;
+	ParticleProps m_Particle;
+
+	Gonk::Ref<Gonk::Texture2D> m_Spritesheet;
+	Gonk::Ref<Gonk::SubTexture2D> m_Barrel, m_Tree;
 };

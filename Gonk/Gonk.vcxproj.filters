@@ -1404,6 +1404,7 @@
     <ClInclude Include="src\Gonk\Core\Window.h" />
     <ClInclude Include="src\Gonk\Renderer\Renderer2D.h" />
     <ClInclude Include="src\Gonk\Debug\Instrumentor.h" />
+    <ClInclude Include="src\Gonk\Renderer\SubTexture2D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gonk\ImGui\ImGuiBuild.cpp">
@@ -1477,5 +1478,6 @@
     <ClCompile Include="src\Gonk\Core\LayerStack.cpp" />
     <ClCompile Include="src\Gonk\Core\Log.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Renderer2D.cpp" />
+    <ClCompile Include="src\Gonk\Renderer\SubTexture2D.cpp" />
   </ItemGroup>
 </Project>

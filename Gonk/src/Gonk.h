@@ -22,6 +22,7 @@
 #include "Gonk/Renderer/Shader.h"
 #include "Gonk/Renderer/VertexArray.h"
 #include "Gonk/Renderer/Texture.h"
+#include "Gonk/Renderer/SubTexture2D.h"
 
 #include "Gonk/Renderer/OrthographicCameraController.h"
 

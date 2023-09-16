@@ -4,6 +4,7 @@ namespace Gonk {
 
 	class OrthographicCamera
 	{
+
 	public:
 		OrthographicCamera(float left, float right, float bottom, float top);
 
@@ -11,6 +12,7 @@ namespace Gonk {
 		glm::mat4& GetViewProjection() { return m_ViewProjectionMatrix; }
 		void SetPosition(const glm::vec3& pos) { m_Position = pos; RecalculateProjectionMatrix(); }
 		void SetRotation(const float rotation) { m_Rotation = rotation; RecalculateProjectionMatrix(); }
+		const glm::vec3& GetPosition() const { return m_Position; }
 
 	private:
 		void RecalculateProjectionMatrix();

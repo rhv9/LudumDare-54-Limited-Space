@@ -8,8 +8,9 @@
 
 namespace Gonk {
 
+
 	OrthographicCameraController::OrthographicCameraController(const float aspectRatio, const float zoomLevel)
-		: m_AspectRatio(aspectRatio), m_ZoomLevel(zoomLevel), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
+		: m_AspectRatio(aspectRatio), m_ZoomLevel(zoomLevel), m_Bounds({ -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel }), m_Camera(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top)
 	{
 	}
 
@@ -60,7 +61,8 @@ namespace Gonk {
 		GK_PROFILE_FUNCTION();
 
 		m_ZoomLevel += -e.GetYOffset() * 0.5f;
-		m_Camera.SetProjectionMatrix(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
+		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		m_Camera.SetProjectionMatrix(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top);
 		return false;
 	}
 	
@@ -68,7 +70,9 @@ namespace Gonk {
 	{
 		GK_PROFILE_FUNCTION();
 
-		SetAspectRatio((float)e.getWidth() / (float)e.getHeight());
+		m_AspectRatio = (float)e.getWidth() / (float)e.getHeight();
+		m_Bounds = { -m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel };
+		m_Camera.SetProjectionMatrix(m_Bounds.Left, m_Bounds.Right, m_Bounds.Bottom, m_Bounds.Top);
 		return false;
 	}
 
