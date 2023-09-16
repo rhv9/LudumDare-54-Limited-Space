@@ -56,8 +56,6 @@ namespace Gonk {
 		GK_PROFILE_FUNCTION();
 
 		m_Running = false;
-		GetWindow().Shutdown();
-
 	}
 
 	void Application::OnEvent(Event& e)
@@ -134,5 +132,6 @@ namespace Gonk {
 			m_Window->OnUpdate();
 		}
 
+		GetWindow().Shutdown();
 	}
 }

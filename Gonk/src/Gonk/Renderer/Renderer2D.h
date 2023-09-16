@@ -17,12 +17,27 @@ namespace Gonk {
 
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& colour);
 		static void DrawQuad(const glm::vec3& position, const glm::vec2& size, Ref<Texture> texture, const float tilingFactor = 1.0f, const glm::vec4& colour = { 1.0f, 1.0f, 1.0f, 1.0f });
-
 		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, const glm::vec4& colour);
 		static void DrawRotatedQuad(const glm::vec3& position, const glm::vec2& size, const float rotation, Ref<Texture> texture, const float tilingFactor = 1.0f, const glm::vec4& colour = { 1.0f, 1.0f, 1.0f, 1.0f });
 
 
 		static void Shutdown();
+
+		struct Statistics
+		{
+			uint32_t DrawCalls = 0;
+			uint32_t QuadCount = 0;
+
+			uint32_t GetTotalVertexCount() { return QuadCount * 4; }
+			uint32_t GetTotalIndexCount() { return QuadCount * 6; }
+		};
+
+		static void ResetStats();
+		static Statistics GetStats();
+
+	private:
+		static void InitNewBatch();
+		static void FlushAndReset();
 	};
 
 }
