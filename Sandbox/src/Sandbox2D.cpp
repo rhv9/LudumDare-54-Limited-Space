@@ -8,6 +8,29 @@
 #include <chrono>
 
 
+const char* s_MapTiles =
+"WWWWWWWWWWWWWWWWWWWWWWWW"
+"WWWWWWWWWWWWWWWWWWWWWWWW"
+"WWWWWWWDDDDDDDDWWWWWWWWW"
+"WWWWWDDDDDDDDDDDDDWWWWWW"
+"WWWWWDDDDWDDDWDDDDDWWWWW"
+"WWWWWDDDDWDWDWDDDDDWWWWW"
+"WWWWWDDDDDWDWDDDDDDWWWWW"
+"WWWDDDDDDDDDDDDDDDDWWWWW"
+"WWWDDDDDDDDDDDDDDDDWWWWW"
+"WWWDDDDDDDDDDDDDDDDWWWWW"
+"WWWDDDDDDDDDDDDDDDDWWWWW"
+"WWWDDDDDDDDDDDDDDDDWWWWW"
+"WWWDDDDDDDDDDDDDDDDWWWWW"
+"WWWWDDDDDDDDDDDDDDDWWWWW"
+"WWWWDDDDDDDDDDDDDDWWWWWW"
+"WWWWWDDDDDDDDDDDDDWWWWWW"
+"WWWWWWWDDDDDDDDWWWWWWWWW"
+"WWWWWWWWWWWWWWWWWWWWWWWW"
+;
+const uint32_t s_MapWidth = 24;
+const uint32_t s_MapHeight = strlen(s_MapTiles) / s_MapWidth;
+
 void Sandbox2DLayer::OnAttach()
 {
 	GK_PROFILE_FUNCTION();
@@ -20,6 +43,11 @@ void Sandbox2DLayer::OnAttach()
 	// subtextures
 	m_Barrel = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 9, 2 }, { 128, 128 });
 	m_Tree = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 0, 1 }, { 128, 128 }, { 1, 2 });
+
+	s_TextureMap['D'] = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, {6, 11}, {128, 128});
+	s_TextureMap['W'] = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, {11, 11}, {128, 128});
+
+	m_CameraController.SetZoomLevel(5.0f);
 
 	//Gonk::Application::Get().GetWindow().SetVSync(false);
 
@@ -63,8 +91,24 @@ void Sandbox2DLayer::OnUpdate(Gonk::Timestep ts)
 	}
 
 	Gonk::Renderer2D::BeginScene(m_CameraController.GetCamera());
+	
+	for (int y = 0; y < s_MapHeight; y++)
+	{
+		for (int x = 0; x < s_MapWidth; x++)
+		{
+			char c = s_MapTiles[x + y * s_MapWidth];
+			Gonk::Ref<Gonk::SubTexture2D> texture;
+			if (s_TextureMap.find(c) != s_TextureMap.end())
+				texture = s_TextureMap[c];
+			else
+				texture = m_Barrel;
+			Gonk::Renderer2D::DrawQuad({ x, y, 0.0f }, { 1.0f, 1.0f }, texture);
+		}
+	}
+
 	Gonk::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.9f }, { 1.0f, 1.0f }, m_Barrel);
 	Gonk::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.9f }, { 1.0f, 2.0f }, m_Tree);
+
 	Gonk::Renderer2D::EndScene();
 	
 #if 0

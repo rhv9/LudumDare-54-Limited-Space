@@ -23,8 +23,9 @@ namespace Gonk {
 		OrthographicCameraController(const float aspectRatio, const float zoomLevel = 1.0f);
 
 		void SetPosition(const glm::vec2& pos);
-		void SetAspectRatio(const float aspectRatio);
-		void SetRotation(const float rotation) { m_Rotation = rotation; }
+		void SetAspectRatio(const float aspectRatio) { GK_PROFILE_FUNCTION(); m_AspectRatio = aspectRatio; CalculateView(); }
+		void SetRotation(const float rotation) { GK_PROFILE_FUNCTION(); m_Rotation = rotation; CalculateView(); }
+		void SetZoomLevel(const float zoomLevel) { GK_PROFILE_FUNCTION(); m_ZoomLevel = zoomLevel; CalculateView(); }
 
 		OrthographicCamera& GetCamera(){ return m_Camera; }
 
@@ -33,6 +34,8 @@ namespace Gonk {
 
 		const OrthographicCameraBounds& GetBounds() const { return m_Bounds; }
 	private:
+		void CalculateView();
+
 		bool OnMouseScrollCallback(MouseScrolledEvent& e);
 		bool OnWindowResizeCallback(WindowResizeEvent& e);
 
