@@ -50,11 +50,12 @@ namespace Gonk {
 		// subtextures
 		m_Barrel = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 9, 2 }, { 128, 128 });
 		m_Tree = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 0, 1 }, { 128, 128 }, { 1, 2 });
-
 		s_TextureMap['D'] = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 6, 11 }, { 128, 128 });
 		s_TextureMap['W'] = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 11, 11 }, { 128, 128 });
 
+		// camera
 		m_CameraController.SetZoomLevel(5.0f);
+		m_CameraController.SetPosition({ s_MapWidth / 2.0f, s_MapHeight / 2.0f });
 
 		Gonk::Shader::Create("assets/shaders/FlatColour.glsl");
 
@@ -67,10 +68,6 @@ namespace Gonk {
 
 	}
 
-	glm::vec3 redPos { 0.0f, 0.0f, -0.0f };
-	glm::vec3 greenPos { -1.0f, -1.0f, -0.2f };
-	float rotation = 0.0f;
-	float autoRotate = 0.0f;
 	float timestep = 0.0f;
 
 
@@ -81,7 +78,6 @@ namespace Gonk {
 		timestep = (float)ts.GetMilliSeconds();
 		// update
 		m_CameraController.OnUpdate(ts);
-		// Render
 		Gonk::Renderer2D::ResetStats();
 		{
 			GK_PROFILE_SCOPE("Renderer Prep");
@@ -111,33 +107,6 @@ namespace Gonk {
 
 		Gonk::Renderer2D::EndScene();
 
-#if 0
-		autoRotate += rotation;
-		static float width = 20, height = 20;
-		Gonk::Renderer2D::BeginScene(m_CameraController.GetCamera());
-
-		Gonk::Renderer2D::DrawQuad(redPos, { 1.0f, 1.0f }, { 0.8f, 0.2f, 0.2f, 1.0f });
-		Gonk::Renderer2D::DrawQuad({ -0.25f,-0.25f, -0.1f }, { width / 2.0f + 2, height / 2.0f + 2 }, m_CheckerboardTexture, 10.0f);
-		Gonk::Renderer2D::DrawRotatedQuad({ 2.0f, 2.0f, 0.0f }, { 1.0f, 1.0f }, autoRotate, { 0.0f, 1.0f, 1.0f, 1.0f });
-		Gonk::Renderer2D::DrawQuad({ 1.0f, 1.0f, 0.1f }, { 1.0f, 1.0f }, m_LogoTexture, 3.0f, { 0.5f, 1.0f, 0.5f, 1.0f });
-
-
-		Gonk::Renderer2D::EndScene();
-
-		Gonk::Renderer2D::BeginScene(m_CameraController.GetCamera());
-
-		static auto testTexture = Gonk::Texture2D::Create("assets/textures/ez.png");
-		for (float y = 0; y < height; y++)
-		{
-			for (float x = 0; x < width; x++)
-			{
-				glm::vec4 colour{x / width, 0.2f, y / height, 0.75f};
-				Gonk::Renderer2D::DrawRotatedQuad({ (x - width / 2) * 0.5f, (y - height / 2) * 0.5f, 0.0f }, { 0.45f, 0.45f }, autoRotate + (x + y) * 50.0f, testTexture, 1.0f, colour);
-			}
-		}
-
-		Gonk::Renderer2D::EndScene();
-#endif
 		m_Framebuffer->UnBind();
 	}
 
@@ -235,15 +204,27 @@ namespace Gonk {
 		ImGui::InputFloat3("Camera Info", (float*)&m_CameraController);
 		ImGui::NewLine();
 
-
 		ImGui::ColorEdit4("Col", &m_Col[0]);
-		ImGui::DragFloat3("Red Pos", &redPos[0], 0.05f, -1.0f, 1.0f);
-		ImGui::DragFloat3("Green Pos", &greenPos[0], 0.05f, -1.0f, 1.0f);
-		ImGui::DragFloat("Rotation", &rotation, 0.5f, -360.0f, 360.0f);
-
-		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), { 1280, 720 }, { 0, 1 }, { 1, 0 });
 
 		ImGui::End();
+		
+		// Gonk Viewport
+
+		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
+		ImGui::Begin("Gonk Viewport");
+		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
+		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
+		{	
+			// Checking due to weird bug when double clicking imgui window causes height to be -16. Like why?
+			m_ViewportSize = { viewportSize.x, viewportSize.y <= 0 ? 1 : viewportSize.y };
+			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+
+			m_CameraController.OnResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
+		}
+
+		ImGui::Image((void*)m_Framebuffer->GetColorAttachmentRendererID(), { m_ViewportSize.x, m_ViewportSize.y }, { 0, 1 }, { 1, 0 });
+		ImGui::End();
+		ImGui::PopStyleVar();
 
 		ImGui::End();
 

@@ -16,7 +16,13 @@ namespace Gonk {
 
 	void OrthographicCameraController::SetPosition(const glm::vec2& pos)
 	{
-		m_Camera.SetPosition(glm::vec3{pos, 0.0f});
+		m_Position = pos;
+		m_Camera.SetPosition({ m_Position , 0.0f});
+	}
+
+	void OrthographicCameraController::OnResize(uint32_t width, uint32_t height)
+	{
+		SetAspectRatio((float)width / (float)height);
 	}
 
 	void OrthographicCameraController::OnUpdate(Timestep ts)

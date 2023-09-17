@@ -25,6 +25,8 @@ namespace Gonk {
 		Ref<SubTexture2D> m_Barrel, m_Tree;
 		Ref<Framebuffer> m_Framebuffer;
 
+		glm::vec2 m_ViewportSize;
+
 		std::unordered_map<char, Ref<SubTexture2D>> s_TextureMap;
 	};
 

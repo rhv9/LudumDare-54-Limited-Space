@@ -17,6 +17,8 @@ namespace Gonk {
 	public:
 		virtual ~Framebuffer() = default;
 
+		virtual void Resize(uint32_t width, uint32_t height) = 0;
+
 		virtual void Bind() = 0;
 		virtual void UnBind() = 0;
 
