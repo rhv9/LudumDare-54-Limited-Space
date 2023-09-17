@@ -3,6 +3,7 @@
 #include "Event.h"
 
 #include <sstream>
+#include "Gonk/Input/MouseButtonCodes.h"
 
 namespace Gonk {
 
@@ -53,20 +54,20 @@ namespace Gonk {
 	class GONK_API MouseButtonEvent : public Event
 	{
 	public: 
-		inline int GetMouseButton() const { return m_Button; }
+		inline MouseButton GetMouseButton() const { return m_Button; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryMouse | EventCategoryInput)
 	protected: 
-		MouseButtonEvent(int button)
+		MouseButtonEvent(MouseButton button)
 			: m_Button(button) {}
 
-		int m_Button;
+		MouseButton m_Button;
 	};
 
 	class GONK_API MouseButtonPressedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonPressedEvent(int button)
+		MouseButtonPressedEvent(MouseButton button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override
@@ -82,7 +83,7 @@ namespace Gonk {
 	class GONK_API MouseButtonReleasedEvent : public MouseButtonEvent
 	{
 	public:
-		MouseButtonReleasedEvent(int button)
+		MouseButtonReleasedEvent(MouseButton button)
 			: MouseButtonEvent(button) {}
 
 		std::string ToString() const override

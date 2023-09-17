@@ -64,6 +64,8 @@
 	#define GK_ENABLE_ASSERTS
 #endif
 
+
+// TODO: make this macro able to take 0 arguments except condition
 #ifdef GK_ENABLE_ASSERTS
 	#define GK_ASSERT(x,...) { if (!(x)) { GK_ERROR("Assertion Failed: {0}",__VA_ARGS__); __debugbreak();} } 
 	#define GK_CORE_ASSERT(x,...) { if (!(x)) { GK_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak();} } 

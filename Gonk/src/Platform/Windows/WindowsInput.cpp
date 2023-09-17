@@ -9,10 +9,10 @@
 
 namespace Gonk {
 
-    bool Input::IsKeyPressed(int keycode)
+    bool Input::IsKeyPressed(Key keyCode)
     {
         GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
-        int status = glfwGetKey(window, keycode);
+        int status = glfwGetKey(window, static_cast<int>(keyCode));
         return status == GLFW_PRESS || status == GLFW_REPEAT;
     }
 

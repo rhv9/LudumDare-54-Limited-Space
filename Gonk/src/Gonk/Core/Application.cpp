@@ -76,7 +76,7 @@ namespace Gonk {
 
 		// TODO: Temporary
 		dispatcher.Dispatch<Gonk::KeyPressedEvent>([](Gonk::KeyPressedEvent& e) {
-			if (e.GetKeyCode() == GK_KEY_ESCAPE)
+			if (e.GetKeyCode() == Key::ESCAPE)
 				Gonk::Application::Get().Close();
 			return false;
 		});

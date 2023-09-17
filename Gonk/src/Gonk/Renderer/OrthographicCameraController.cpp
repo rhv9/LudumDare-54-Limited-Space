@@ -29,18 +29,18 @@ namespace Gonk {
 	{
 		GK_PROFILE_FUNCTION();
 
-		if (Gonk::Input::IsKeyPressed(GK_KEY_W))
+		if (Gonk::Input::IsKeyPressed(Gonk::Key::W))
 			m_Position.y += m_ZoomLevel * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_S))
+		if (Gonk::Input::IsKeyPressed(Gonk::Key::S))
 			m_Position.y -= m_ZoomLevel * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_D))
+		if (Gonk::Input::IsKeyPressed(Gonk::Key::D))
 			m_Position.x += m_ZoomLevel * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_A))
+		if (Gonk::Input::IsKeyPressed(Gonk::Key::A))
 			m_Position.x -= m_ZoomLevel * ts;
 
-		if (Gonk::Input::IsKeyPressed(GK_KEY_LEFT))
+		if (Gonk::Input::IsKeyPressed(Gonk::Key::LEFT))
 			m_Rotation -= m_RotationSpeed * ts;
-		if (Gonk::Input::IsKeyPressed(GK_KEY_RIGHT))
+		if (Gonk::Input::IsKeyPressed(Gonk::Key::RIGHT))
 			m_Rotation += m_RotationSpeed * ts;
 
 		m_Camera.SetPosition(glm::vec3{m_Position, 0.0f});

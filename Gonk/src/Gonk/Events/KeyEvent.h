@@ -2,27 +2,29 @@
 
 #include "Event.h"
 
+#include "Gonk/Input/KeyCodes.h"
+
 namespace Gonk {
 	
 	class GONK_API KeyEvent : public Event 
 	{
 	public:
-		inline int GetKeyCode() const { return m_KeyCode; }
+		inline Key GetKeyCode() const { return m_KeyCode; }
 		inline int GetScanCode() const { return m_ScanCode; }
 
 		EVENT_CLASS_CATEGORY(EventCategoryInput | EventCategoryKeyboard)
 	protected:
-		KeyEvent(int keycode, int scancode)
+		KeyEvent(Key keycode, int scancode)
 			: m_KeyCode(keycode), m_ScanCode(scancode) {}
 
-		int m_KeyCode;
+		Key m_KeyCode;
 		int m_ScanCode;
 	};
 
 	class GONK_API KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int scancode, int repeatCount)
+		KeyPressedEvent(Key keycode, int scancode, int repeatCount)
 			: KeyEvent(keycode, scancode), m_RepeatCount(repeatCount) {}
 		
 		inline int GetRepeatCount() const { return m_RepeatCount; }
@@ -42,7 +44,7 @@ namespace Gonk {
 	class GONK_API KeyReleasedEvent : public KeyEvent
 	{
 	public:
-		KeyReleasedEvent(int keycode, int scancode)
+		KeyReleasedEvent(Key keycode, int scancode)
 			: KeyEvent(keycode, scancode) {}
 
 		std::string ToString() const override
@@ -59,7 +61,7 @@ namespace Gonk {
 	{
 	public:
 		KeyTypedEvent(unsigned int c)
-			: KeyEvent(c, -1) {} // TEMPORARY put scancode as -1. Surely I will never ever use scancode.
+			: KeyEvent((Key)c, -1) {} // TEMPORARY put scancode as -1. Surely I will never ever use scancode.
 
 		std::string ToString() const override
 		{

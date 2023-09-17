@@ -5,6 +5,8 @@
 
 namespace Gonk {
 
+	static uint32_t s_MaxFramebufferSize = 8192;
+
 	OpenGLFramebuffer::OpenGLFramebuffer(const FramebufferSpec& spec)
 		: m_Spec(spec)
 	{
@@ -51,6 +53,12 @@ namespace Gonk {
 
 	void OpenGLFramebuffer::Resize(uint32_t width, uint32_t height)
 	{
+		if (width <= 0 || height <= 0 || width > s_MaxFramebufferSize || height > s_MaxFramebufferSize)
+		{
+			GK_CORE_WARN("Attempting to resize framebuffer to invalid values: ({},{})", width, height);
+			return;
+		}
+
 		m_Spec.Width = width;
 		m_Spec.Height = height;
 		glViewport(0, 0, m_Spec.Width, m_Spec.Height);

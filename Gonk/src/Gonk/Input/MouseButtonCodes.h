@@ -1,15 +1,29 @@
 #pragma once
 
 // From glfw3.h
-#define GK_MOUSE_BUTTON_1         0
-#define GK_MOUSE_BUTTON_2         1
-#define GK_MOUSE_BUTTON_3         2
-#define GK_MOUSE_BUTTON_4         3
-#define GK_MOUSE_BUTTON_5         4
-#define GK_MOUSE_BUTTON_6         5
-#define GK_MOUSE_BUTTON_7         6
-#define GK_MOUSE_BUTTON_8         7
-#define GK_MOUSE_BUTTON_LAST      GK_MOUSE_BUTTON_8
-#define GK_MOUSE_BUTTON_LEFT      GK_MOUSE_BUTTON_1
-#define GK_MOUSE_BUTTON_RIGHT     GK_MOUSE_BUTTON_2
-#define GK_MOUSE_BUTTON_MIDDLE    GK_MOUSE_BUTTON_3
+
+namespace Gonk {
+
+	enum class MouseButton : uint16_t
+	{
+        D1         = 0,
+        D2         = 1,
+        D3         = 2,
+        D4         = 3,
+        D5         = 4,
+        D6         = 5,
+        D7         = 6,
+        D8         = 7,
+        LAST       = D8,
+        LEFT       = D1,
+        RIGHT      = D2,
+        MIDDLE     = D3,
+	};
+
+    inline std::ostream& operator<<(std::ostream& os, MouseButton button)
+    {
+        os << (uint32_t)button;
+        return os;
+    }
+
+}
