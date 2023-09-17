@@ -22,7 +22,7 @@ namespace Gonk {
 	class GONK_API Application
 	{
 	public:
-		Application();
+		Application(const std::string& name = "Gonk App");
 		virtual ~Application();
 
 
@@ -41,7 +41,7 @@ namespace Gonk {
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
 
-		std::unique_ptr<Window> m_Window;
+		Scope<Window> m_Window;
 		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;

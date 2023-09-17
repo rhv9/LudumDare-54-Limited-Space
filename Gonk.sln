@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Gonk\vendor\imgui\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gonk", "Gonk\Gonk.vcxproj", "{34E5857C-201C-870D-C908-6D10B51E030F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gonkit", "Gonkit\Gonkit.vcxproj", "{311094B5-1DB2-BE8B-066D-D2DFF2AD45DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -50,6 +52,12 @@ Global
 		{34E5857C-201C-870D-C908-6D10B51E030F}.Dist|x64.Build.0 = Dist|x64
 		{34E5857C-201C-870D-C908-6D10B51E030F}.Release|x64.ActiveCfg = Release|x64
 		{34E5857C-201C-870D-C908-6D10B51E030F}.Release|x64.Build.0 = Release|x64
+		{311094B5-1DB2-BE8B-066D-D2DFF2AD45DC}.Debug|x64.ActiveCfg = Debug|x64
+		{311094B5-1DB2-BE8B-066D-D2DFF2AD45DC}.Debug|x64.Build.0 = Debug|x64
+		{311094B5-1DB2-BE8B-066D-D2DFF2AD45DC}.Dist|x64.ActiveCfg = Dist|x64
+		{311094B5-1DB2-BE8B-066D-D2DFF2AD45DC}.Dist|x64.Build.0 = Dist|x64
+		{311094B5-1DB2-BE8B-066D-D2DFF2AD45DC}.Release|x64.ActiveCfg = Release|x64
+		{311094B5-1DB2-BE8B-066D-D2DFF2AD45DC}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,14 +11,14 @@ namespace Gonk {
 
 	Application* Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const std::string& name)
 	{ 
 		GK_PROFILE_FUNCTION();
 
 		GK_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Gonk::Window>(Gonk::Window::Create());
+		m_Window = Window::Create(WindowProps(name));
 		m_Window->SetEventCallback(std::bind(&Gonk::Application::OnEvent, this, std::placeholders::_1));
 
 		Renderer::Init();

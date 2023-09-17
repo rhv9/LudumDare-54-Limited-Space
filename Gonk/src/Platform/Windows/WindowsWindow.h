@@ -15,8 +15,8 @@ namespace Gonk {
 
 		void OnUpdate() override;
 
-		inline unsigned int GetWidth() const override { return m_Data.m_Width; }
-		inline unsigned int GetHeight() const override { return m_Data.m_Height; }
+		inline uint32_t GetWidth() const override { return m_Data.m_Width; }
+		inline uint32_t GetHeight() const override { return m_Data.m_Height; }
 
 		// Window attributes
 		inline void SetEventCallback(const EventCallbackFn& callback) override { m_Data.EventCallback = callback; }
@@ -33,7 +33,7 @@ namespace Gonk {
 
 		struct WindowData {
 			std::string Title;
-			unsigned int m_Width, m_Height;
+			uint32_t m_Width, m_Height;
 			bool VSync;
 
 			EventCallbackFn EventCallback;
