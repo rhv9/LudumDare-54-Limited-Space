@@ -332,6 +332,56 @@ namespace Gonk {
 		s_Data.Stats.QuadCount++;
 	}
 
+	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& colour)
+	{
+		GK_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
+		constexpr float texIndex = 0.0f;
+		constexpr float tilingFactor = 1.0f;
+		for (int i = 0; i < 4; i++)
+		{
+			setQuadVertexBuffer(s_Data.QuadVertexBufferPtr, transform * s_Data.QuadVertexPositions[i], colour, s_Data.TexCoords[i], texIndex, tilingFactor);
+			s_Data.QuadVertexBufferPtr++;
+		}
+		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
+	}
+
+	void Renderer2D::DrawQuad(const glm::mat4& transform, Ref<Texture> texture, const float tilingFactor, const glm::vec4& colour)
+	{
+		GK_PROFILE_FUNCTION();
+
+		if (s_Data.QuadIndexCount >= Renderer2DData::MaxIndices)
+			FlushAndReset();
+
+		float textureIndex = 0;
+		for (uint32_t i = 1; i < s_Data.TextureSlotIndex; i++)
+		{
+			if (*texture.get() == *s_Data.TextureSlots[i].get())
+			{
+				textureIndex = i;
+				break;
+			}
+		}
+		if (textureIndex == 0)
+		{
+			textureIndex = s_Data.TextureSlotIndex;
+			s_Data.TextureSlots[s_Data.TextureSlotIndex++] = texture;
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			setQuadVertexBuffer(s_Data.QuadVertexBufferPtr, transform * s_Data.QuadVertexPositions[i], colour, s_Data.TexCoords[i], textureIndex, tilingFactor);
+			s_Data.QuadVertexBufferPtr++;
+		}
+		s_Data.QuadIndexCount += 6;
+
+		s_Data.Stats.QuadCount++;
+	}
+
 	void Renderer2D::Shutdown()
 	{
 		GK_PROFILE_FUNCTION();

@@ -25,6 +25,9 @@
     <Filter Include="src\Gonk\Renderer">
       <UniqueIdentifier>{B1B8DD95-1DCF-DB2B-6646-674DD29BACB3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Gonk\Scene">
+      <UniqueIdentifier>{08063132-F4D3-2438-DD67-955EC9D4009D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
     </Filter>
@@ -155,6 +158,9 @@
     </ClInclude>
     <ClInclude Include="src\Gonk\Renderer\VertexArray.h">
       <Filter>src\Gonk\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gonk\Scene\Scene.h">
+      <Filter>src\Gonk\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h">
       <Filter>src\Platform\OpenGL</Filter>
@@ -1489,6 +1495,9 @@
     </ClCompile>
     <ClCompile Include="src\Gonk\Renderer\VertexArray.cpp">
       <Filter>src\Gonk\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gonk\Scene\Scene.cpp">
+      <Filter>src\Gonk\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">
       <Filter>src\Platform\OpenGL</Filter>

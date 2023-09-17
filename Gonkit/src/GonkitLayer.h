@@ -25,6 +25,8 @@ namespace Gonk {
 		Ref<SubTexture2D> m_Barrel, m_Tree;
 		Ref<Framebuffer> m_Framebuffer;
 
+		Ref<Scene> m_ActiveScene;
+
 		glm::vec2 m_ViewportSize;
 		bool m_ViewportFocused = true, m_ViewportHovered = true;
 

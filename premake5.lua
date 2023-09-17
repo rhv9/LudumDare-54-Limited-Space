@@ -24,6 +24,7 @@ IncludeDir["Glad"] = "Gonk/vendor/Glad/include"
 IncludeDir["ImGui"] = "Gonk/vendor/imgui"
 IncludeDir["glm"] = "Gonk/vendor/glm"
 IncludeDir["stb_image"] = "Gonk/vendor/stb_image"
+IncludeDir["entt"] = "Gonk/vendor/entt/include"
 
 group "Dependencies"
 	include "Gonk/vendor/GLFW"
@@ -64,6 +65,7 @@ project "Gonk"
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}",
 	}
 
 	defines
@@ -127,6 +129,7 @@ project "Sandbox"
 		"Gonk/src",
 		"Gonk/vendor",
 		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}",
 	}
 	
 	links
@@ -181,6 +184,7 @@ project "Gonkit"
 		"Gonk/src",
 		"Gonk/vendor",
 		"%{IncludeDir.glm}",
+		 "%{IncludeDir.entt}",
 	}
 	
 	links

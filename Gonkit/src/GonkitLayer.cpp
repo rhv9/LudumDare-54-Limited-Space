@@ -30,36 +30,43 @@ const char* s_MapTiles =
 const uint32_t s_MapWidth = 24;
 const uint32_t s_MapHeight = strlen(s_MapTiles) / s_MapWidth;
 
+entt::entity squareEntity;
+
 namespace Gonk {
 
 	void GonkitLayer::OnAttach()
 	{
 		GK_PROFILE_FUNCTION();
 
+		m_ActiveScene = CreateRef<Scene>();
+		squareEntity = m_ActiveScene->CreateEntity();
+		m_ActiveScene->Reg().emplace<TransformComponent>(squareEntity);
+		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(squareEntity, glm::vec4{0.0f, 1.0f, 0.0f, 1.0f });
+
 		// framebuffer
-		Gonk::FramebufferSpec fbSpec;
+		FramebufferSpec fbSpec;
 		fbSpec.Width = 1280.0f;
 		fbSpec.Height = 720.0f;
-		m_Framebuffer = Gonk::Framebuffer::Create(fbSpec);
+		m_Framebuffer = Framebuffer::Create(fbSpec);
 
 		// textures
-		m_CheckerboardTexture = Gonk::Texture2D::Create("assets/textures/Checkerboard.png");
-		m_LogoTexture = Gonk::Texture2D::Create("assets/textures/ChernoLogo.png");
-		m_Spritesheet = Gonk::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+		m_CheckerboardTexture = Texture2D::Create("assets/textures/Checkerboard.png");
+		m_LogoTexture = Texture2D::Create("assets/textures/ChernoLogo.png");
+		m_Spritesheet = Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
 
 		// subtextures
-		m_Barrel = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 9, 2 }, { 128, 128 });
-		m_Tree = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 0, 1 }, { 128, 128 }, { 1, 2 });
-		s_TextureMap['D'] = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 6, 11 }, { 128, 128 });
-		s_TextureMap['W'] = Gonk::SubTexture2D::CreateFromCoords(m_Spritesheet, { 11, 11 }, { 128, 128 });
+		m_Barrel = SubTexture2D::CreateFromCoords(m_Spritesheet, { 9, 2 }, { 128, 128 });
+		m_Tree = SubTexture2D::CreateFromCoords(m_Spritesheet, { 0, 1 }, { 128, 128 }, { 1, 2 });
+		s_TextureMap['D'] = SubTexture2D::CreateFromCoords(m_Spritesheet, { 6, 11 }, { 128, 128 });
+		s_TextureMap['W'] = SubTexture2D::CreateFromCoords(m_Spritesheet, { 11, 11 }, { 128, 128 });
 
 		// camera
 		m_CameraController.SetZoomLevel(5.0f);
 		m_CameraController.SetPosition({ s_MapWidth / 2.0f, s_MapHeight / 2.0f });
 
-		Gonk::Shader::Create("assets/shaders/FlatColour.glsl");
+		Shader::Create("assets/shaders/FlatColour.glsl");
 
-		//Gonk::Application::Get().GetWindow().SetVSync(false);
+		//Application::Get().GetWindow().SetVSync(false);
 	}
 
 	void GonkitLayer::OnDetach()
@@ -71,7 +78,7 @@ namespace Gonk {
 	float timestep = 0.0f;
 
 
-	void GonkitLayer::OnUpdate(Gonk::Timestep ts)
+	void GonkitLayer::OnUpdate(Timestep ts)
 	{
 		GK_PROFILE_FUNCTION();
 
@@ -79,39 +86,47 @@ namespace Gonk {
 		// update
 		if (m_ViewportFocused)
 			m_CameraController.OnUpdate(ts);
-		Gonk::Renderer2D::ResetStats();
+
+
+
+
+		Renderer2D::ResetStats();
 		{
 			GK_PROFILE_SCOPE("Renderer Prep");
 			m_Framebuffer->Bind();
-			Gonk::RendererCommand::SetColour(glm::vec4{0.2f});
-			Gonk::RendererCommand::Clear();
+			RendererCommand::SetColour(glm::vec4{0.2f});
+			RendererCommand::Clear();
 		}
 
-		Gonk::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		Renderer2D::BeginScene(m_CameraController.GetCamera());
 
 		for (int y = 0; y < s_MapHeight; y++)
 		{
 			for (int x = 0; x < s_MapWidth; x++)
 			{
 				char c = s_MapTiles[x + y * s_MapWidth];
-				Gonk::Ref<Gonk::SubTexture2D> texture;
+				Ref<SubTexture2D> texture;
 				if (s_TextureMap.find(c) != s_TextureMap.end())
 					texture = s_TextureMap[c];
 				else
 					texture = m_Barrel;
-				Gonk::Renderer2D::DrawQuad({ x, y, 0.0f }, { 1.0f, 1.0f }, texture);
+				Renderer2D::DrawQuad({ x, y, 0.0f }, { 1.0f, 1.0f }, texture);
 			}
 		}
 
-		Gonk::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.9f }, { 1.0f, 1.0f }, m_Barrel);
-		Gonk::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.9f }, { 1.0f, 2.0f }, m_Tree);
+		Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.9f }, { 1.0f, 1.0f }, m_Barrel);
+		Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.9f }, { 1.0f, 2.0f }, m_Tree);
 
-		Gonk::Renderer2D::EndScene();
+		// update scene
+		m_ActiveScene->OnUpdate(ts);
+
+
+		Renderer2D::EndScene();
 
 		m_Framebuffer->UnBind();
 	}
 
-	void GonkitLayer::OnEvent(Gonk::Event& e)
+	void GonkitLayer::OnEvent(Event& e)
 	{
 		m_CameraController.OnEvent(e);
 	}
@@ -169,7 +184,7 @@ namespace Gonk {
 			if (ImGui::BeginMenu("File"))
 			{
 				if (ImGui::MenuItem("Exit"))
-					Gonk::Application::Get().Close();
+					Application::Get().Close();
 
 				ImGui::EndMenu();
 			}
@@ -178,7 +193,7 @@ namespace Gonk {
 
 		ImGui::Begin("Settings");
 
-		auto stats = Gonk::Renderer2D::GetStats();
+		auto stats = Renderer2D::GetStats();
 		ImGui::Text("Renderer2D Stats:");
 		ImGui::Text("	FrameTime: %0.2fms (%f fps)", timestep, 1000.0f / timestep);
 		ImGui::Text("	Draw Calls: %d", stats.DrawCalls);
@@ -190,7 +205,8 @@ namespace Gonk {
 		ImGui::InputFloat3("Camera Info", (float*)&m_CameraController);
 		ImGui::NewLine();
 
-		ImGui::ColorEdit4("Col", &m_Col[0]);
+		;
+		ImGui::ColorEdit4("Col", &m_ActiveScene->Reg().get<SpriteRendererComponent>(squareEntity).Colour[0]);
 
 		ImGui::End();
 		
