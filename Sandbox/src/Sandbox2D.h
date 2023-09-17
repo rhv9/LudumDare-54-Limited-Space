@@ -26,6 +26,7 @@ private:
 
 	Gonk::Ref<Gonk::Texture2D> m_Spritesheet;
 	Gonk::Ref<Gonk::SubTexture2D> m_Barrel, m_Tree;
+	Gonk::Ref<Gonk::Framebuffer> m_Framebuffer;
 
 	std::unordered_map<char, Gonk::Ref<Gonk::SubTexture2D>> s_TextureMap;
 };

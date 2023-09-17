@@ -150,9 +150,13 @@
     <ClInclude Include="src\Gonk.h" />
     <ClInclude Include="src\Gonk\Core\Application.h" />
     <ClInclude Include="src\Gonk\Core\Core.h" />
+    <ClInclude Include="src\Gonk\Core\EntryPoint.h" />
+    <ClInclude Include="src\Gonk\Core\Layer.h" />
+    <ClInclude Include="src\Gonk\Core\LayerStack.h" />
+    <ClInclude Include="src\Gonk\Core\Log.h" />
     <ClInclude Include="src\Gonk\Core\Platform.h" />
     <ClInclude Include="src\Gonk\Core\Timestep.h" />
-    <ClInclude Include="src\Gonk\Core\EntryPoint.h" />
+    <ClInclude Include="src\Gonk\Core\Window.h" />
     <ClInclude Include="src\Gonk\Debug\Instrumentor.h" />
     <ClInclude Include="src\Gonk\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Gonk\Events\Event.h" />
@@ -162,11 +166,9 @@
     <ClInclude Include="src\Gonk\Input\Input.h" />
     <ClInclude Include="src\Gonk\Input\KeyCodes.h" />
     <ClInclude Include="src\Gonk\Input\MouseButtonCodes.h" />
-    <ClInclude Include="src\Gonk\Core\Layer.h" />
-    <ClInclude Include="src\Gonk\Core\LayerStack.h" />
-    <ClInclude Include="src\Gonk\Core\Log.h" />
     <ClInclude Include="src\Gonk\Renderer\Buffer.h" />
     <ClInclude Include="src\Gonk\Renderer\Camera.h" />
+    <ClInclude Include="src\Gonk\Renderer\Framebuffer.h" />
     <ClInclude Include="src\Gonk\Renderer\GraphicsContext.h" />
     <ClInclude Include="src\Gonk\Renderer\OrthographicCameraController.h" />
     <ClInclude Include="src\Gonk\Renderer\Renderer.h" />
@@ -177,9 +179,9 @@
     <ClInclude Include="src\Gonk\Renderer\SubTexture2D.h" />
     <ClInclude Include="src\Gonk\Renderer\Texture.h" />
     <ClInclude Include="src\Gonk\Renderer\VertexArray.h" />
-    <ClInclude Include="src\Gonk\Core\Window.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLFramebuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLRendererAPI.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLShader.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLTexture.h" />
@@ -606,13 +608,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gonk\Core\Application.cpp" />
-    <ClCompile Include="src\Gonk\ImGui\ImGuiBuild.cpp" />
-    <ClCompile Include="src\Gonk\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Gonk\Core\Layer.cpp" />
     <ClCompile Include="src\Gonk\Core\LayerStack.cpp" />
     <ClCompile Include="src\Gonk\Core\Log.cpp" />
+    <ClCompile Include="src\Gonk\ImGui\ImGuiBuild.cpp" />
+    <ClCompile Include="src\Gonk\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Buffer.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Camera.cpp" />
+    <ClCompile Include="src\Gonk\Renderer\Framebuffer.cpp" />
     <ClCompile Include="src\Gonk\Renderer\OrthographicCameraController.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Renderer.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Renderer2D.cpp" />
@@ -624,6 +627,7 @@
     <ClCompile Include="src\Gonk\Renderer\VertexArray.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLFramebuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLRendererAPI.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLShader.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLTexture.cpp" />
@@ -646,9 +650,6 @@
     <ProjectReference Include="vendor\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

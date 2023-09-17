@@ -51,6 +51,11 @@ namespace Gonk {
 		layer->OnAttach();
 	}
 
+	void Application::Close()
+	{
+		m_Running = false;
+	}
+
 	void Application::Shutdown()
 	{
 		GK_PROFILE_FUNCTION();

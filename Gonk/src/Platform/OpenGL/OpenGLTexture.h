@@ -16,6 +16,7 @@ namespace Gonk {
 		virtual uint32_t GetHeight() const override { return m_Height; }
 
 		virtual void SetData(const void* data, uint32_t size) const override;
+		virtual uint32_t GetRendererID() const override { return m_RendererID; }
 
 		virtual void Bind(uint32_t slot = 0) const override;
 

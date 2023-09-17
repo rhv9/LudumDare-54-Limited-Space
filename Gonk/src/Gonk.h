@@ -20,6 +20,7 @@
 #include "Gonk/Renderer/RendererCommand.h"
 #include "Gonk/Renderer/Camera.h"
 #include "Gonk/Renderer/Shader.h"
+#include "Gonk/Renderer/Framebuffer.h"
 #include "Gonk/Renderer/VertexArray.h"
 #include "Gonk/Renderer/Texture.h"
 #include "Gonk/Renderer/SubTexture2D.h"
