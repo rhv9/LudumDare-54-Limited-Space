@@ -26,6 +26,7 @@ namespace Gonk {
 		Ref<Framebuffer> m_Framebuffer;
 
 		glm::vec2 m_ViewportSize;
+		bool m_ViewportFocused = true, m_ViewportHovered = true;
 
 		std::unordered_map<char, Ref<SubTexture2D>> s_TextureMap;
 	};

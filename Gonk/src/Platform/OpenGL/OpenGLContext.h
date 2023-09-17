@@ -10,6 +10,7 @@ namespace Gonk {
 	{
 	public:
 		OpenGLContext(GLFWwindow* windowHandle);
+		virtual ~OpenGLContext() override;
 
 		virtual void Init() override;
 		virtual void SwapBuffers() override;

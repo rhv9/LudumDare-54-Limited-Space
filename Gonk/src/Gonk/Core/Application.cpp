@@ -5,6 +5,8 @@
 #include "Gonk/Core/Platform.h"
 #include "Gonk/Renderer/Renderer.h"
 
+#include "Gonk/Input/KeyCodes.h"
+
 namespace Gonk {
 
 #define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
@@ -72,11 +74,18 @@ namespace Gonk {
 		dispatcher.Dispatch<WindowCloseEvent>(std::bind(&Application::OnWindowClose, this, std::placeholders::_1));
 		dispatcher.Dispatch<WindowResizeEvent>(std::bind(&Application::OnWindowResize, this, std::placeholders::_1));
 
+		// TODO: Temporary
+		dispatcher.Dispatch<Gonk::KeyPressedEvent>([](Gonk::KeyPressedEvent& e) {
+			if (e.GetKeyCode() == GK_KEY_ESCAPE)
+				Gonk::Application::Get().Close();
+			return false;
+		});
+
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
-			(*--it)->OnEvent(e);
 			if (e.Handled)
 				break;
+			(*--it)->OnEvent(e);
 		}
 
 	}

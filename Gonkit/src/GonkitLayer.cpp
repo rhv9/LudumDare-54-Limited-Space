@@ -77,7 +77,8 @@ namespace Gonk {
 
 		timestep = (float)ts.GetMilliSeconds();
 		// update
-		m_CameraController.OnUpdate(ts);
+		if (m_ViewportFocused)
+			m_CameraController.OnUpdate(ts);
 		Gonk::Renderer2D::ResetStats();
 		{
 			GK_PROFILE_SCOPE("Renderer Prep");
@@ -113,19 +114,11 @@ namespace Gonk {
 	void GonkitLayer::OnEvent(Gonk::Event& e)
 	{
 		m_CameraController.OnEvent(e);
-
-		Gonk::EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<Gonk::KeyPressedEvent>([](Gonk::KeyPressedEvent& e) {
-			if (e.GetKeyCode() == GK_KEY_ESCAPE)
-				Gonk::Application::Get().Shutdown();
-			return false;
-			});
 	}
 
 	void GonkitLayer::OnImGuiRender()
 	{
 		GK_PROFILE_FUNCTION();
-
 
 		static bool p_open = true;
 		static bool opt_fullscreen = true;
@@ -151,16 +144,9 @@ namespace Gonk {
 			dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
 		}
 
-		// When using ImGuiDockNodeFlags_PassthruCentralNode, DockSpace() will render our background
-		// and handle the pass-thru hole, so we ask Begin() to not render a background.
 		if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode)
 			window_flags |= ImGuiWindowFlags_NoBackground;
 
-		// Important: note that we proceed even if Begin() returns false (aka window is collapsed).
-		// This is because we want to keep our DockSpace() active. If a DockSpace() is inactive,
-		// all active windows docked into it will lose their parent and become undocked.
-		// We cannot preserve the docking relationship between an active window and an inactive docking, otherwise
-		// any change of dockspace/settings would lead to windows being stuck in limbo and never being visible.
 		if (!opt_padding)
 			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 		ImGui::Begin("DockSpace Demo", &p_open, window_flags);
@@ -212,6 +198,12 @@ namespace Gonk {
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
 		ImGui::Begin("Gonk Viewport");
+
+		m_ViewportFocused = ImGui::IsWindowFocused();
+		m_ViewportHovered = ImGui::IsWindowHovered();
+		Application::Get().GetImGuiLayer()->BlockEvents(!m_ViewportFocused || !m_ViewportHovered);
+		
+
 		ImVec2 viewportSize = ImGui::GetContentRegionAvail();
 		if (m_ViewportSize != *((glm::vec2*)&viewportSize))
 		{	

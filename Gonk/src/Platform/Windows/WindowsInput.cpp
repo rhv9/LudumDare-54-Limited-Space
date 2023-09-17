@@ -5,47 +5,43 @@
 
 #include <GLFW/glfw3.h>
 
+#ifdef GK_PLATFORM_WINDOWS
+
 namespace Gonk {
 
-
-    class WindowsInput : public Input
+    bool Input::IsKeyPressed(int keycode)
     {
-    protected:
-        bool WindowsInput::IsKeyPressedImpl(int keycode)
-        {
-            GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
-            int status = glfwGetKey(window, keycode);
-            return status == GLFW_PRESS || status == GLFW_REPEAT;
-        }
+        GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
+        int status = glfwGetKey(window, keycode);
+        return status == GLFW_PRESS || status == GLFW_REPEAT;
+    }
 
-        bool WindowsInput::IsMouseButtonPressedImpl(int button)
-        {
-            GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
-            int status = glfwGetMouseButton(window, button);
-            return status == GLFW_PRESS;
-        }
+    bool Input::IsMouseButtonPressed(int button)
+    {
+        GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
+        int status = glfwGetMouseButton(window, button);
+        return status == GLFW_PRESS;
+    }
 
-        float WindowsInput::GetMouseXImpl()
-        {
-            auto [x, y] = GetMousePositionImpl();
-            return x;
-        }
+    float Input::GetMouseX()
+    {
+        auto [x, y] = GetMousePosition();
+        return x;
+    }
 
-        float WindowsInput::GetMouseYImpl()
-        {
-            auto[x, y] = GetMousePositionImpl();
-            return y;
-        }
+    float Input::GetMouseY()
+    {
+        auto[x, y] = GetMousePosition();
+        return y;
+    }
 
-        std::pair<float, float> WindowsInput::GetMousePositionImpl()
-        {
-            GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
-            double xpos, ypos;
-            glfwGetCursorPos(window, &xpos, &ypos);
-            return std::pair<float, float>((float)xpos, (float)ypos);
-        }
-    };
-
-    Input* Input::s_Instance = new WindowsInput();
-
+    std::pair<float, float> Input::GetMousePosition()
+    {
+        GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
+        double xpos, ypos;
+        glfwGetCursorPos(window, &xpos, &ypos);
+        return std::pair<float, float>((float)xpos, (float)ypos);
+    }
 }
+
+#endif

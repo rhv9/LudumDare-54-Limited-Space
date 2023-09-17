@@ -33,6 +33,11 @@ namespace Gonk {
 		GK_CORE_ASSERT(m_WindowHandle, "");
 	}
 
+	OpenGLContext::~OpenGLContext()
+	{
+		// TODO: I don't know what to do here :?
+	}
+
 	void Gonk::OpenGLContext::Init()
 	{
 		GK_PROFILE_FUNCTION();
