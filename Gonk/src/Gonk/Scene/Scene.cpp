@@ -4,6 +4,8 @@
 #include "Component.h"
 #include "Gonk/Renderer/Renderer2D.h"
 
+#include "Entity.h"
+
 namespace Gonk {
 
     static void DoMaths(const glm::mat4& transform)
@@ -19,9 +21,12 @@ namespace Gonk {
     {
     }
 
-    entt::entity Scene::CreateEntity()
+    Entity Scene::CreateEntity(const std::string& name)
     {
-        return m_Registry.create();
+        Entity e = { m_Registry.create() , this };
+        e.AddComponent<TransformComponent>();
+        e.AddComponent<TagComponent>(name);
+        return e;
     }
 
     void Scene::OnUpdate(Timestep ts)

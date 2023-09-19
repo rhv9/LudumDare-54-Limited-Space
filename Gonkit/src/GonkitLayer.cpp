@@ -30,7 +30,7 @@ const char* s_MapTiles =
 const uint32_t s_MapWidth = 24;
 const uint32_t s_MapHeight = strlen(s_MapTiles) / s_MapWidth;
 
-entt::entity squareEntity;
+Gonk::Entity squareEntity;
 
 namespace Gonk {
 
@@ -39,10 +39,9 @@ namespace Gonk {
 		GK_PROFILE_FUNCTION();
 
 		m_ActiveScene = CreateRef<Scene>();
-		squareEntity = m_ActiveScene->CreateEntity();
-		m_ActiveScene->Reg().emplace<TransformComponent>(squareEntity);
-		m_ActiveScene->Reg().emplace<SpriteRendererComponent>(squareEntity, glm::vec4{0.0f, 1.0f, 0.0f, 1.0f });
-
+		squareEntity = m_ActiveScene->CreateEntity("Square Entity");
+		squareEntity.AddComponent<SpriteRendererComponent>(glm::vec4{0.0f, 1.0f, 0.0f, 1.0f });
+	 
 		// framebuffer
 		FramebufferSpec fbSpec;
 		fbSpec.Width = 1280.0f;
@@ -205,8 +204,8 @@ namespace Gonk {
 		ImGui::InputFloat3("Camera Info", (float*)&m_CameraController);
 		ImGui::NewLine();
 
-		;
-		ImGui::ColorEdit4("Col", &m_ActiveScene->Reg().get<SpriteRendererComponent>(squareEntity).Colour[0]);
+		
+		ImGui::ColorEdit4("Col", &squareEntity.GetComponent<SpriteRendererComponent>().Colour[0]);
 
 		ImGui::End();
 		

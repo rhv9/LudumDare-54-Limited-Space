@@ -15,6 +15,7 @@
 #include "Gonk/Input/MouseButtonCodes.h"
 
 #include "Gonk/Scene/Scene.h"
+#include "Gonk/Scene/Entity.h"
 #include "Gonk/Scene/Component.h"
 
 // Rendering
