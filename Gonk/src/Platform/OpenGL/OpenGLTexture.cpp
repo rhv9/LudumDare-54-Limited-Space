@@ -4,6 +4,8 @@
 #include <glad/glad.h>
 #include <stb_image.h>
 
+#include <iomanip>
+
 namespace Gonk {
 
 	OpenGLTexture2D::OpenGLTexture2D(const std::string& path)
@@ -27,6 +29,20 @@ namespace Gonk {
 		{
 			m_InternalFormat = GL_RGBA8;
 			m_DataFormat = GL_RGBA;
+
+			std::stringstream stream;
+
+			uint32_t* dataInt = (uint32_t*)data;
+
+			for (int y = 0; y < m_Height; y++) 
+			{
+				for (int x = 0; x < m_Width; x++) 
+				{
+					uint32_t col = dataInt[y * m_Width + x];
+					if (col == 0xffff00ff)
+						dataInt[y * m_Width + x] = 0;
+				}
+			}
 		}
 		else if (channels == 3)
 		{
@@ -34,6 +50,8 @@ namespace Gonk {
 			m_DataFormat = GL_RGB;
 
 		}
+		
+		GK_CORE_TRACE("{}", channels);
 
 		GK_CORE_ASSERT(channels != 0 && m_DataFormat != 0, "Texture channels not supported!");
 

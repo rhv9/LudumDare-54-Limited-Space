@@ -21,13 +21,6 @@ namespace Gonk {
     {
     }
 
-    Entity Scene::CreateEntity(const std::string& name)
-    {
-        Entity e = { m_Registry.create() , this };
-        e.AddComponent<TransformComponent>();
-        e.AddComponent<TagComponent>(name);
-        return e;
-    }
 
     void Scene::OnUpdate(Timestep ts)
     {
@@ -39,5 +32,6 @@ namespace Gonk {
             Renderer2D::DrawQuad(transform, spriteRenderer.Colour);
         }
     }
+
 
 }

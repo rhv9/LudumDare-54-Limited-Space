@@ -2,6 +2,7 @@
 #include <utility>
 
 #include "KeyCodes.h"
+#include "MouseButtonCodes.h"
 
 namespace Gonk {
 
@@ -9,7 +10,7 @@ namespace Gonk {
 	{
 	public:
 		static bool IsKeyPressed(Key keyCode);
-		static bool IsMouseButtonPressed(int button);
+		static bool IsMouseButtonPressed(MouseButton button);
 		static float GetMouseX();
 		static float GetMouseY();
 		static std::pair<float, float> GetMousePosition();

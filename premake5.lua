@@ -1,6 +1,6 @@
 workspace "Gonk"
 	architecture "x86_64"
-	startproject "Sandbox"
+	startproject "LudumDare54"
 
 	configurations
 	{
@@ -185,6 +185,65 @@ project "Gonkit"
 		"Gonk/vendor",
 		"%{IncludeDir.glm}",
 		 "%{IncludeDir.entt}",
+	}
+	
+	links
+	{
+		"Gonk"
+	}
+
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+			"GK_PLATFORM_WINDOWS",
+		}
+
+	filter "configurations:Debug"
+		defines "GK_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "GK_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "GK_DIST"
+		runtime "Release"
+		optimize "on"
+
+
+
+
+
+project "LudumDare54"
+	location "LudumDare54"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++20"
+	staticruntime "on"
+
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h",
+		"%{prj.name}/src/**.cpp",
+	}
+
+	includedirs
+	{
+		"%{prj.name}/src",
+		"Gonk/vendor/spdlog/include",
+		"Gonk/src",
+		"Gonk/vendor",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}",
 	}
 	
 	links

@@ -147,7 +147,6 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="src\Gonk\Scene\Entity.h" />
     <ClInclude Include="src\Gonk.h" />
     <ClInclude Include="src\Gonk\Core\Application.h" />
     <ClInclude Include="src\Gonk\Core\Core.h" />
@@ -181,6 +180,7 @@
     <ClInclude Include="src\Gonk\Renderer\Texture.h" />
     <ClInclude Include="src\Gonk\Renderer\VertexArray.h" />
     <ClInclude Include="src\Gonk\Scene\Component.h" />
+    <ClInclude Include="src\Gonk\Scene\Entity.h" />
     <ClInclude Include="src\Gonk\Scene\Scene.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.h" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.h" />
@@ -610,7 +610,6 @@
     <ClInclude Include="vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Gonk\Scene\Entity.cpp" />
     <ClCompile Include="src\Gonk\Core\Application.cpp" />
     <ClCompile Include="src\Gonk\Core\Layer.cpp" />
     <ClCompile Include="src\Gonk\Core\LayerStack.cpp" />
@@ -629,6 +628,7 @@
     <ClCompile Include="src\Gonk\Renderer\SubTexture2D.cpp" />
     <ClCompile Include="src\Gonk\Renderer\Texture.cpp" />
     <ClCompile Include="src\Gonk\Renderer\VertexArray.cpp" />
+    <ClCompile Include="src\Gonk\Scene\Entity.cpp" />
     <ClCompile Include="src\Gonk\Scene\Scene.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />

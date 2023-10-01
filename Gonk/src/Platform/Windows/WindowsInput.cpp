@@ -16,10 +16,10 @@ namespace Gonk {
         return status == GLFW_PRESS || status == GLFW_REPEAT;
     }
 
-    bool Input::IsMouseButtonPressed(int button)
+    bool Input::IsMouseButtonPressed(MouseButton button)
     {
         GLFWwindow* window = (GLFWwindow*)Application::Get().GetWindow().GetNativeWindow();
-        int status = glfwGetMouseButton(window, button);
+        int status = glfwGetMouseButton(window, (int)button);
         return status == GLFW_PRESS;
     }
 

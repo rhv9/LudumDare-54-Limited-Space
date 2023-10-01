@@ -43,9 +43,15 @@ namespace Gonk {
 		}
 
 		operator bool() const { return m_EntityHandle != entt::null; }
-	private:
+
+
+		void Init() { GK_CORE_WARN("Intializing base Entity."); }
+		virtual void OnUpdate(Timestep ts) {}
+
+	protected:
 		entt::entity m_EntityHandle = entt::null;
 		Scene* m_Scene = nullptr;
+
 	};
 
 }

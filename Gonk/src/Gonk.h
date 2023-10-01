@@ -14,10 +14,6 @@
 #include "Gonk/Input/KeyCodes.h"
 #include "Gonk/Input/MouseButtonCodes.h"
 
-#include "Gonk/Scene/Scene.h"
-#include "Gonk/Scene/Entity.h"
-#include "Gonk/Scene/Component.h"
-
 // Rendering
 #include "Gonk/Renderer/Renderer.h"
 #include "Gonk/Renderer/Renderer2D.h"

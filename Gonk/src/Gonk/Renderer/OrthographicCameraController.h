@@ -27,6 +27,8 @@ namespace Gonk {
 		void SetRotation(const float rotation) { GK_PROFILE_FUNCTION(); m_Rotation = rotation; CalculateView(); }
 		void SetZoomLevel(const float zoomLevel) { GK_PROFILE_FUNCTION(); m_ZoomLevel = zoomLevel; CalculateView(); }
 
+		float GetZoomLevel() const { return m_ZoomLevel; }
+
 		void OnResize(uint32_t width, uint32_t height);
 
 		OrthographicCamera& GetCamera(){ return m_Camera; }

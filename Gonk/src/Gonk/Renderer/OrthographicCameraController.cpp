@@ -66,7 +66,7 @@ namespace Gonk {
 	{
 		GK_PROFILE_FUNCTION();
 
-		SetZoomLevel(m_ZoomLevel + -e.GetYOffset() * 0.5f);
+		SetZoomLevel(m_ZoomLevel + -e.GetYOffset() * 2.0f);
 		return false;
 	}
 	

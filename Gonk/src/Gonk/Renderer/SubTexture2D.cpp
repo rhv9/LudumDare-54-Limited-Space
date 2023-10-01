@@ -29,4 +29,18 @@ namespace Gonk {
 
 		return CreateRef<SubTexture2D>(texture, bottomLeftCoords, topRightCoords);
 	}
+	std::vector<Ref<SubTexture2D>> SubTexture2D::CreateMulti(const Ref<Texture2D>& texture, const glm::vec2& coords, const glm::vec2& cellSize, const glm::vec2& quantity, const glm::vec2& spriteSize)
+	{
+		std::vector<Ref<SubTexture2D>> subTextures;
+		subTextures.reserve(quantity.x * quantity.y);
+
+		for (int y = 0; y < quantity.y; y++)
+		{
+			for (int x = 0; x < quantity.x; x++)
+			{
+				subTextures.push_back(CreateFromCoords(texture, coords + glm::vec2{(float)x, (float)y}, cellSize, spriteSize));
+			}
+		}
+		return subTextures;
+	}
 }

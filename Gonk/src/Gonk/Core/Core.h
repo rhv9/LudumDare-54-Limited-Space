@@ -7,7 +7,7 @@
 	/* Windows x64/x86 */
 	#ifdef _WIN64
 	/* Windows x64  */
-		#define GK_PLATFORM_WINDOWS
+		//#define GK_PLATFORM_WINDOWS
 #else
 	/* Windows x86 */
 	#error "x86 Builds are not supported!"

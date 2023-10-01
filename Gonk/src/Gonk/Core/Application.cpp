@@ -115,6 +115,9 @@ namespace Gonk {
 	{
 		GK_PROFILE_FUNCTION();
 
+		// fixes bug where initial timestep is super big.
+		m_LastRenderTime = (float)Platform::GetTime();
+
 		while (m_Running)
 		{
 			GK_PROFILE_SCOPE("RunLoop");
