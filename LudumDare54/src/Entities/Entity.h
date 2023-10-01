@@ -4,11 +4,6 @@
 
 using namespace Gonk;
 
-struct EntityGlobal
-{
-	static const int UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3;
-};
-
 class Entity
 {
 public:
@@ -16,6 +11,8 @@ public:
 
 	virtual void OnUpdate(Timestep ts) = 0;
 	virtual void OnEvent(Event& e) = 0;
+
+	virtual void Move(const glm::vec2& pos);
 
 	const glm::vec3& GetPos() { return m_Position; }
 	void SetPos(const glm::vec3& pos) { m_Position = pos; }

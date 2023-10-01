@@ -5,10 +5,10 @@
 
 using namespace Gonk;
 
-class GameLayer : public Layer
+class Game : public Layer
 {
 public:
-	GameLayer();
+	Game();
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
 	virtual void OnUpdate(Timestep ts) override;
@@ -16,21 +16,24 @@ public:
 
 	virtual void OnImGuiRender() override;
 
+public:
+	static Timestep s_TimePassed;
+	static OrthographicCameraController s_CameraController;
+
+	static const int WIDTH = 1280, HEIGHT = 720;
 private:
-	int width = 1280, height = 720;
 	Level* m_Level;
 
-	OrthographicCameraController m_CameraController;
+
+
 };
 
-class Game : public Application
+class GameApplication : public Application
 {
 public:
-	Game();
-	~Game();
+	GameApplication();
+	~GameApplication();
 
-	static Timestep TimePassed;
-
-	static const int SPRITE_SIZE = 16;
-	static Ref<Texture2D> SpriteSheet;
+private:
+	Game* m_GameLayer;
 };

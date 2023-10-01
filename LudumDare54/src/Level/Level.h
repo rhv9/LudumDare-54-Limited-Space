@@ -1,6 +1,7 @@
 #pragma once
 #include <Gonk.h>
 #include "Entities/Player.h"
+#include "Tile.h"
 
 using namespace Gonk;
 
@@ -8,21 +9,25 @@ class Level
 {
 public:
 	Level() = default;
+	virtual ~Level() {}
 
 	virtual void OnUpdate(Timestep ts) = 0;
 	virtual void OnEvent(Event& e) = 0;
 };
 
-
-class ForestLevel : public Level
+class TestLevel : public Level
 {
 public:
-	ForestLevel();
+	TestLevel();
+	virtual ~TestLevel() override;
 
 	virtual void OnUpdate(Timestep ts) override;
 	virtual void OnEvent(Event& e) override;
 
 private:
-	Player player;
+	Player m_Player;
+
+	Tile** m_Map;
+	int m_Width, m_Height;
 
 };

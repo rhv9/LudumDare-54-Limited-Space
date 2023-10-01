@@ -1,4 +1,4 @@
-workspace "Gonk"
+workspace "LD54-LimitedSpace"
 	architecture "x86_64"
 	startproject "LudumDare54"
 

@@ -4,64 +4,66 @@
 #include <imgui/imgui.h>
 #include "Game.h"
 
+#include "Sprite.h"
+#include "Level/Tile.h"
+
 using namespace Gonk;
 
-static float timestep = 0.0f;
-const int SPRITE_SIZE = 16;
+OrthographicCameraController Game::s_CameraController = { (float)Game::WIDTH / (float)Game::HEIGHT};
+Timestep Game::s_TimePassed = 0.0f;
 
-static Ref<SubTexture2D> playerSprite;
-std::vector<Ref<SubTexture2D>> textures;
+TestLevel* forestLevel;
 
-ForestLevel* forestLevel;
-
-GameLayer::GameLayer()
-	: Layer("Game Layer"), m_CameraController((float)width / (float)height)
+Game::Game()
+	: Layer("Game Layer")
 {
-	m_CameraController.SetZoomLevel(50);
+	s_CameraController.SetZoomLevel(50);
 
-	Game::SpriteSheet = Texture2D::Create("assets/textures/spritesheet.png");
-	playerSprite = SubTexture2D::CreateFromCoords(Game::SpriteSheet, { 0.0f, 0.0f }, { SPRITE_SIZE, SPRITE_SIZE });
-	textures = SubTexture2D::CreateMulti(Game::SpriteSheet, { 0.0f, 0.0f }, { SPRITE_SIZE, SPRITE_SIZE }, { 4, 1 });
+	Sprite::Init();
+	PresetTile::Init();
 
 	// init levels
-	forestLevel = new ForestLevel();
-
+	forestLevel = new TestLevel();
 	m_Level = forestLevel;
 }
 
-void GameLayer::OnAttach()
+void Game::OnAttach()
 {
 }
 
-void GameLayer::OnDetach()
+void Game::OnDetach()
 {
 }
 
-void GameLayer::OnUpdate(Timestep ts)
+static float timestep = 0.0f;
+void Game::OnUpdate(Timestep ts)
 {
 	timestep = ts.GetMilliSeconds();
-	Game::TimePassed += ts;
-	m_CameraController.OnUpdate(ts);
+	Game::s_TimePassed += ts;
 
 	Renderer2D::ResetStats();
-	RendererCommand::Clear();
-	RendererCommand::SetColour({ 0.8f, 0.5f, 0.8f, 1.0f });
 
-	Renderer2D::BeginScene(m_CameraController.GetCamera());
-	
-	m_Level->OnUpdate(ts);
+	RendererCommand::Clear();
+	RendererCommand::SetColour({ 0.5f, 0.5f, 0.5f, 1.0f });
+
+	Renderer2D::BeginScene(s_CameraController.GetCamera());
+
+	if (m_Level)
+		m_Level->OnUpdate(ts);
+	else
+		GK_ERROR("No level is set!");
 
 	Renderer2D::EndScene(); 
 }
 
-void GameLayer::OnEvent(Event& e)
+void Game::OnEvent(Event& e)
 {
-	m_CameraController.OnEvent(e);
+	s_CameraController.OnEvent(e);
 
 	m_Level->OnEvent(e);
 }
 
-void GameLayer::OnImGuiRender()
+void Game::OnImGuiRender()
 {
 	ImGui::Begin("Test");
 
@@ -74,26 +76,24 @@ void GameLayer::OnImGuiRender()
 	ImGui::Text("	Indices: %d", stats.GetTotalIndexCount());
 
 	ImGui::Text("Camera Info:");
-	ImGui::Text(std::format("Zoom Level: {}", m_CameraController.GetZoomLevel()).c_str());
-	ImGui::Text(std::format("timestep count: {}", (float)Game::TimePassed).c_str());
+	ImGui::Text(std::format("Zoom Level: {}", s_CameraController.GetZoomLevel()).c_str());
+	ImGui::Text(std::format("timestep count: {}", (float)Game::s_TimePassed).c_str());
 
 	ImGui::End();
 }
 
-Timestep Game::TimePassed = 0.0f;
-Ref<Texture2D> Game::SpriteSheet;
 
-
-Game::Game()
+GameApplication::GameApplication()
 {
-	PushLayer(new GameLayer());
+	m_GameLayer = new Game();
+	PushLayer(m_GameLayer);
 }
 
-Game::~Game()
+GameApplication::~GameApplication()
 {
 }
 
 Gonk::Application* Gonk::CreateApplication() 
 {
-	return new Game();
+	return new GameApplication();
 }

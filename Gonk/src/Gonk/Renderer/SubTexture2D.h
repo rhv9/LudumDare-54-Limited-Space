@@ -13,6 +13,7 @@ namespace Gonk {
 		const glm::vec2* GetTexCoords() const { return m_TexCoords; }
 		const uint32_t GetWidth() const { return m_Width; }
 		const uint32_t GetHeight() const { return m_Height; }
+		const glm::vec2& GetSize() const { return { m_Width, m_Height }; }
 		
 		static Ref<SubTexture2D> CreateFromCoords(const Ref<Texture2D>& texture, const glm::vec2& coords, const glm::vec2& cellSize, const glm::vec2& spriteSize = { 1.0f, 1.0f });
 		static std::vector<Ref<SubTexture2D>> CreateMulti(const Ref<Texture2D>& texture, const glm::vec2& coords, const glm::vec2& cellSize, const glm::vec2& quantity, const glm::vec2& spriteSize = { 1.0f, 1.0f });

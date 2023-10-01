@@ -13,7 +13,10 @@ public:
 	virtual void OnEvent(Event& e) override;
 
 private:
-	int m_CurrentAnimation = EntityGlobal::UP;
-	std::vector<std::vector<Ref<SubTexture2D>>> m_Animation;
-	float m_TimeAnimation = 5.0f;
+	int m_CurrentAnimation;
+	float m_TimeAnimation = 15.0f;
+
+	float m_MoveSpeed = 32.0f;
+	bool m_Moving = false;
+	Timestep m_TimePassed = 0.0f;
 };
