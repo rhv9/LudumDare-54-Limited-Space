@@ -10,7 +10,7 @@ TestLevel::TestLevel()
 
 	m_Width = 10;
 	m_Height = 10;
-	m_Player.SetPos({ -32.0f, 0.0f, 0.8f });
+	m_Player.SetPos({ 32.0f, 32.0f, 0.8f });
 
 	m_Map = new Tile*[m_Width * m_Height];
 

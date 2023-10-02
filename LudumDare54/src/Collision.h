@@ -3,18 +3,41 @@
 
 using namespace Gonk;
 
-class CollisionShape
+enum class CollisionType : int
 {
-public:
-	virtual bool Collides(const CollisionShape& other) = 0;
+	Box = 0,
+	Circle,
 };
 
-class CollisionBox : public CollisionShape
+struct CollisionShape
 {
-public:
-	CollisionBox(int x, int y, int width, int height);
+	virtual bool Collides(const CollisionShape& other) = 0;
+
+	virtual CollisionType GetType() const = 0;
+	virtual void Render(const glm::vec4& col) const = 0;
+	virtual void Render() const { Render({ 1.0f, 1.0f, 1.0f, 1.0f }); }
+};
+
+struct CollisionBox : public CollisionShape
+{
+	CollisionBox(float x, float y, float width, float height);
 
 	virtual bool Collides(const CollisionShape& other) override;
+	virtual CollisionType GetType() const override { return CollisionType::Box; }
 
-	int m_X, m_Y, m_Width, m_Height;
+	virtual void Render(const glm::vec4& col) const override;
+
+	float X, Y, W, H;
+};
+
+struct CollisionCircle : public CollisionShape
+{
+	CollisionCircle(float x, float y, float radius);
+
+	virtual bool Collides(const CollisionShape& other) override;
+	virtual CollisionType GetType() const override { return CollisionType::Circle; }
+
+	virtual void Render(const glm::vec4& col) const override;
+
+	float X, Y, Radius;
 };

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Gonk.h>
+#include "Collision.h"
 
 using namespace Gonk;
 

@@ -19,4 +19,6 @@ private:
 	float m_MoveSpeed = 32.0f;
 	bool m_Moving = false;
 	Timestep m_TimePassed = 0.0f;
+
+
 };

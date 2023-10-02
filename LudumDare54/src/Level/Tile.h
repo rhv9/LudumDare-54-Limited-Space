@@ -17,7 +17,6 @@ public:
 	virtual void OnEvent(Event& e) {}
 
 	virtual bool Collidable() const = 0;
-	virtual 
 
 	virtual Tile* Clone() const { GK_WARN("Base tile clone is being used!"); return nullptr; }
 };
