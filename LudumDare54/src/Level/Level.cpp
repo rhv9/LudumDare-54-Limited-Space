@@ -32,15 +32,16 @@ TestLevel::~TestLevel()
 void TestLevel::OnUpdate(Timestep ts)
 {
 	
-	glm::vec2 pos = Game::s_CameraController.GetPosition();
+	glm::vec2 cameraPos = Game::s_CameraController.GetPosition();
 	float zoom = Game::s_CameraController.GetZoomLevel();
 
-	int xStart = (int)((pos.x - Game::WIDTH / 2.0f)) >> 4;
-	int yStart = (int)((pos.y - Game::HEIGHT / 2.0f)) >> 4;
+	int xStart = (int)((cameraPos.x - Game::WIDTH / 2.0f)) >> 4;
+	int yStart = (int)((cameraPos.y - Game::HEIGHT / 2.0f)) >> 4;
 
 	int xEnd = xStart + (int)(Game::WIDTH >> 4);
 	int yEnd = yStart + (int)(Game::HEIGHT >> 4);
 
+	// I don't know how to scale with zoom level so heres my solution...
 	xStart += 32 - 1;
 	xEnd   -= 30 - 1;
 
@@ -68,11 +69,21 @@ void TestLevel::OnUpdate(Timestep ts)
 		Game::ImGuiPrint("Rendering Tile");
 	}
 
+	if (Input::IsMouseButtonPressed(MouseButton::LEFT))
+	{
+		auto [xOffset, yOffset] = Game::GetMousePositionInWorld();
+		Game::ImGuiPrint("{}, {}", xOffset, yOffset);
+
+		auto sprite = Sprite::GetSub(Sprite::Sub::CollisionBox);
+		Renderer2D::DrawQuad({ xOffset, yOffset, 0.3f }, sprite->GetSize(), sprite);
+	}
+
 	m_Player.OnUpdate(ts);
 }
 
 void TestLevel::OnEvent(Event& e)
 {
+
 	m_Player.OnEvent(e);
 }
 

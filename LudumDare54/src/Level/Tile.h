@@ -16,6 +16,9 @@ public:
 	virtual void OnUpdate(const glm::vec3& pos, Timestep ts) = 0;
 	virtual void OnEvent(Event& e) {}
 
+	virtual bool Collidable() const = 0;
+	virtual 
+
 	virtual Tile* Clone() const { GK_WARN("Base tile clone is being used!"); return nullptr; }
 };
 
@@ -33,6 +36,8 @@ public:
 		Renderer2D::DrawQuad(pos, Sprite::SIZE, subTex);
 	}
 
+	virtual bool Collidable() const override { return false; }
+
 	virtual Tile* Clone() const override;
 
 private:
@@ -48,6 +53,8 @@ public:
 		: m_Gif(gif), m_AnimationSpeed(animationSpeed) {}
 
 	virtual void OnUpdate(const glm::vec3& pos, Timestep ts) override;
+
+	virtual bool Collidable() const override { return false; }
 
 private:
 	Sprite::Gif m_Gif;

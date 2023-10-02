@@ -12,6 +12,8 @@ public:
 	static OrthographicCameraController s_CameraController;
 	static std::vector<std::string> s_ImGuiPrint;
 
+	static std::pair<float, float> GetMousePositionInWorld();
+
 	static int WIDTH, HEIGHT;
 	
 public:
@@ -35,7 +37,9 @@ private:
 template<typename... Args>
 inline void Game::ImGuiPrint(const std::format_string<Args...> fmt, Args&&... args)
 {
+#ifdef GK_DEBUG
 	Game::s_ImGuiPrint.push_back(std::vformat(fmt.get(), std::make_format_args(args...)));
+#endif
 }
 
 

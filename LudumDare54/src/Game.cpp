@@ -19,6 +19,7 @@ std::vector<std::string> Game::s_ImGuiPrint;
 
 TestLevel* forestLevel;
 
+
 Game::Game()
 	: Layer("Game Layer")
 {
@@ -99,6 +100,19 @@ void Game::OnImGuiRender()
 	s_ImGuiPrint.clear();
 
 	ImGui::End();
+}
+
+std::pair<float, float> Game::GetMousePositionInWorld()
+{
+	auto [x, y] = Gonk::Input::GetMousePosition();
+	auto width = Gonk::Application::Get().GetWindow().GetWidth();
+	auto height = Gonk::Application::Get().GetWindow().GetHeight();
+
+	auto bounds = Game::s_CameraController.GetBounds();
+	auto pos = Game::s_CameraController.GetCamera().GetPosition();
+	x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
+	y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
+	return std::pair<float, float>(x + pos.x, y + pos.y);
 }
 
 
