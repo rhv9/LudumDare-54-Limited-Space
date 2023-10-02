@@ -12,13 +12,11 @@ public:
 	static OrthographicCameraController s_CameraController;
 	static std::vector<std::string> s_ImGuiPrint;
 
-	static const int WIDTH = 1280, HEIGHT = 720;
+	static int WIDTH, HEIGHT;
 	
 public:
 	template<typename... Args>
 	static void ImGuiPrint(const std::format_string<Args...> fmt, Args&&... args);
-
-
 
 public:
 	Game();

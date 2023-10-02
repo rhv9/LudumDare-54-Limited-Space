@@ -28,6 +28,7 @@ namespace Gonk {
 		void SetZoomLevel(const float zoomLevel) { GK_PROFILE_FUNCTION(); m_ZoomLevel = zoomLevel; CalculateView(); }
 
 		float GetZoomLevel() const { return m_ZoomLevel; }
+		const glm::vec2& GetPosition() { return m_Position; }
 
 		void OnResize(uint32_t width, uint32_t height);
 

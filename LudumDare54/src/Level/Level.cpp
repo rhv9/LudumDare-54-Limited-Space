@@ -31,12 +31,33 @@ TestLevel::~TestLevel()
 
 void TestLevel::OnUpdate(Timestep ts)
 {
-	for (int y = 0; y < m_Height; y++)
+	
+	glm::vec2 pos = Game::s_CameraController.GetPosition();
+	float zoom = Game::s_CameraController.GetZoomLevel();
+
+	int xStart = (int)((pos.x - Game::WIDTH / 2.0f)) >> 4;
+	int yStart = (int)((pos.y - Game::HEIGHT / 2.0f)) >> 4;
+	//xStart /= zoom;
+	//yStart /= zoom;
+
+	int xEnd = xStart + (int)(Game::WIDTH >> 4);
+	int yEnd = yStart + (int)(Game::HEIGHT >> 4);
+
+	Game::ImGuiPrint("(xStart, yStart) = ({}, {})", xStart, yStart);
+	Game::ImGuiPrint("(xEnd, yEnd) = ({}, {})", xEnd, yEnd);
+
+	for (int y = yStart; y < yEnd; y++)
 	{
-		for (int x = 0; x < m_Width; x++)
+		for (int x = xStart; x < xEnd; x++)
 		{
 			const glm::vec3 pos = { (int)(x * Sprite::SIZE.x), (int)(y * Sprite::SIZE.x), 0.0f };
-			m_Map[y * m_Width + x]->OnUpdate(pos, ts);
+			if (InMapBounds(x, y))
+			{
+				m_Map[y * m_Width + x]->OnUpdate(pos, ts);
+			}
+			else
+				PresetTile::WaterTile->OnUpdate(pos, ts);
+
 		}
 	}
 	if (Input::IsKeyPressed(Key::SPACE))
@@ -50,6 +71,11 @@ void TestLevel::OnUpdate(Timestep ts)
 void TestLevel::OnEvent(Event& e)
 {
 	m_Player.OnEvent(e);
+}
+
+bool TestLevel::InMapBounds(int x, int y) const
+{
+	return !(x < 0 || x >= m_Width || y < 0 || y >= m_Height);
 }
 
 

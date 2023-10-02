@@ -8,20 +8,23 @@ class Sprite
 public:
 	static constexpr glm::vec2 SIZE = glm::vec2{16.0f, 16.0f};
 
-	enum Tex : int
+	enum class Tex : int
 	{
-		 Spritesheet = 0,
+		Void = 0,
+		Spritesheet,
 	};
 
-	enum Sub : int
+	enum class Sub : int
 	{
 		Void = 0,
 		Grass,
 	};
 
-	enum Gif : int
+	enum class Gif : int
 	{
-		PlayerUp = 0,
+		Void = 0,
+		PlayerUp,
+		Water,
 	};
 
 public:
@@ -31,8 +34,4 @@ public:
 	static const Ref<SubTexture2D>& GetSub(Sub id);
 	static const std::vector<Ref<SubTexture2D>>& GetGif(Gif id);
 
-private:
-	static std::array<Ref<Texture2D>, 1> s_Textures;
-	static std::array<Ref<SubTexture2D>, 10> s_SubTextures;
-	static std::array<std::vector<Ref<SubTexture2D>>, 10> s_GifTextures;
 };

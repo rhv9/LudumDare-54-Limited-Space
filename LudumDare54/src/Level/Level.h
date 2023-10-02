@@ -13,6 +13,8 @@ public:
 
 	virtual void OnUpdate(Timestep ts) = 0;
 	virtual void OnEvent(Event& e) = 0;
+
+	virtual bool InMapBounds(int x, int y) const = 0;
 };
 
 class TestLevel : public Level
@@ -24,6 +26,8 @@ public:
 	virtual void OnUpdate(Timestep ts) override;
 	virtual void OnEvent(Event& e) override;
 
+	virtual bool InMapBounds(int x, int y) const override;
+	
 private:
 	Player m_Player;
 

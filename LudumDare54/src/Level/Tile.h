@@ -7,12 +7,16 @@ using namespace Gonk;
 class Tile 
 {
 public:
+	// TODO: bad
+	static const int SIZE = 16;
+
+public:
 	Tile() = default;
 		
 	virtual void OnUpdate(const glm::vec3& pos, Timestep ts) = 0;
-	virtual void OnEvent(Event& e) = 0;
+	virtual void OnEvent(Event& e) {}
 
-	virtual Tile* Clone() const = 0;
+	virtual Tile* Clone() const { GK_WARN("Base tile clone is being used!"); return nullptr; }
 };
 
 class TexturedTile : public Tile
@@ -28,7 +32,6 @@ public:
 		auto subTex = Sprite::GetSub(m_SubTexId);
 		Renderer2D::DrawQuad(pos, Sprite::SIZE, subTex);
 	}
-	virtual void OnEvent(Event& e) override {}
 
 	virtual Tile* Clone() const override;
 
@@ -36,10 +39,26 @@ private:
 	Sprite::Sub m_SubTexId;
 };
 
+class AnimatedTile : public Tile
+{
+public:
+	AnimatedTile()
+		: m_Gif(Sprite::Gif::Void), m_AnimationSpeed(1) {}
+	AnimatedTile(Sprite::Gif gif, float animationSpeed)
+		: m_Gif(gif), m_AnimationSpeed(animationSpeed) {}
+
+	virtual void OnUpdate(const glm::vec3& pos, Timestep ts) override;
+
+private:
+	Sprite::Gif m_Gif;
+	float m_AnimationSpeed;
+};
+
 class PresetTile
 {
 public:
 	static Tile* GrassTile;
+	static Tile* WaterTile;
 
 	static void Init();
 };
