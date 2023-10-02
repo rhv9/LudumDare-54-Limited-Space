@@ -35,9 +35,7 @@ public:
 template<typename... Args>
 inline void Game::ImGuiPrint(const std::format_string<Args...> fmt, Args&&... args)
 {
-#ifdef GK_DEBUG
 	Game::s_ImGuiPrint.push_back(std::vformat(fmt.get(), std::make_format_args(args...)));
-#endif
 }
 
 

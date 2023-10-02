@@ -60,6 +60,15 @@ void TestLevel::OnUpdate(Timestep ts)
 	yEnd   -= 17 - 1;
 	//Game::ImGuiPrint("(xStart, yStart) = ({}, {})", xStart, yStart);
 	//Game::ImGuiPrint("(xEnd, yEnd) = ({}, {})", xEnd, yEnd);
+	
+
+	if (((int)(Game::s_TimePassed * 144.0f) % 20) == 0)
+	{
+		EnemySoldier* soldier = new EnemySoldier;
+		soldier->SetPos({ Random::Float() * m_Width * 16, Random::Float() * m_Height * 16, 0.2f});
+		AddEntity(soldier);
+	}
+
 
 	for (int y = yStart; y < yEnd; y++)
 	{
@@ -94,7 +103,6 @@ void TestLevel::OnUpdate(Timestep ts)
 	Game::ImGuiPrint("Entity Count: {}", m_Entities.size());
 	for (Entity* entity : m_Entities)
 	{
-		Game::ImGuiPrint("Entity: {}, {}", entity->GetPos().x, entity->GetPos().y);
 		entity->OnUpdate(ts);
 	}
 
@@ -124,6 +132,21 @@ void TestLevel::OnEvent(Event& e)
 		es->m_Move = standardise;
 		AddEntity(es);
 	}
+}
+
+void TestLevel::AddProjectile(const glm::vec2 PlayerPos, const glm::vec2 ClickPos)
+{
+	glm::vec2 playerPos = PlayerPos;
+	glm::vec2 clickPos = ClickPos;
+
+	Projectile* p = new Projectile;
+	auto length = glm::length(playerPos - clickPos);
+
+	auto standardise = (-playerPos + clickPos) / length;
+
+	p->SetPos({ playerPos, 0.2f });
+	p->m_Move = standardise;
+	AddEntity(p);
 }
 
 void TestLevel::AddEntity(Entity* e)

@@ -17,10 +17,10 @@ public:
 private:
 	int m_CurrentAnimation;
 	float m_TimeAnimation = 15.0f;
+	Timestep m_TimePassed = 0.0f;
 
 	float m_MoveSpeed = 32.0f;
 	bool m_Moving = false;
-	Timestep m_TimePassed = 0.0f;
 
 
 };

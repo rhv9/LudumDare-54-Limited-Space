@@ -20,7 +20,7 @@ void Projectile::OnUpdate(Timestep ts)
 
 	if (m_Lifetime <= 0.0f)
 	{
-		Game::ImGuiPrint("Projectile dead!");
+		return;
 	}
 
 

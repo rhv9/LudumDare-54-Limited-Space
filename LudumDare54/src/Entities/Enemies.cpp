@@ -48,18 +48,7 @@ void EnemySoldier::OnUpdate(Timestep ts)
 
 	if ((int)m_TimePassed % 5)
 	{
-		glm::vec2 playerPos = m_Position;
-		glm::vec2 clickPos = pos;
-
-		Projectile* p = new Projectile;
-		auto length = glm::length(playerPos - clickPos);
-
-		auto standardise = (-playerPos + clickPos) / length;
-
-
-		p->SetPos({ playerPos, 0.2f });
-		p->m_Move = standardise;
-		tl->AddEntity(p);
+		tl->AddProjectile(m_Position, pos);
 	}
 
 	Move(posMove);

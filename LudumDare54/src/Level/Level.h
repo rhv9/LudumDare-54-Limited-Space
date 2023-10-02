@@ -28,6 +28,7 @@ public:
 	virtual void OnUpdate(Timestep ts) override;
 	virtual void OnEvent(Event& e) override;
 
+	virtual void AddProjectile(const glm::vec2 playerPos, const glm::vec2 clickPos);
 
 	virtual void AddEntity(Entity* e) override;
 	
