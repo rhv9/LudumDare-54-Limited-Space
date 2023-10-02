@@ -20,12 +20,14 @@ public:
 		Grass,
 		CollisionBox,
 		CollisionCircle,
+		Projectile,
 	};
 
 	enum class Gif : int
 	{
 		Void = 0,
 		PlayerUp,
+		EnemySoldierUp,
 		Water,
 	};
 

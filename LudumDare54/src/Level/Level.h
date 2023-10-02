@@ -14,6 +14,8 @@ public:
 	virtual void OnUpdate(Timestep ts) = 0;
 	virtual void OnEvent(Event& e) = 0;
 
+	virtual void AddEntity(Entity* e) = 0;
+
 	virtual bool InMapBounds(int x, int y) const = 0;
 };
 
@@ -26,10 +28,15 @@ public:
 	virtual void OnUpdate(Timestep ts) override;
 	virtual void OnEvent(Event& e) override;
 
-	virtual bool InMapBounds(int x, int y) const override;
+
+	virtual void AddEntity(Entity* e) override;
 	
-private:
+	virtual bool InMapBounds(int x, int y) const override;
+
 	Player m_Player;
+private:
+	// entities
+	std::vector<Entity*> m_Entities;
 
 	Tile** m_Map;
 	int m_Width, m_Height;

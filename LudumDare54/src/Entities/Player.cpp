@@ -38,7 +38,7 @@ void Player::OnUpdate(Timestep ts)
 
 	Move(posMove);
 	CollisionCircle box1 = { 0.0f, 0.0f, 8.0f };
-	CollisionCircle box2 = { m_Position.x, m_Position.y, 8.0f };
+	CollisionCircle box2 = { m_Position.x, m_Position.y, 3.0f };
 
 
 

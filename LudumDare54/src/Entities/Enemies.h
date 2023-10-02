@@ -4,15 +4,15 @@
 
 using namespace Gonk;
 
-class Player : public Entity 
+class EnemySoldier : public Entity
 {
 public:
-	Player();
+	EnemySoldier();
 
 	virtual void OnUpdate(Timestep ts) override;
 	virtual void OnEvent(Event& e) override;
 
-	virtual int GetType() const override { return Entity::Player; }
+	virtual int GetType() const override { return Entity::EnemySoldier; }
 
 private:
 	int m_CurrentAnimation;

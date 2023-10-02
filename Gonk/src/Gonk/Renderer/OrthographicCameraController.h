@@ -26,6 +26,7 @@ namespace Gonk {
 		void SetAspectRatio(const float aspectRatio) { GK_PROFILE_FUNCTION(); m_AspectRatio = aspectRatio; CalculateView(); }
 		void SetRotation(const float rotation) { GK_PROFILE_FUNCTION(); m_Rotation = rotation; CalculateView(); }
 		void SetZoomLevel(const float zoomLevel) { GK_PROFILE_FUNCTION(); m_ZoomLevel = zoomLevel; CalculateView(); }
+		void SetScrollZoomable(bool val) { m_EnabledScrollZoom = val; }
 
 		float GetZoomLevel() const { return m_ZoomLevel; }
 		const glm::vec2& GetPosition() { return m_Position; }
@@ -47,12 +48,14 @@ namespace Gonk {
 
 	private:
 		glm::vec2 m_Position = { 0.0f, 0.0f };
+		float m_EnabledScrollZoom = true;
 		float m_ZoomLevel, m_AspectRatio;
 		float m_Rotation = 0.0f;
 		float m_CameraSpeed = 1.0f, m_RotationSpeed = 360.0f;
 
 		OrthographicCameraBounds m_Bounds;
 		OrthographicCamera m_Camera;
+
 	};
 
 }

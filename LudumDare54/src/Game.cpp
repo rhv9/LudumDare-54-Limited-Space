@@ -1,6 +1,8 @@
 #include <Gonk.h>
 #include <Gonk/Core/EntryPoint.h>
 
+#include "Random.h"
+
 #include <imgui/imgui.h>
 #include "Game.h"
 
@@ -25,6 +27,8 @@ std::vector<std::string> Game::s_ImGuiPrint;
 Game::Game()
 	: Layer("Game Layer")
 {
+	Random::Init();
+
 	Sprite::Init();
 	PresetTile::Init();
 

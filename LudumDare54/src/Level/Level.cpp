@@ -2,17 +2,28 @@
 #include <Gonk.h>
 
 #include "Game.h"
+#include "Random.h"
+
+#include "Entities/Enemies.h"
+#include "Entities/Projectile.h"
 using namespace Gonk;
+
+EnemySoldier es;
 
 TestLevel::TestLevel()
 {
 	Game::s_CameraController.SetZoomLevel(80);
+	Game::s_CameraController.SetScrollZoomable(false);
 
-	m_Width = 10;
-	m_Height = 10;
+	m_Entities.reserve(10000);
+
+	m_Width = 25;
+	m_Height = 25;
 	m_Player.SetPos({ 32.0f, 32.0f, 0.8f });
 
 	m_Map = new Tile*[m_Width * m_Height];
+
+	es.SetPos({ 50.0f, 50.0f, 0.0f });
 
 	for (int y = 0; y < m_Height; y++)
 	{
@@ -60,7 +71,9 @@ void TestLevel::OnUpdate(Timestep ts)
 				m_Map[y * m_Width + x]->OnUpdate(pos, ts);
 			}
 			else
+			{
 				PresetTile::WaterTile->OnUpdate(pos, ts);
+			}
 
 		}
 	}
@@ -78,13 +91,44 @@ void TestLevel::OnUpdate(Timestep ts)
 		Renderer2D::DrawQuad({ xOffset, yOffset, 0.3f }, sprite->GetSize(), sprite);
 	}
 
+	Game::ImGuiPrint("Entity Count: {}", m_Entities.size());
+	for (Entity* entity : m_Entities)
+	{
+		Game::ImGuiPrint("Entity: {}, {}", entity->GetPos().x, entity->GetPos().y);
+		entity->OnUpdate(ts);
+	}
+
+	es.OnUpdate(ts);
 	m_Player.OnUpdate(ts);
 }
 
 void TestLevel::OnEvent(Event& e)
 {
-
 	m_Player.OnEvent(e);
+
+	if (e.GetEventType() == EventType::MouseButtonPressed)
+	{
+		auto [x, y] = Game::GetMousePositionInWorld();
+
+
+		glm::vec2 playerPos = m_Player.GetPos();
+		glm::vec2 clickPos = { x, y };
+
+		Projectile* es = new Projectile;
+		auto length = glm::length(playerPos - clickPos);
+
+		auto standardise = (-playerPos + clickPos) / length;
+
+
+		es->SetPos({ playerPos, 0.2f });
+		es->m_Move = standardise;
+		AddEntity(es);
+	}
+}
+
+void TestLevel::AddEntity(Entity* e)
+{
+	m_Entities.push_back(e);
 }
 
 bool TestLevel::InMapBounds(int x, int y) const

@@ -38,11 +38,6 @@ namespace Gonk {
 		if (Gonk::Input::IsKeyPressed(Gonk::Key::A))
 			m_Position.x -= m_ZoomLevel * ts;
 
-		if (Gonk::Input::IsKeyPressed(Gonk::Key::LEFT))
-			m_Rotation -= m_RotationSpeed * ts;
-		if (Gonk::Input::IsKeyPressed(Gonk::Key::RIGHT))
-			m_Rotation += m_RotationSpeed * ts;
-
 		m_Camera.SetPosition(glm::vec3{m_Position, 0.0f});
 	}
 
@@ -65,6 +60,8 @@ namespace Gonk {
 	bool OrthographicCameraController::OnMouseScrollCallback(MouseScrolledEvent& e)
 	{
 		GK_PROFILE_FUNCTION();
+
+		if (!m_EnabledScrollZoom) return false;
 
 		SetZoomLevel(m_ZoomLevel + -e.GetYOffset() * 2.0f);
 		return false;
