@@ -29,9 +29,7 @@ public:
 
 	virtual void OnImGuiRender() override;
 
-private:
-	Level* m_Level;
-
+	static Level* m_Level;
 };
 
 template<typename... Args>

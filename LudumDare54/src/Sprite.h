@@ -19,6 +19,7 @@ public:
 		Void = 0,
 		Grass,
 		CollisionBox,
+		CollisionCircle,
 	};
 
 	enum class Gif : int

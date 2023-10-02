@@ -18,7 +18,9 @@ static bool sCollides(const CollisionBox& rect1, const CollisionBox& rect2)
 
 static bool sCollides(const CollisionCircle& circle1, const CollisionCircle& circle2)
 {
-	return false;
+
+	auto distance = glm::length(glm::vec2{ circle1.X, circle1.Y } - glm::vec2{circle2.X, circle2.Y});
+	return distance <= circle1.Radius + circle2.Radius;
 }
 
 // BOX
@@ -65,4 +67,6 @@ bool CollisionCircle::Collides(const CollisionShape& other)
 
 void CollisionCircle::Render(const glm::vec4& col) const
 {
+	auto sprite = Sprite::GetSub(Sprite::Sub::CollisionCircle);
+	Renderer2D::DrawQuad({ X, Y, 0.9f }, { Radius*2.0f, Radius*2.0f }, sprite, 1.0f, col);
 }

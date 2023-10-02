@@ -37,10 +37,8 @@ void Player::OnUpdate(Timestep ts)
 		m_TimePassed = 0.0f;
 
 	Move(posMove);
-	CollisionBox box1 = { 0.0f, 0.0f, 16.0f, 16.0f };
-	CollisionBox box2 = { m_Position.x, m_Position.y, 16.0f, 16.0f };
-
-
+	CollisionCircle box1 = { 0.0f, 0.0f, 8.0f };
+	CollisionCircle box2 = { m_Position.x, m_Position.y, 8.0f };
 
 
 
@@ -50,7 +48,7 @@ void Player::OnUpdate(Timestep ts)
 
 	std::vector<Ref<SubTexture2D>> anim = Sprite::GetGif(Sprite::Gif::PlayerUp);
 	const Ref<SubTexture2D>& subTexture = anim[(int)(0.99999f + m_TimePassed * m_TimeAnimation) % anim.size()];
-	Renderer2D::DrawQuad(m_Position, subTexture->GetSize(), subTexture, 1.0f, {1.0f, 1.0f, 1.0f, 0.5f});
+	Renderer2D::DrawQuad(m_Position, subTexture->GetSize(), subTexture, 1.0f, {1.0f, 1.0f, 1.0f, 1.0f});
 
 	if (box1.Collides(box2))
 	{

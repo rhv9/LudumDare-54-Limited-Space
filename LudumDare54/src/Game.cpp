@@ -15,11 +15,13 @@ int Game::WIDTH = 1280, Game::HEIGHT = 720;
 
 OrthographicCameraController Game::s_CameraController = { (float)Game::WIDTH / (float)Game::HEIGHT};
 Timestep Game::s_TimePassed = 0.0f;
-std::vector<std::string> Game::s_ImGuiPrint;
+
+Level* Game::m_Level = nullptr;
 
 TestLevel* forestLevel;
 
 
+std::vector<std::string> Game::s_ImGuiPrint;
 Game::Game()
 	: Layer("Game Layer")
 {
