@@ -37,14 +37,17 @@ void TestLevel::OnUpdate(Timestep ts)
 
 	int xStart = (int)((pos.x - Game::WIDTH / 2.0f)) >> 4;
 	int yStart = (int)((pos.y - Game::HEIGHT / 2.0f)) >> 4;
-	//xStart /= zoom;
-	//yStart /= zoom;
 
 	int xEnd = xStart + (int)(Game::WIDTH >> 4);
 	int yEnd = yStart + (int)(Game::HEIGHT >> 4);
 
-	Game::ImGuiPrint("(xStart, yStart) = ({}, {})", xStart, yStart);
-	Game::ImGuiPrint("(xEnd, yEnd) = ({}, {})", xEnd, yEnd);
+	xStart += 32 - 1;
+	xEnd   -= 30 - 1;
+
+	yStart += 19 - 2;
+	yEnd   -= 17 - 1;
+	//Game::ImGuiPrint("(xStart, yStart) = ({}, {})", xStart, yStart);
+	//Game::ImGuiPrint("(xEnd, yEnd) = ({}, {})", xEnd, yEnd);
 
 	for (int y = yStart; y < yEnd; y++)
 	{
