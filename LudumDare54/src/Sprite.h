@@ -6,7 +6,7 @@ using namespace Gonk;
 class Sprite
 {
 public:
-	static const int SPRITE_SIZE = 16;
+	static constexpr glm::vec2 SIZE = glm::vec2{16.0f, 16.0f};
 
 	enum Tex : int
 	{

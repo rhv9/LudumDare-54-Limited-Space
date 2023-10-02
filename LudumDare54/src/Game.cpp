@@ -17,8 +17,6 @@ TestLevel* forestLevel;
 Game::Game()
 	: Layer("Game Layer")
 {
-	s_CameraController.SetZoomLevel(50);
-
 	Sprite::Init();
 	PresetTile::Init();
 
@@ -74,10 +72,11 @@ void Game::OnImGuiRender()
 	ImGui::Text("	Quads: %d", stats.QuadCount);
 	ImGui::Text("	Vertices: %d", stats.GetTotalVertexCount());
 	ImGui::Text("	Indices: %d", stats.GetTotalIndexCount());
+	ImGui::Text(std::format(" timestep count: {}", (float)Game::s_TimePassed).c_str());
 
 	ImGui::Text("Camera Info:");
-	ImGui::Text(std::format("Zoom Level: {}", s_CameraController.GetZoomLevel()).c_str());
-	ImGui::Text(std::format("timestep count: {}", (float)Game::s_TimePassed).c_str());
+	ImGui::Text(std::format("  Zoom Level: {}", s_CameraController.GetZoomLevel()).c_str());
+	ImGui::Text("  Position: %3.2f, %3.2f", *(float*)&s_CameraController, *((float*)&s_CameraController + 1));
 
 	ImGui::End();
 }

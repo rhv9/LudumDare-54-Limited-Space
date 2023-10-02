@@ -26,7 +26,7 @@ public:
 	virtual void OnUpdate(const glm::vec3& pos, Timestep ts) override
 	{
 		auto subTex = Sprite::GetSub(m_SubTexId);
-		Renderer2D::DrawQuad(pos, subTex->GetSize(), subTex);
+		Renderer2D::DrawQuad(pos, Sprite::SIZE, subTex);
 	}
 	virtual void OnEvent(Event& e) override {}
 
