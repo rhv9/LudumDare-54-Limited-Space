@@ -8,6 +8,19 @@ using namespace Gonk;
 class Game : public Layer
 {
 public:
+	static Timestep s_TimePassed;
+	static OrthographicCameraController s_CameraController;
+	static std::vector<std::string> s_ImGuiPrint;
+
+	static const int WIDTH = 1280, HEIGHT = 720;
+	
+public:
+	template<typename... Args>
+	static void ImGuiPrint(const std::format_string<Args...> fmt, Args&&... args);
+
+
+
+public:
 	Game();
 	virtual void OnAttach() override;
 	virtual void OnDetach() override;
@@ -16,17 +29,17 @@ public:
 
 	virtual void OnImGuiRender() override;
 
-public:
-	static Timestep s_TimePassed;
-	static OrthographicCameraController s_CameraController;
-
-	static const int WIDTH = 1280, HEIGHT = 720;
 private:
 	Level* m_Level;
 
-
-
 };
+
+template<typename... Args>
+inline void Game::ImGuiPrint(const std::format_string<Args...> fmt, Args&&... args)
+{
+	Game::s_ImGuiPrint.push_back(std::vformat(fmt.get(), std::make_format_args(args...)));
+}
+
 
 class GameApplication : public Application
 {

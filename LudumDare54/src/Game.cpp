@@ -9,8 +9,11 @@
 
 using namespace Gonk;
 
+
+// Static files
 OrthographicCameraController Game::s_CameraController = { (float)Game::WIDTH / (float)Game::HEIGHT};
 Timestep Game::s_TimePassed = 0.0f;
+std::vector<std::string> Game::s_ImGuiPrint;
 
 TestLevel* forestLevel;
 
@@ -66,17 +69,24 @@ void Game::OnImGuiRender()
 	ImGui::Begin("Test");
 
 	auto stats = Gonk::Renderer2D::GetStats();
-	ImGui::Text("Renderer2D Stats:");
-	ImGui::Text("	FrameTime: %0.2fms (%f fps)", timestep, 1000.0f / timestep);
-	ImGui::Text("	Draw Calls: %d", stats.DrawCalls);
-	ImGui::Text("	Quads: %d", stats.QuadCount);
-	ImGui::Text("	Vertices: %d", stats.GetTotalVertexCount());
-	ImGui::Text("	Indices: %d", stats.GetTotalIndexCount());
+	ImGui::SeparatorText("Renderer2D Stats:");
+	ImGui::Text("FrameTime: %0.2fms (%f fps)", timestep, 1000.0f / timestep);
+	ImGui::Text("Draw Calls: %d", stats.DrawCalls);
+	ImGui::Text("Quads: %d", stats.QuadCount);
+	ImGui::Text("Vertices: %d", stats.GetTotalVertexCount());
+	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 	ImGui::Text(std::format(" timestep count: {}", (float)Game::s_TimePassed).c_str());
 
-	ImGui::Text("Camera Info:");
-	ImGui::Text(std::format("  Zoom Level: {}", s_CameraController.GetZoomLevel()).c_str());
-	ImGui::Text("  Position: %3.2f, %3.2f", *(float*)&s_CameraController, *((float*)&s_CameraController + 1));
+	ImGui::SeparatorText("Camera Info:");
+	ImGui::Text(std::format("Zoom Level: {}", s_CameraController.GetZoomLevel()).c_str());
+	ImGui::Text("Position: %3.2f, %3.2f", *(float*)&s_CameraController, *((float*)&s_CameraController + 1));
+
+	ImGui::SeparatorText("Info dumped:");
+	for (const std::string& i : s_ImGuiPrint)
+	{
+		ImGui::Text("%s\n",i.c_str());
+	}
+	s_ImGuiPrint.clear();
 
 	ImGui::End();
 }

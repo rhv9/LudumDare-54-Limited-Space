@@ -41,21 +41,8 @@ void TestLevel::OnUpdate(Timestep ts)
 	}
 	if (Input::IsKeyPressed(Key::SPACE))
 	{
-		PresetTile::GrassTile->OnUpdate({ 0.0f, 0.0f, 0.0f }, ts);
-		GK_CORE_TRACE("Rendering Tile");
+		Game::ImGuiPrint("Rendering Tile");
 	}
-
-	static Ref<Texture2D> tex = Texture2D::Create("assets/textures/spritesheet.png");
-	static auto grassTex = SubTexture2D::CreateFromCoords(tex, { 0.0f, 4.0f }, Sprite::SIZE);
-	static auto playerSet = SubTexture2D::CreateMulti(tex, { 0.0f, 0.0f }, Sprite::SIZE, { 4, 1 });
-
-	Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.0f }, Sprite::SIZE, tex);
-	Renderer2D::DrawQuad({ Sprite::SIZE, 0.0f }, Sprite::SIZE, grassTex);
-	Renderer2D::DrawQuad({ -Sprite::SIZE, 0.0f }, Sprite::SIZE, playerSet[(int)(Game::s_TimePassed* 10.0f) % 4]);
-
-	Renderer2D::DrawQuad({ Sprite::SIZE * 3.0f, 0.0f }, Sprite::SIZE, Sprite::GetTex(Sprite::Tex::Spritesheet));
-	Renderer2D::DrawQuad({ Sprite::SIZE * 4.0f, 0.0f },Sprite::SIZE, Sprite::GetGif(Sprite::Gif::PlayerUp)[0]);
-	Renderer2D::DrawQuad({ Sprite::SIZE * 2.0f, 0.0f }, Sprite::SIZE, Sprite::GetSub(Sprite::Sub::Grass));
 
 	m_Player.OnUpdate(ts);
 }
